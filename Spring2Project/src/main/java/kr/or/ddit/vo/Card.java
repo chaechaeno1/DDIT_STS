@@ -8,7 +8,7 @@ import lombok.Data;
 public class Card {
 	
 	private String no;
-	private Date vaildMonth;
+	private Date validMonth;
 	
 	
 

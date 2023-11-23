@@ -261,6 +261,19 @@
 	</form>	
 	
 	
+	<p>16) 폼 텍스트 필드 요소값을 중첩된 자바빈즈 매개변수로 처리한다.</p>	
+	<form action="/registerUserCardList" method="post">
+		카드1 - 번호 : <input type="text" name="cardList[0].no"/><br/>
+		카드1 - 유효년월 : <input type="text" name="cardList[0].validMonth"/><br/>	
+		카드2 - 번호 : <input type="text" name="cardList[1].no"/><br/>
+		카드2 - 유효년월 : <input type="text" name="cardList[1].validMonth"/><br/>
+		<input type = "submit" value="전송"/>
+	</form>		
+	
+	
+	
+	
+	
 	
 	
 	

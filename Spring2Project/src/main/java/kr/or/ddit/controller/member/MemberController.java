@@ -2,6 +2,7 @@ package kr.or.ddit.controller.member;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.ddit.vo.Address;
+import kr.or.ddit.vo.Card;
 import kr.or.ddit.vo.Member;
 import lombok.extern.slf4j.Slf4j;
 
@@ -403,6 +405,29 @@ public class MemberController {
 			log.info("address is null");
 		}
 		
+		return "success";
+	}
+	
+	
+	//매우중요📌✅✅✅✅✅✅✅✅✅✅✅✅
+	//16) 폼 텍스트 필드 요소값을 중첩된 자바빈즈 매개변수로 처리한다.
+	@RequestMapping(value = "/registerUserCardList", method = RequestMethod.POST)
+	public String registerUserCardList(Member member) {
+		log.info("registerUserCardList() 실행...!");
+		
+		List<Card> cardList = member.getCardList();
+		
+		if(cardList != null && cardList.size() > 0) {
+			log.info("cardList.size() : " + cardList.size());
+			
+			for(int i = 0; i < cardList.size(); i++) {
+				Card card = cardList.get(i);
+				log.info("card["+i+"]).no : " + card.getNo());
+				log.info("card["+i+"]).validMonth : " + card.getValidMonth());
+			}
+		}else {
+			log.info("cardList is null");
+		}
 		return "success";
 	}
 	
