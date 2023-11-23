@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -120,16 +121,40 @@
 	<tr>
 		<td>소유차량</td>
 		<td>
-		<%-- ${member.carArray} --%>
-		</td>
+	        <c:choose>
+	            <c:when test="${empty member.carArray}">소유차량 없음</c:when>
+	            <c:otherwise>
+	                <c:forEach var="car" items="${member.carArray}">
+	                    <c:choose>
+	                        <c:when test="${car eq 'jeep'}">jeep</c:when>
+	                        <c:when test="${car eq 'bmw'}">bmw</c:when>
+	                        <c:when test="${car eq 'audi'}">audi</c:when>
+	                        <c:when test="${car eq 'volvo'}">volvo</c:when>
+	                        <c:otherwise>${car}</c:otherwise>
+	                    </c:choose>
+	                </c:forEach>
+	            </c:otherwise>
+	        </c:choose>
+   		</td>
 	</tr>
 	
 	<tr>
 		<td>취미</td>
-		<td>
-			<%-- <c:out value="${member.hobbyArray}" var="hobby"/> --%>
-			
-		</td>
+	    <td>
+	        <c:choose>
+	            <c:when test="${empty member.hobbyArray}">취미없음</c:when>
+	            <c:otherwise>
+	                <c:forEach var="hobby" items="${member.hobbyArray}">
+	                    <c:choose>
+	                        <c:when test="${hobby eq 'sports'}">운동</c:when>
+	                        <c:when test="${hobby eq 'music'}">음악감상</c:when>
+	                        <c:when test="${hobby eq 'movie'}">영화시청</c:when>
+	                        <c:otherwise>${hobby}</c:otherwise>
+	                    </c:choose>
+	                </c:forEach>
+	            </c:otherwise>
+	        </c:choose>
+   		</td>
 	</tr>
 
 	<tr>
@@ -156,7 +181,10 @@
 
 	<tr>
 		<td>카드1(유효년월)</td>
-		<td>${cardList[0].validMonth}</td>
+		<td>
+			<fmt:formatDate value="${member.cardList[0].validMonth}" var="validMonth1" pattern="yyyy년 MM월 dd일"/>
+			${validMonth1}
+		</td>
 	</tr>
 	
 	<tr>
@@ -172,7 +200,10 @@
 
 	<tr>
 		<td>카드2(유효년월)</td>
-		<td>${cardList[1].validMonth}</td>
+		<td>
+			<fmt:formatDate value="${member.cardList[1].validMonth}" var="validMonth2" pattern="yyyy년 MM월 dd일"/>
+			${validMonth2}
+		</td>
 	</tr>
 
 	<tr>

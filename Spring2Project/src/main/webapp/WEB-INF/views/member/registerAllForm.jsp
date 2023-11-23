@@ -74,9 +74,9 @@
 			<tr>
 				<td>취미</td>
 				<td>
-					<input type="checkbox" name="hobbyArray" value="sports"/>운동
-					<input type="checkbox" name="hobbyArray" value="music"/>음악감상 
-					<input type="checkbox" name="hobbyArray" value="movie"/>영화시청
+					<input type="checkbox" name="hobby" value="sports"/>운동
+					<input type="checkbox" name="hobby" value="music"/>음악감상 
+					<input type="checkbox" name="hobby" value="movie"/>영화시청
 				</td>
 			</tr>
 			<tr>
