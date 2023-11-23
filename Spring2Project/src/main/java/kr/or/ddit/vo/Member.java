@@ -27,7 +27,7 @@ public class Member {
 	private String cars;
 	private String[] carArray;
 	private List<String> carList;
-	private String introdunction;
+	private String introduction;
 	private String birthDay;
 	
 	

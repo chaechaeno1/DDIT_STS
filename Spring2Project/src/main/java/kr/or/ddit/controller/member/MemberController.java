@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -430,6 +431,83 @@ public class MemberController {
 		}
 		return "success";
 	}
+	
+	// 회원가입에 필요한 전체 폼 페이지 (문제)
+	@RequestMapping(value = "/resgisterAllForm", method = RequestMethod.GET)
+	public String registerAllForm() {
+		log.info("registerAllForm() 실행...!");		
+		return "member/registerAllForm";
+	}
+	
+	
+	// 전체 폼 페이지 결과
+	@RequestMapping(value = "/registerUser", method = RequestMethod.POST)
+	public String registerUser(Member member) {
+		log.info("registerUser() 실행...!");
+				
+		
+		//성별 가져오기 - 남자/여자/기타 , male, female, other 
+		
+		
+		
+		
+		
+/*		var gender = $('input[name=gender]:checked').val();
+		
+		if(gender == "male"){
+			gender == "남자";
+		}else if(gender == "female"){
+			gender == "여자";
+		}else{
+			gender == "기타";
+		}*/
+		
+		
+
+/*		//개발자 여부 체크 - 개발자/일반, value="Y"(기본값)
+		
+		var developer =  $('input[name=developer]').val();
+		
+		if(developer == "Y"){
+			developer == "개발자";
+		}else{
+			developer == "일반";
+		}*/
+		
+
+		//외국인 여부 체크 - 외국인/내국인, value="true"(기본값)
+		
+/*		var developer =  $('input[name=foreigner]').val();
+		
+		if(developer == "true"){
+			developer == "개발자";
+		}else{
+			developer == "일반";
+		}	*/
+
+		
+		// 국적에 따라 대한민국/독일/호주/캐나다로 나타내주세요.
+		
+		
+		// 소유차량 선택에 따라 소유차량 없음/JEEP/VOLVO/BMW/AUDI로 나타내주세요.
+		
+		
+		// 취미 선택에 따라 운동/영화시청/음악감상로 나타내주세요.
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		return "member/registerAllResult";
+	}	
+	
+	
+	
 	
 	
 	

@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Register ALL Form</title>
+
 </head>
 <body>
 	<h2>Register All Form</h2>
@@ -12,44 +13,44 @@
 		<table border="1">
 			<tr>
 				<td>유저 ID</td>
-				<td><input type="text" name=""/></td>
+				<td><input type="text" name="userId"/></td>
 			</tr>
 			<tr>
 				<td>패스워드</td>
-				<td><input type="password" name=""/></td>
+				<td><input type="password" name="password"/></td>
 			</tr>
 			<tr>
 				<td>이름</td>
-				<td><input type="text" name=""/></td>
+				<td><input type="text" name="userName"/></td>
 			</tr>
 			<tr>
 				<td>E-Mail</td>
-				<td><input type="text" name=""/></td>
+				<td><input type="text" name="email"/></td>
 			</tr>
 			<tr>
 				<td>생년월일</td>
-				<td><input type="text" name=""/></td>
+				<td><input type="text" name="birthDay"/></td>
 			</tr>
 			<tr>
 				<td>성별</td>
 				<td>
-					<input type="radio" name="" value="male" checked="checked"/>Male 
-					<input type="radio" name="" value="female"/>Female 
-					<input type="radio" name="" value="other"/>Other 
+					<input type="radio" name="gender" value="male" checked="checked"/>Male 
+					<input type="radio" name="gender" value="female"/>Female 
+					<input type="radio" name="gender" value="other"/>Other
 				</td>
 			</tr>
 			<tr>
 				<td>개발자 여부</td>
-				<td><input type="checkbox" name="" value="Y"/></td>
+				<td><input type="checkbox" name="developer" value="Y"/></td>
 			</tr>
 			<tr>
 				<td>외국인 여부</td>
-				<td><input type="checkbox" name="" value="true"/></td>
+				<td><input type="checkbox" name="foreigner" value="true"/></td>
 			</tr>
 			<tr>
 				<td>국적</td>
 				<td>
-					<select name="" class="jobs">
+					<select name="nationality" class="jobs">
 						<option value="korea">대한민국</option>
 						<option value="germany">독일</option>
 						<option value="austrailia">호주</option>
@@ -61,7 +62,7 @@
 			<tr>
 				<td>소유차량</td>
 				<td>
-					<select name="" multiple="multiple">
+					<select name="cars" multiple="multiple">
 						<option value="">선택</option>
 						<option value="jeep">JEEP</option>
 						<option value="bmw">BMW</option>
@@ -73,34 +74,34 @@
 			<tr>
 				<td>취미</td>
 				<td>
-					<input type="checkbox" name="" value="sports"/>Sports
-					<input type="checkbox" name="" value="music"/>Music 
-					<input type="checkbox" name="" value="movie"/>Movie 
+					<input type="checkbox" name="hobbyArray" value="sports"/>운동
+					<input type="checkbox" name="hobbyArray" value="music"/>음악감상 
+					<input type="checkbox" name="hobbyArray" value="movie"/>영화시청
 				</td>
 			</tr>
 			<tr>
 				<td>우편번호</td>
-				<td><input type="text" name=""/></td>
+				<td><input type="text" name="address.postCode"/></td>
 			</tr>
 			<tr>
 				<td>주소</td>
-				<td><input type="text" name=""/></td>
+				<td><input type="text" name="address.location"/></td>
 			</tr>
 			<tr>
 				<td>카드1 - 번호</td>
-				<td><input type="text" name=""/></td>
+				<td><input type="text" name="cardList[0].no"/></td>
 			</tr>
 			<tr>
 				<td>카드1 - 유효년월</td>
-				<td><input type="text" name=""/></td>
+				<td><input type="text" name="cardList[0].validMonth"/></td>
 			</tr>
 			<tr>
 				<td>카드2 - 번호</td>
-				<td><input type="text" name=""/></td>
+				<td><input type="text" name="cardList[1].no"/></td>
 			</tr>
 			<tr>
 				<td>카드2 - 유효년월</td>
-				<td><input type="text" name=""/></td>
+				<td><input type="text" name="cardList[1].validMonth"/></td>
 			</tr>
 			<tr>
 				<td>소개</td>
@@ -117,6 +118,14 @@
 		</table>
 	</form>
 </body>
+
+<script type="text/javascript">
+	
+
+	
+</script>
+
+
 </html>
 
 
