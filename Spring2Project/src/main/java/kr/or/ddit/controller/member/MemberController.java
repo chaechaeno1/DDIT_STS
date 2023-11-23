@@ -1,5 +1,6 @@
 package kr.or.ddit.controller.member;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.or.ddit.vo.Address;
 import kr.or.ddit.vo.Member;
 import lombok.extern.slf4j.Slf4j;
 
@@ -267,6 +269,147 @@ public class MemberController {
 		log.info("nationality : " +nationality);
 		return "success";
 	}
+	
+	//6) 복수선택이 가능한 폼 셀렉트 박스 요소값을 기본 데이터 타입인 문자열 타입 매개변수로 처리한다.
+	@RequestMapping(value="/registerMultiSelect01", method = RequestMethod.POST)
+	public String registerMultiSelect01(String cars) {
+		log.info("registerMultiSelect01() 실행...!");
+		log.info("cars : " +cars);
+		return "success";
+	}
+	
+	//7) 복수선택이 가능한 폼 셀렉트 박스 요소값을 기본 데이터 타입인 문자열 타입 매개변수로 처리한다.
+	@RequestMapping(value="/registerMultiSelect02", method = RequestMethod.POST)
+	public String registerMultiSelect02(String[] carArray) {
+		log.info("registerMultiSelect02() 실행...!");
+		log.info("carArray : " +carArray);
+		if(carArray != null) {
+			log.info("carArray.length : " + carArray.length);
+			for(int i = 0; i < carArray.length; i++) {
+				log.info("carArray["+i+"] : " + carArray[i]);
+			}
+		}else {
+			log.info("carArray is null");
+		}
+		return "success";
+	}
+	
+	
+	//8) 복수선택이 가능한 폼 셀렉트 박스 요소값을 문자열 요소를 가진 리스트 컬렉션 타입 매개변수로 처리한다.
+	@RequestMapping(value="/registerMultiSelect03", method = RequestMethod.POST)
+	public String registerMultiSelect03(ArrayList<String> carList) {//매개변수에 List 직접 설정하면 문제생김.
+		// 받는 타입을 List로 하게되면 No primary or default constructor found for interface java.util.List] 에러 발생
+		// 스프링에서는 List타입으로 데이터를 받는데에 문제가 있다. (데이터 바인딩이 안됨)
+		// 리스트와 같은 형태의 값을 받으려면 String[]로 여러 데이터를 받아주거나 객체 안에 있는 List 필드로 받아야 한다.
+		log.info("registerMultiSelect03() 실행...!");
+		log.info(" carList : " + carList);
+		if(carList != null &&  carList.size() >0) { //데이터가 존재한다면..
+			log.info("carList.length : " + carList.size());
+			for(int i = 0; i < carList.size(); i++) {
+				log.info("carList.get("+i+") : " + carList.get(i));
+			}
+		}else {
+			log.info("carList is null");
+		}
+		return "success";
+	}
+	
+	
+	
+	// 9) 폼 체크박스 요소값을 기본 데이터 타입인 문자열 타입 매개변수로 처리한다.
+	@RequestMapping(value = "/registerCheckbox01", method = RequestMethod.POST)
+	public String registerCheckbox01(String hobby) {
+		log.info("registerCheckbox01() 실행...!");
+		log.info("hobby : " + hobby);
+		return "success";
+	}
+	
+	// 10) 폼 체크박스 요소값을 문자열 배열 타입 매개변수로 처리한다.
+	@RequestMapping(value = "/registerCheckbox02", method = RequestMethod.POST)
+	public String registerCheckbox02(String[] hobbyArray) {
+		log.info("registerCheckbox02() 실행...!");
+		log.info("hobbyArray : " + hobbyArray);
+		
+		if(hobbyArray != null) {
+			log.info("hobbyArray.length : " + hobbyArray.length);
+			for(int i = 0; i < hobbyArray.length; i++) {
+				log.info("hobbyArray["+i+"] : " + hobbyArray[i]);
+			}
+		}else {
+			log.info("hobbyArray is null");
+		}
+		
+		
+		return "success";
+	}
+	
+	// 11) 폼 체크박스 요소값을 문자열 요소를 가진 리스트 컬렉션 타입 매개변수로 처리한다.
+	// 체크박스도 컬렉션 리스트로는 데이터를 가져올 수 없다.
+	
+	@RequestMapping(value = "/registerCheckbox03", method = RequestMethod.POST)
+	public String registerCheckbox03(ArrayList<String> hobbyList) {
+		log.info("registerCheckbox03() 실행...!");
+		log.info("hobbyList : " + hobbyList);
+		
+		if(hobbyList != null &&  hobbyList.size() >0) { //데이터가 존재한다면..
+			log.info("hobbyList.length : " + hobbyList.size());
+			for(int i = 0; i < hobbyList.size(); i++) {
+				log.info("hobbyList.get("+i+") : " + hobbyList.get(i));
+			}
+		}else {
+			log.info("hobbyList is null");
+		}
+		
+		return "success";
+	}	
+	
+	
+	// 13) 폼 체크박스 요소값을 기본 데이터 타입인 불리언 타입 매개변수로 처리한다.
+	
+	@RequestMapping(value = "/registerCheckbox05", method= RequestMethod.POST)
+	public String registerCheckbox05(boolean foreigner) {
+		log.info("registerCheckbox05() 실행...!");
+		log.info("foreigner : " + foreigner);
+		return "success";
+	}
+	
+	
+	//14) 폼 텍스트 필드 요소값을 자바빈즈 매개변수로 처리한다.
+	@RequestMapping(value = "/registerAddress", method= RequestMethod.POST)
+	public String registerAddress(Address address) {
+		log.info("registerAddress() 실행...!");
+		if(address != null) {
+			log.info("address.postCode : " + address.getPostCode());
+			log.info("address.location : " + address.getLocation());
+		}else {
+			log.info("address is null");
+		}		
+		return "success";
+	}
+	
+	
+	//15) 폼 텍스트 필드 요소값을 중첩된 자바빈즈 매개변수로 처리한다.
+	@RequestMapping(value = "/registerUserAddress", method= RequestMethod.POST)
+	public String registerUserAddress(Member member) { 
+		//Member클래스 안에 들어있는 Address안에 있는 변수명들 받아올 수 없음. 
+		//jsp 폼 태그 내 name명을 address.postCode 이런식으로 지정해줘야함
+		log.info("registerUserAddress() 실행...!");
+		
+		Address address = member.getAddress();
+		if(address != null) {
+			log.info("member.address.postCode : " +address.getPostCode());
+			log.info("member.address.location : " +address.getLocation());
+		}else {
+			log.info("address is null");
+		}
+		
+		return "success";
+	}
+	
+	
+	
+	
+	
 	
 	
 	

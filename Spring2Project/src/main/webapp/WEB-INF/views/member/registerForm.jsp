@@ -168,6 +168,102 @@
 	</form>
 	
 	
+	<p>6) 복수선택이 가능한 폼 셀렉트 박스 요소값을 기본 데이터 타입인 문자열 타입 매개변수로 처리한다.</p>
+	<form action="/registerMultiSelect01" method="post">
+		cars : <br/>
+		<select name="cars" multiple="multiple">
+			<option value="jeep">JEEP</option>
+			<option value="volvo">VOLVO</option>
+			<option value="bmw">BMW</option>
+			<option value="audi">AUDI</option>		
+		</select>
+		<input type="submit" value="전송"/><br/>
+	</form>
+	
+	<p>7) 복수선택이 가능한 폼 셀렉트 박스 요소값을 문자열 배열 타입 매개변수로 처리한다.</p>
+	<form action="/registerMultiSelect02" method="post">
+		carArray : <br/>
+		<select name="carArray" multiple="multiple">
+			<option value="jeep">JEEP</option>
+			<option value="volvo">VOLVO</option>
+			<option value="bmw">BMW</option>
+			<option value="audi">AUDI</option>		
+		</select>
+		<input type="submit" value="전송"/><br/>
+	</form>	
+	
+	<p>8) 복수선택이 가능한 폼 셀렉트 박스 요소값을 문자열 요소를 가진 리스트 컬렉션 타입 매개변수로 처리한다.</p>
+	<form action="/registerMultiSelect03" method="post">
+		carList : <br/>
+		<select name="carList" multiple="multiple">
+			<option value="jeep">JEEP</option>
+			<option value="volvo">VOLVO</option>
+			<option value="bmw">BMW</option>
+			<option value="audi">AUDI</option>		
+		</select>
+		<input type="submit" value="전송"/><br/>
+	</form>	
+	
+	<p>9) 폼 체크박스 요소값을 기본 데이터 타입인 문자열 타입 매개변수로 처리한다.</p>
+	<form action="/registerCheckbox01" method="post">
+		hobby : <br/>
+		<input type="checkbox" name="hobby" value="sports">Sports<br/>
+		<input type="checkbox" name="hobby" value="music">Music<br/>
+		<input type="checkbox" name="hobby" value="movie">Movie<br/>
+		<input type="checkbox" name="hobby" value="book">Book<br/>
+		<input type="submit" value="전송"/><br/>
+	</form>
+	
+	
+	<p>10) 폼 체크박스 요소값을 문자열 배열 타입 매개변수로 처리한다.</p>
+	<form action="/registerCheckbox02" method="post">
+		hobbyArray : <br/>
+		<input type="checkbox" name="hobbyArray" value="sports">Sports<br/>
+		<input type="checkbox" name="hobbyArray" value="music">Music<br/>
+		<input type="checkbox" name="hobbyArray" value="movie">Movie<br/>
+		<input type="checkbox" name="hobbyArray" value="book">Book<br/>
+		<input type="submit" value="전송"/><br/>
+	</form>
+	
+	
+	<p>11) 폼 체크박스 요소값을 문자열 요소를 가진 리스트 컬렉션 타입 매개변수로 처리한다.</p>
+	<form action="/registerCheckbox03" method="post">
+		hobbyList : <br/>
+		<input type="checkbox" name="hobbyList" value="sports">Sports<br/>
+		<input type="checkbox" name="hobbyList" value="music">Music<br/>
+		<input type="checkbox" name="hobbyList" value="movie">Movie<br/>
+		<input type="checkbox" name="hobbyList" value="book">Book<br/>
+		<input type="submit" value="전송"/><br/>
+	</form>
+	
+	
+	<p>13) 폼 체크박스 요소값을 기본 데이터 타입인 불리언 타입 매개변수로 처리한다.</p>
+	<form action="/registerCheckbox05" method="post">
+		foreigner : <br/>
+		<input type="checkbox" name="foreigner" value="true"><br/>
+		<input type="submit" value="전송"/><br/>
+	</form>
+	
+	
+	<p>14) 폼 텍스트 필드 요소값을 자바빈즈 매개변수로 처리한다.</p>	
+	<form action="/registerAddress" method="post">
+		postCode : <input type="text" name="postCode"/><br/>
+		location : <input type="text" name="location"/><br/>
+		<input type = "submit" value="전송"/>
+	</form>
+
+	
+	<p>15) 폼 텍스트 필드 요소값을 중첩된 자바빈즈 매개변수로 처리한다.</p>	
+	<form action="/registerUserAddress" method="post">
+		postCode : <input type="text" name="address.postCode"/><br/>
+		location : <input type="text" name="address.location"/><br/>
+		<input type = "submit" value="전송"/>
+	</form>	
+	
+	
+	
+	
+	
 	
 	
 
