@@ -89,7 +89,7 @@
 			</tr>
 			<tr>
 				<td>카드1 - 번호</td>
-				<td><input type="text" name="cardList[0].no"/></td>
+				<td><input type="text" name="cardList[0].no" placeholder=" '-'없이 16자리 "/></td>
 			</tr>
 			<tr>
 				<td>카드1 - 유효년월</td>
@@ -97,7 +97,7 @@
 			</tr>
 			<tr>
 				<td>카드2 - 번호</td>
-				<td><input type="text" name="cardList[1].no"/></td>
+				<td><input type="text" name="cardList[1].no" placeholder=" '-'없이 16자리 "/></td>
 			</tr>
 			<tr>
 				<td>카드2 - 유효년월</td>

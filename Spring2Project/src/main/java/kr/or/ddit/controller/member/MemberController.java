@@ -443,7 +443,8 @@ public class MemberController {
 	// 전체 폼 페이지 결과
 	@RequestMapping(value = "/registerUser", method = RequestMethod.POST)
 	public String registerUser(Member member) {
-		log.info("registerUser() 실행...!");		
+		log.info("registerUser() 실행...!");	
+
 		return "member/registerAllResult";
 	}	
 	

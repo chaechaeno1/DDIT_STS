@@ -75,9 +75,9 @@
 		
 		<td>			
 			<c:set value="${member.birthDay }" var="birth"/>
-			<c:out value="${birth.substring(0,4) }"/>년 
-			<c:out value="${birth.substring(4,6) }"/>월 
-			<c:out value="${birth.substring(6,8) }"/>일 
+			<c:out value="${birth.substring(0,4) }"/> 년 
+			<c:out value="${birth.substring(4,6) }"/> 월 
+			<c:out value="${birth.substring(6,8) }"/> 일 
 		</td>
 	</tr>
 	
@@ -144,7 +144,14 @@
 
 	<tr>
 		<td>카드1(번호)</td>
-		<td>${member.cardList[0].no}</td>
+		
+		<td>
+			<c:set value="${member.cardList[0].no}" var="card1"/>
+			<c:out value="${card1.substring(0,4) }"/> - 
+			<c:out value="${card1.substring(4,8) }"/> - 
+			<c:out value="${card1.substring(8,12) }"/> - 
+			<c:out value="${card1.substring(12,16) }"/>
+		</td>
 	</tr>
 
 	<tr>
@@ -154,7 +161,13 @@
 	
 	<tr>
 		<td>카드2(번호)</td>
-		<td>${member.cardList[1].no}</td>
+		<td>
+			<c:set value="${member.cardList[1].no}" var="card2"/>
+			<c:out value="${card2.substring(0,4) }"/> - 
+			<c:out value="${card2.substring(4,8) }"/> - 
+			<c:out value="${card2.substring(8,12) }"/> - 
+			<c:out value="${card2.substring(12,16) }"/>
+		</td>
 	</tr>
 
 	<tr>
