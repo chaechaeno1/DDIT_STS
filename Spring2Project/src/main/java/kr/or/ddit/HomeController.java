@@ -2,6 +2,7 @@ package kr.or.ddit;
 
 import java.util.List;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.function.ServerRequest.Headers;
 
 import kr.or.ddit.vo.Member;
 import lombok.extern.java.Log;
@@ -321,9 +323,14 @@ public class HomeController {
 	 * 		-response 할 때 HTTP 헤더 정보와 바이너리 파일 데이터를 전달하는 용도로 사용한다.
 	 * 		- 파일을 처리하기 위해서 의존 라이브러리 commons-io를 추가한다. (pom.xml)
 	 * 
+	 * 		-무료/유료 이미지 다운로드 홈페이지를 사용해보면 이미지 미리보기 또는 미리보기 후 다운로드를 할 수 있는 기능이 제공된다.
+	 * 		-이와 같은 리턴타입의 형태를 설정해서 내보내는 것과 같다.
+	 *
+	 * 
+	 * 
 	 */
 	
-	
+	@ResponseBody
 	@RequestMapping(value = "/goHome1101", method = RequestMethod.GET)
 	public ResponseEntity<byte[]> goHome1101(){
 		log.info("goHome1101() 실행...!");
@@ -332,6 +339,8 @@ public class HomeController {
 		InputStream in = null;
 		HttpHeaders headers = new HttpHeaders();
 		try {
+			// 파일 경로를 나타내는 방법 2가지
+			// 방법1) ('\\'), 방법2) ('/')
 			in = new FileInputStream("D:\\image\\ive.jpg");
 			headers.setContentType(MediaType.IMAGE_JPEG);
 			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
@@ -350,6 +359,47 @@ public class HomeController {
 		return entity;
 		
 	}
+	
+	
+	//다운로드
+	// 파일의 데이터를 브라우저 다운로드 받도록 한다.
+	@ResponseBody
+	@RequestMapping(value = "/goHome1102", method = RequestMethod.GET)
+	public ResponseEntity<byte[]> goHome1102() throws IOException{
+		log.info("goHome1102() 실행...!");
+		
+		ResponseEntity<byte[]> entity = null;
+		
+		InputStream in = null;
+		
+		String fileName = "DDIT_Spring2_goHome1102.jpg"; //저장할 파일 이름
+		HttpHeaders header = new HttpHeaders();
+		
+		try {
+			in = new FileInputStream("D:\\image\\ive.jpg");
+			// MediaType.APPLICATION_OCTET_STREAM은 이진 파일을 위한 기본값임.
+			header.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+			header.add("Content-Disposition", "attachment; filename=\""+new String(fileName.getBytes("UTF-8"), "ISO-8859-1") + "\"");
+			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), header, HttpStatus.CREATED);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+		}finally {
+			in.close();
+		}
+		return entity;
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

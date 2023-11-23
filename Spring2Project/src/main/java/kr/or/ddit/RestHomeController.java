@@ -1,11 +1,17 @@
 package kr.or.ddit;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.IOUtils;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -129,8 +135,60 @@ public class RestHomeController {
 			return new ResponseEntity<Map<String,Member>> (map, HttpStatus.OK);
 		}
 		
+		@RequestMapping(value = "/goRestHome1101", method = RequestMethod.GET)
+		public ResponseEntity<byte[]> goRestHome1101(){
+			log.info("goRestHome1101() 실행...!");
+			ResponseEntity<byte[]> entity = null;
+			
+			InputStream in = null;
+			HttpHeaders headers = new HttpHeaders();
+			try {
+				in = new FileInputStream("D:\\image\\ive.jpg");
+				headers.setContentType(MediaType.IMAGE_JPEG);
+				entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+			} finally {
+				try {
+					in.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			return entity;
+			
+		}
 		
 		
+		@RequestMapping(value = "/goRestHome1102", method = RequestMethod.GET)
+		public ResponseEntity<byte[]> goRestHome1102() throws IOException{
+			log.info("goRestHome1102() 실행...!");
+			
+			ResponseEntity<byte[]> entity = null;
+			
+			InputStream in = null;
+			
+			String fileName = "DDIT_Spring2_goHome1102.jpg"; //저장할 파일 이름
+			HttpHeaders header = new HttpHeaders();
+			
+			try {
+				in = new FileInputStream("D:\\image\\ive.jpg");
+				header.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+				header.add("Content-Disposition", "attachment; filename=\""+new String(fileName.getBytes("UTF-8"), "ISO-8859-1") + "\"");
+				entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), header, HttpStatus.CREATED);
+			} catch (Exception e) {
+				e.printStackTrace();
+				entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+			}finally {
+				in.close();
+			}
+			return entity;
+			
+			
+		}
 	
 
 }
