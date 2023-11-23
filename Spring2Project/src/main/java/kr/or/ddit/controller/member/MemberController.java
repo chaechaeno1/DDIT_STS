@@ -1,11 +1,16 @@
 package kr.or.ddit.controller.member;
 
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.or.ddit.vo.Member;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -120,6 +125,164 @@ public class MemberController {
 	}
 	
 	
+	/*
+	 * 4. 요청 처리 자바빈즈
+	 * 
+	 * 
+	 * 
+	 */
 	
+	
+	// 1) 폼 텍스트 필드 요소값을 자바빈즈 매개변수로 처리한다.
+	
+	@RequestMapping(value = "/beans/register01", method=RequestMethod.POST)
+	public String registerBeans01(Member member) {
+		log.info("registerBeans01() 실행...!");
+		log.info("member.userId : "+ member.getUserId());
+		log.info("member.password : "+ member.getPassword());
+		log.info("member.coin : "+ member.getCoin());
+		return "success";
+	}
+	
+	//2) 폼 텍스트 필드 요소값을 자바빈즈 매개변수와 기본 데이터 타입인 정수 타입 매개변수로 처리한다.
+	// member에는 3가지, int는 따로 받아줌
+	// coin으로 넘어온 데이터는 하나인데, member와 int coin 두개라는 매개변수가 있는데.. 어떻게?
+	// 두군데 다 들어간다! coin 이라는 매개변수명이 같으므로!
+		@RequestMapping(value = "/beans/register02", method=RequestMethod.POST)
+		public String registerBeans02(Member member, int coin) {
+			log.info("registerBeans02() 실행...!");
+			log.info("member.userId : "+ member.getUserId());
+			log.info("member.password : "+ member.getPassword());
+			log.info("member.coin : "+ member.getCoin());
+			log.info("coin : "+ coin);
+			return "success";
+		}
+	
+	/*
+	 * 5. Date 타입 처리
+	 * 
+	 * 	- 스프링 MVC는 Date 타입의 데이터를 처리하는 여러 방법을 제공
+	 * 	- 클라이언트에서 날짜 데이터를 서버로 보낼 때에는 '년/월/일' 형식에 맞춰서 보내야한다. (슬래시만 적용) (기본적인 방식)
+	 * 
+	 */
+	
+	//1) 
+	
+	@RequestMapping(value = "registerByGet01", method=RequestMethod.GET)	
+	public String registerByGet01(String userId, Date dateOfBirth) {
+		log.info("registerByGet01() 실행...!");
+		log.info("userId : " +userId);
+		log.info("dateOfBirth : " +dateOfBirth);
+		return "success";
+	}
+		
+	
+	//2) 
+	@RequestMapping(value = "registerByGet02", method=RequestMethod.GET)	
+	public String registerByGet02(Member member) {
+		log.info("registerByGet02() 실행...!");
+		log.info("member.userId : " +member.getUserId());
+		log.info("member.dateOfBirth : " +member.getDateOfBirth());
+		return "success";
+	}	
+		
+
+	//3)
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String register(Member member) {
+		log.info("register() 실행...!");
+		log.info("member.userId : " +member.getUserId());
+		log.info("member.password : " +member.getPassword());
+		log.info("member.dateOfBirth : " +member.getDateOfBirth());
+		return "success";
+	}
+	
+	
+	/*
+	 * 6. @DateTimeFormat 어노테이션
+	 * 
+	 * 	-@DateTimeFormat 어토네이션의 pattern 속성값에 원하는 날짜형식 지정할 수 있다.
+	 * 
+	 * 
+	 */
+		
+	@RequestMapping(value = "/registerByGet03", method=RequestMethod.POST)
+	public String registerByGet03(String userId, @DateTimeFormat(pattern = "yyyyMMdd") Date dateOfBirth) { //이제는 2023/11/23으로 보내면 에러발생함
+		log.info("registerByGet03() 실행...!");
+		log.info("userId : " +userId);
+		log.info("dateOfBirth : " +dateOfBirth);
+		return "success";
+		
+		
+	}
+	
+	
+	/*
+	 * 7.폼 방식 요청 처리
+	 * 
+	 * 
+	 * 
+	 */
+	
+	
+	//1) 폼 텍스트 필드 요소값을 기본 데이터 타입인 문자열 타입 매개변수로 처리한다.
+	
+	@RequestMapping(value="/registerUserId", method = RequestMethod.POST)
+	public String registerUserId(String userId) {
+		log.info("registerUserId() 실행...!");
+		log.info("userId : " + userId);
+		return "success";
+	}
+	
+	
+	//2) 폼 텍스트 필드 요소값을 자바빈즈 매개변수로 처리한다.
+	
+	@RequestMapping(value="/registerMemberUserId", method = RequestMethod.POST)
+	public String registerMemberUserId(Member member) {
+		log.info("registerMemberUserId() 실행...!");
+		log.info("member.userId : " + member.getUserId());
+		return "success";
+	}
+	
+	//3) 폼 비밀번호 필드 요소값을 자바빈즈 매개변수로 처리한다.
+	@RequestMapping(value="/registerPassword", method = RequestMethod.POST)
+	public String registerPassword(Member member) {
+		log.info("registerPassword() 실행...!");
+		log.info("member.password : " + member.getPassword());
+		return "success";
+	}
+	
+	//4) 폼 라디오버튼 요소값을 기본 데이터 타입인 문자열 타입 매개변수로 처리한다.
+	@RequestMapping(value="/registerRadio", method = RequestMethod.POST)
+	public String registerRadio(String gender) {
+		log.info("registerRadio() 실행...!");
+		log.info("gender : " + gender);
+		return "success";
+	}
+	
+	//5) 폼 셀렉트 박스 요소값을 기본 데이터 타입인 문자열 타입 매개변수로 처리한다.
+	@RequestMapping(value="/registerSelect", method = RequestMethod.POST)
+	public String registerSelect(String nationality) {
+		log.info("registerSelect() 실행...!");
+		log.info("nationality : " +nationality);
+		return "success";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		
+		
 	
 }
