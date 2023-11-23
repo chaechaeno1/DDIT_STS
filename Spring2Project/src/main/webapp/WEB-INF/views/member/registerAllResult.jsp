@@ -30,10 +30,10 @@
 	소개				반갑습니다
 	
 	** 조건
-	- 선택한 성별에 따라 남자/여자/기타로 나타내주세요. 
-	- 개발자 여부 체크에 따라 개발자/일반으로 나타내주세요.
-	- 외국인 여부 체크에 따라 외국인/내국인으로 나타내주세요.
-	- 국적에 따라 대한민국/독일/호주/캐나다로 나타내주세요.
+	- 선택한 성별에 따라 남자/여자/기타로 나타내주세요. (ㅇ)
+	- 개발자 여부 체크에 따라 개발자/일반으로 나타내주세요. (ㅇ)
+	- 외국인 여부 체크에 따라 외국인/내국인으로 나타내주세요. (ㅇ)
+	- 국적에 따라 대한민국/독일/호주/캐나다로 나타내주세요. (ㅇ)
 	- 소유차량 선택에 따라 소유차량 없음/JEEP/VOLVO/BMW/AUDI로 나타내주세요.
 		선택에 따라 아래처럼 출력해주세요.
 		> 소유차량을 선택하지 않았을 때, 소유차량 없음
@@ -72,39 +72,64 @@
 	
 	<tr>
 		<td>생년월일</td>
-		<td>${member.birthDay}</td>
+		
+		<td>			
+			<c:set value="${member.birthDay }" var="birth"/>
+			<c:out value="${birth.substring(0,4) }"/>년 
+			<c:out value="${birth.substring(4,6) }"/>월 
+			<c:out value="${birth.substring(6,8) }"/>일 
+		</td>
 	</tr>
 	
 	<tr>
 		<td>성별</td>
-		
-		
-		<td>${member.gender}</td>
+		<td>
+			<c:if test="${member.gender == 'male'}">남자</c:if>
+			<c:if test="${member.gender == 'female'}">여자</c:if>
+			<c:if test="${member.gender == 'other'}">기타</c:if>		
+		</td>
 	</tr>
 	
 	<tr>
 		<td>개발자여부</td>
-		<td>${member.developer}</td>
+		<td>
+			<c:if test="${member.developer == 'Y'}">개발자</c:if>
+			<c:if test="${member.developer == ''}">일반</c:if>
+		</td>
 	</tr>
 	
 	<tr>
 		<td>외국인여부</td>
-		<td>${member.foreigner}</td>
+		<td>
+			<c:if test="${member.foreigner == 'true'}">외국인</c:if>
+			<c:if test="${member.foreigner == 'false'}">내국인</c:if>
+		</td>
 	</tr>
 	
 	<tr>
 		<td>국적</td>
-		<td>${member.nationality}</td>
+		<td>
+			<c:if test="${member.nationality == 'korea'}">대한민국</c:if>
+			<c:if test="${member.nationality == 'germany'}">독일</c:if>
+			<c:if test="${member.nationality == 'austrailia'}">호주</c:if>
+			<c:if test="${member.nationality == 'canada'}">캐나다</c:if>
+			<c:if test="${member.nationality == 'usa'}">미국</c:if>
+		</td>
 	</tr>
 	
 	<tr>
 		<td>소유차량</td>
-		<td>${member.cars}</td>
+		<td>
+		<%-- ${member.carArray} --%>
+		</td>
 	</tr>
 	
 	<tr>
 		<td>취미</td>
-		<td>${member.hobbyArray}</td>
+		<td>
+			<%-- <c:out value="${member.hobbyArray}" var="hobby"/> --%>
+			
+		</td>
 	</tr>
 
 	<tr>

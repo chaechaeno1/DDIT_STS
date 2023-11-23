@@ -25,7 +25,7 @@
 			</tr>
 			<tr>
 				<td>E-Mail</td>
-				<td><input type="text" name="email"/></td>
+				<td><input type="text" name="email" placeholder="ex) a001@naver.com"/></td>
 			</tr>
 			<tr>
 				<td>생년월일</td>
@@ -62,7 +62,7 @@
 			<tr>
 				<td>소유차량</td>
 				<td>
-					<select name="cars" multiple="multiple">
+					<select name="carArray" multiple="multiple">
 						<option value="">선택</option>
 						<option value="jeep">JEEP</option>
 						<option value="bmw">BMW</option>
