@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kr.or.ddit.vo.Member;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -132,6 +133,42 @@ public class JSPHomeController {
 		model.addAttribute("coin",coin);
 		return "home/home0201";
 		
+	}
+	
+	//비교연산자
+	@RequestMapping(value = "/home0202",method=RequestMethod.GET)
+	public String home0202(Model model) {
+		int coin = 1000;
+		String userId = "hongkd";
+		
+		model.addAttribute("coin", coin);
+		model.addAttribute("userId", userId);
+		
+		return "home/home0202";
+		
+	}
+	
+	//empty 연산자
+	@RequestMapping(value = "/home0302", method=RequestMethod.GET)
+	public String home0302(Model model) {
+		Member member = new Member();
+		model.addAttribute("member",member);
+		return "home/home0302";
+	}
+	
+	//논리 연산자
+	
+	@RequestMapping(value = "/home0401", method=RequestMethod.GET)
+	public String home0401(Model model) {
+		int coin = 1000;
+		String userId = "hongkd";
+		
+		Member member = new Member();
+		model.addAttribute("member",member);
+		model.addAttribute("coin",coin);
+		model.addAttribute("userId",userId);
+		
+		return "home/home0401";
 	}
 	
 	

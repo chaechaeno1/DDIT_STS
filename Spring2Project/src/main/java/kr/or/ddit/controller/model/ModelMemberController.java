@@ -109,11 +109,12 @@ public class ModelMemberController {
 		log.info("read04() 실행...!");
 		
 		String[] carArray = {"jeep", "bmw"};
+		
 		List<String> carList = new ArrayList<String>();
 		carList.add("jeep");
 		carList.add("volvo");
 		
-		String[] hobbyArr = {"Music", "Movie"};
+		String[] hobbyArr = {"Music", "Movie"};	
 		
 		List<String> hobbyList = new ArrayList<String>();
 		hobbyList.add("Sports");
@@ -152,10 +153,11 @@ public class ModelMemberController {
 		
 		List<String> carList = new ArrayList<String>();
 		carList.add("bmw");
-		carList.add("audi");
+		carList.add("audi");		
 		member.setCarList(carList);
 		
 		member.setHobby("Music, Movie");
+		
 		String[] hobbyArray = {"Music", "Movie"};
 		member.setHobbyArray(hobbyArray);
 		
