@@ -514,7 +514,7 @@ public class MemberController {
 	
 	
 	//6) 6) 여러개의 파일업로드를 폼 파일 요소 값을 MultipartFile 타입 요소를 가진 리스트 컬렉션 타입 매개변수로 처리한다.
-	//	파일 업로드도 마찬가지로 List로는 데이터를 바인딩 할 수 없다.
+	//	★★★★파일 업로드도 마찬가지로 List로는 데이터를 바인딩 할 수 없다.
 	@RequestMapping(value = "/registerFile06", method = RequestMethod.POST)
 	public String registerFile06(List<MultipartFile> pictureList) {
 		log.info("registerFile06() 실행...!");
