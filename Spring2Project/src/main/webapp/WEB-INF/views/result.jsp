@@ -11,8 +11,8 @@
 	userId : ${userId }<br/>
 	password : ${password}<br/>
 
-	member.userId : ${member.userId }<br/>
-	member.password : ${member.password }<br/>
+	member.userId : ${member.userId}<br/>
+	member.password : ${member.password}<br/>
 
 	msg : ${msg }
 
