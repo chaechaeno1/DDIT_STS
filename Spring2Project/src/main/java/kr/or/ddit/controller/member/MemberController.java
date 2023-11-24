@@ -12,10 +12,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.or.ddit.vo.Address;
 import kr.or.ddit.vo.Card;
+import kr.or.ddit.vo.FileMember;
 import kr.or.ddit.vo.Member;
+import kr.or.ddit.vo.MultiFileMember;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -450,20 +453,116 @@ public class MemberController {
 	
 	
 	
+	/*
+	 * 8. 파일업로드 폼 방식 요청 처리
+	 * 
+	 *  	- 파일 업로드 폼 방식 요청 처리를 위한 의존 라이브러리 추가
+	 *  	- pom.xml 내, commons-fileupload, commons-io 라이브러리 의존관계 등록
+	 *  	- web.xml 에 모든 경로에 대한 MultipartFilter를 등록
+	 *  
+	 *  
+	 * 	
+	 */
+	
+	// 3) 파일 업로드 폼 파일 요소값과 텍스트 필드 요소값을 MultipartFile 매개변수와 자바빈즈 매개변수로 처리한다.
+	@RequestMapping(value = "/registerFile03", method = RequestMethod.POST)
+	public String registerFile03(Member member, MultipartFile picture){
+		log.info("registerFile03() 실행...!");
+		log.info("member.userId : " + member.getUserId());
+		log.info("member.password : " + member.getPassword());
+		
+		log.info("originalName : " + picture.getOriginalFilename());
+		log.info("size : " + picture.getSize());
+		log.info("contentType : " + picture.getContentType());
+	
+		return "success";
+	}
+	
+	// 4) 파일업로드 폼 파일 요소값과 텍스트 필드 요소값을 FileMember 타입의 자바빈즈 매개변수로 처리한다.	
+	@RequestMapping(value = "/registerFile04", method = RequestMethod.POST)
+	public String registerFile04(FileMember fileMember) {
+		log.info("registerFile04() 실행...!");
+		log.info("fileMember.userId : " + fileMember.getUserId());
+		log.info("fileMember.password : " + fileMember.getPassword());
+		
+		MultipartFile picture =  fileMember.getPicture();
+		
+		log.info("originalName : " + picture.getOriginalFilename());
+		log.info("size : " + picture.getSize());
+		log.info("contentType : " + picture.getContentType());
+	
+		return "success";
+	}
+	
+	
+	// 5) 여러개의 파일업로드 폼 파일 요소값을 여러개의 MultipartFile 매개변수로 처리한다.
+	@RequestMapping(value = "/registerFile05", method = RequestMethod.POST)
+	public String registerFile05(MultipartFile picture, MultipartFile picture2) {
+		log.info("registerFile05() 실행...!");
+		
+		log.info("originalName : " + picture.getOriginalFilename());
+		log.info("size : " + picture.getSize());
+		log.info("contentType : " + picture.getContentType());
+	
+		log.info("originalName2 : " + picture2.getOriginalFilename());
+		log.info("size2 : " + picture2.getSize());
+		log.info("contentType2 : " + picture2.getContentType());
+		
+		return "success";
+	}	
 	
 	
 	
+	//6) 6) 여러개의 파일업로드를 폼 파일 요소 값을 MultipartFile 타입 요소를 가진 리스트 컬렉션 타입 매개변수로 처리한다.
+	//	파일 업로드도 마찬가지로 List로는 데이터를 바인딩 할 수 없다.
+	@RequestMapping(value = "/registerFile06", method = RequestMethod.POST)
+	public String registerFile06(List<MultipartFile> pictureList) {
+		log.info("registerFile06() 실행...!");
+		log.info("pictureList.size() : " + pictureList.size());
+		
+		for(int i = 0; i < pictureList.size(); i++) {
+			MultipartFile picture = pictureList.get(i);
+			log.info("originalName : " + picture.getOriginalFilename());
+			log.info("size : " + picture.getSize());
+			log.info("contentType : " + picture.getContentType());	
+		}
+
+		return "success";
+	}		
+	
+	
+	//7) 7) 여러개의 파일업로드를 폼 파일 요소 값과 텍스트 필드 요소값을 MultipartMember 타입의 자바빈즈 매개변수로 처리한다.
+	@RequestMapping(value = "/registerFile07", method = RequestMethod.POST)
+	public String registerFile07(MultiFileMember multiFileMember) {
+		log.info("registerFile07() 실행...!");
+		List<MultipartFile> pictureList = multiFileMember.getPictureList();		
+		log.info("pictureList.size() : " + pictureList.size());
+		
+		for(int i = 0; i < pictureList.size(); i++) {
+			MultipartFile picture = pictureList.get(i);
+			log.info("originalName : " + picture.getOriginalFilename());
+			log.info("size : " + picture.getSize());
+			log.info("contentType : " + picture.getContentType());	
+		}
+		return "success";
+	}		
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
+	// 8) 파일업로드 폼 파일 요소값과 텍스트 필드 요소값을 MultipartFile 타입의 배열 매개변수로 처리한다.
+	@RequestMapping(value = "/registerFile08", method = RequestMethod.POST)
+	public String registerFile08(MultipartFile[] pictureArray) {
+		log.info("registerFile08() 실행...!");
+		log.info("pictureArray.length : " + pictureArray.length);
+		
+		for(int i = 0; i < pictureArray.length; i++) {
+			MultipartFile picture = pictureArray[i];
+			log.info("originalName : " + picture.getOriginalFilename());
+			log.info("size : " + picture.getSize());
+			log.info("contentType : " + picture.getContentType());	
+		}
+		return "success";
+	}		
 	
 	
 	

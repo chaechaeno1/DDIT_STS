@@ -52,6 +52,38 @@
 	 	<filter-name>encodingFilter</filter-name>
 	 	<url-pattern>/*</url-pattern>
 	 </filter-mapping>
+	 
+	 
+	 <!-- 
+	 	MultipartFilter 적용 : 파일 업로드를 위한 필터 적용
+	 	- MultipartFilter의 역할은 들어온 요청이 multipart/form-data유형의 요청인지를 확인하여 multipart 형태의 요청이면
+	 	Multipartresolver를 통해 multipart요청을 확인한다.
+	 	그리고 해당 요청이 적절한 요청이면 MultipartHttpServletRequest로 랩핑한다.
+	 	- MultipartFilter의 기본 빈 이름은 'filterMultipartResolver'이다.
+	 	
+	  -->
+	 <filter>
+	 	<filter-name>MultipartFilter</filter-name>
+	 	<filter-class>org.springframework.web.multipart.support.MultipartFilter</filter-class>
+	 </filter>
+	 <filter-mapping>
+	 	<filter-name>MultipartFilter</filter-name>
+	 	<url-pattern>/*</url-pattern>
+	 </filter-mapping>
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 	
 	
 

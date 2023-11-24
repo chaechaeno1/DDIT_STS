@@ -82,7 +82,23 @@
 		** Hello World! 페이지를 한글 깨짐 없이 확인할 수 있으면 STS설정 및 Spring2Project 설정에 문제가 없음을 검증!
 		
 		
+	[ 3장 : 컨트롤러 요청 매핑 ]
+	
+		- package : kr.or.ddit.controller.board
+		- class : BoardController
 		
+	[ 4장 : 컨트롤러 응답 ]
+	
+		- package : kr.or.ddit
+		- class : HomeController, RestHomeController			
+		
+	[ 5장 : 컨트롤러 요청 처리 ]
+	
+		- package : kr.or.ddit.controller.member
+		- class : MemberController	
+		
+		- package : kr.or.ddit.controller.member
+		- class : AjaxMemberController	
 		
 		
 				
