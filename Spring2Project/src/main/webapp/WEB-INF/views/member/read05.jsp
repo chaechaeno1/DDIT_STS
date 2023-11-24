@@ -18,31 +18,32 @@
 	gender : ${user.gender}<br/>
 	hobby : ${user.hobby}<br/>
 	
-		<p>hobbyArray</p>
+		<p>[hobbyArray]</p>
 		<c:forEach items="${user.hobbyArray }" var="hobby">
 			<c:out value="${hobby }"/>
 		</c:forEach>
 		
-		<p>hobbyList</p>	
+		<p>[hobbyList]</p>	
 		<c:forEach items="${user.hobbyList }" var="hobby">
 			<c:out value="${hobby }"/>
 		</c:forEach>
 	<br/>	
-	
+	<br/>
+		
 	developer : ${user.developer}<br/>
 	foreigner : ${user.foreigner}<br/>
 	nationality : ${user.nationality}<br/>
 	address.postCode : ${user.address.postCode}<br/>
 	address.location : ${user.address.location}<br/>
 	
-		<p>cardList</p>	
+		<p>[cardList]</p>	
 		<c:forEach items="${user.cardList }" var="card">
-			<c:out value="${card.no } ${card.validMonth }" />
+			<c:out value="${card.no } // ${card.validMonth } // " />
 		</c:forEach>	
 	
 	<br/>
 	
-		<p>carList</p>	
+		<p>[carList]</p>	
 		<c:forEach items="${user.carList }" var="car">
 			<c:out value="${car }" />
 		</c:forEach>	
