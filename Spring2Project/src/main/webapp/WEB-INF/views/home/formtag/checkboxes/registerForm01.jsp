@@ -18,9 +18,9 @@
 	<form:form modelAttribute="member" method="post" action="/formtag/register">
 		<table	border="1">
 			<tr>
-				<td>취미(hobbyList)</td>
+				<td>취미(hobbyMap)</td>
 				<td>
-					<form:checkboxes items="${hobbyMap }" path="hobbyList"/>
+					<form:checkboxes items="${hobbyMap }" path="hobbyMap"/>
 				</td>
 			</tr>
 
