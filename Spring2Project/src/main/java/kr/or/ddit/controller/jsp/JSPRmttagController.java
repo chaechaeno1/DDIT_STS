@@ -134,9 +134,42 @@ public class JSPRmttagController {
 		return "home/fmttag/home0301";		
 	}
 	
+	
+	//9) pattern 속성을 지정하여 날짜를 포맷팅한다.
+	@RequestMapping(value = "/home0304", method=RequestMethod.GET)
+	public String home0304(Model model) {
+		Date date = new Date();
+		model.addAttribute("now", date);
+		return "home/fmttag/home0304";			
+	}
+	
+	//11) dateStyle 속성을 각 스타일로 지정하여 문자열을 Date 객체로 변환한다. 
+	@RequestMapping(value = "/home0402", method=RequestMethod.GET)
+	public String home0402(Model model) {
+		String dateValueShort = "20. 2. 1"; 		//style short 형태로 지정
+		String dateValueMedium = "2020. 2. 1"; 		//style medium 형태로 지정 
+		String dateValueLong = "2019년 2월 1일 (금)"; 	//style long 형태로 지정 
+		String dateValueFull = "2019년 2월 1일 금요일"; 	//style full 형태로 지정 
+		
+		model.addAttribute("dateValueShort", dateValueShort);
+		model.addAttribute("dateValueMedium", dateValueMedium);
+		model.addAttribute("dateValueLong", dateValueLong);
+		model.addAttribute("dateValueFull", dateValueFull);
+		
+		//각 dateStyle로 지정한 값이 페이지로 넘어가 parsing이 진행될 때, parseDate내에 
+		//dateStyle을 각 값과 일치하는 스타이리 형태로 지정해주어야 값이 파싱된다.
+		
+		return "home/fmttag/home0402";			
+	}
 
 	
-	
+	//12) pattern 속성을 지정하여 문자열을 Date 객체로 변환한다.
+		@RequestMapping(value = "/home0403", method=RequestMethod.GET)
+		public String home0403(Model model) {
+			String dateValue = "2020-02-01 15:00:24"; 		
+			model.addAttribute("dateValue", dateValue);			
+			return "home/fmttag/home0403";			
+		}	
 	
 	
 	
