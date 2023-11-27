@@ -1,4 +1,4 @@
-package kr.or.ddit.controller.jsp.textfield;
+package kr.or.ddit.controller.jsp.password;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,38 +10,37 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequestMapping("/formtag/textfield")
-public class JSPFormTextFieldTagController {
+@RequestMapping("/formtag/password")
+public class JSPFormPasswordTagController {
 	
 	/*
-	 * 	4. 텍스트 필드 요소
+	 * 		5. 패스워드 필드 요소
 	 * 
-	 * 		- HTML 텍스트 필드를 출력하려면 <form:input> 요소를 사용한다.
+	 * 			- HTML 패스워드 필드 출력하려면 <form:password> 요소를 사용한다.
 	 * 
 	 */
 	
 	
-	// 1) 모델에 기본 생성자로 생성한 폼 객체를 추가한 후에 화면에 전달한다.
 	@RequestMapping(value = "/registerForm01", method=RequestMethod.GET)
 	public String registerForm01(Model model) {
 		log.info("registerForm01() 실행...!");
-		
 		model.addAttribute("member", new Member());
-		return "home/formtag/textfield/registerForm01";
+		return "home/formtag/password/registerForm01";
+		
 	}
 	
 	@RequestMapping(value = "/registerForm02", method=RequestMethod.GET)
 	public String registerForm02(Model model) {
 		log.info("registerForm02() 실행...!");
 		Member member = new Member();
-		member.setUserId("honggildong");
-		member.setUserName("홍길동");
-		member.setEmail("ddit@ddit.com");
+		//값을 설정해서 뷰에 전달하더라도 패스워드 필드에 반영되지 않는다. (패스워드는 특수한 경우기 때문에 값이 바인딩 되지 않음)
+		member.setPassword("12341234");
 		model.addAttribute("member", member);
-		return "home/formtag/textfield/registerForm01";
+		return "home/formtag/password/registerForm01";
+		
 	}
 	
 	
 	
-
+	
 }
