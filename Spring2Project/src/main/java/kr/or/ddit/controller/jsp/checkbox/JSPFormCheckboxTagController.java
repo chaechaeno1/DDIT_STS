@@ -1,5 +1,8 @@
 package kr.or.ddit.controller.jsp.checkbox;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +30,32 @@ public class JSPFormCheckboxTagController {
 		return "home/formtag/checkbox/registerForm01";
 		
 	}
+	
+	@RequestMapping(value = "/registerForm02", method=RequestMethod.GET)
+	public String registerForm02(Model model) {
+		
+		log.info("registerForm02() 실행..!");
+		
+		Member member = new Member();
+		member.setDeveloper("Y");
+		member.setForeigner(true);
+		member.setHobby("Movie");
+		
+		String[] hobbyArray = {"Music", "Movie"};
+		member.setHobbyArray(hobbyArray);
+		
+		List<String> hobbyList = new ArrayList<String>();
+		hobbyList.add("Music");
+		hobbyList.add("Movie");
+		member.setHobbyList(hobbyList);
+		
+		model.addAttribute("member", member);
+		
+		return "home/formtag/checkbox/registerForm01";
+		
+	}
+	
+	
 	
 	
 }
