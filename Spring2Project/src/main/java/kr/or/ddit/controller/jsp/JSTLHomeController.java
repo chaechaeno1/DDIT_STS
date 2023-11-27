@@ -328,8 +328,48 @@ public class JSTLHomeController {
 	}
 	
 	
+	// c:forEach
+	// 배열 이용
+	@RequestMapping(value = "/home0701", method=RequestMethod.GET)
+	public String home0701(Model model) {
+		Member member = new Member();
+		String[] hobbyArray = {"Music", "Movie"};
+		member.setHobbyArray(hobbyArray);
+		model.addAttribute("member",member);
+		return "home/jstl/home0701";
+		
+	}
 	
 	
+	
+	// c:forTokens
+	// 문자열 이용	
+	@RequestMapping(value = "/home0801", method=RequestMethod.GET)
+	public String home0801(Model model) {
+		Member member = new Member();
+		String hobby = "Music, Movie";
+		member.setHobby(hobby);
+		model.addAttribute("member",member);
+		return "home/jstl/home0801";
+		
+	}
+	
+	
+	
+	// c:import
+	@RequestMapping(value = "/home0901", method=RequestMethod.GET)
+	public String home0901(Model model) {
+				
+		return "home/jstl/home0901";
+		
+	}
+	
+	// c:redirect
+	
+	@RequestMapping(value = "/home1001", method=RequestMethod.GET)
+	public String home1001(Model model) {
+		return "home/jstl/home1001";
+	}
 	
 	
 	
