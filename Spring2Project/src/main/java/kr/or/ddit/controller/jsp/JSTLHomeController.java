@@ -1,8 +1,12 @@
 package kr.or.ddit.controller.jsp;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import kr.or.ddit.vo.Member;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -244,6 +248,107 @@ public class JSTLHomeController {
 	 * 
 	 * 
 	 */
+	
+	// c:out escapeXml과 default 속성을 활용한 테스트 (escapeXml 속성의 기본 값은 true이다)
+	// default 속성은 전달받은 값이 null인 경우 대체할 값이다.
+	@RequestMapping(value = "/home0101", method=RequestMethod.GET)
+	public String home0101(Model model) {
+		Member member = new Member();
+		member.setUserId("<p>hongkd<>&%0101</p>");
+		member.setPassword(null);
+		model.addAttribute("member", member);
+		return "home/jstl/home0101";
+		
+	}
+	
+	// c:set을 이용해 값을 출력한다.
+	// c:set의 몸체를 값으로 사용하여 출력한다.
+	
+	@RequestMapping(value = "/home0201", method = RequestMethod.GET)
+	public String home0201(Model model) {
+		Member member = new Member();
+		member.setUserId("hongkd");
+		model.addAttribute("member",member);
+		return "home/jstl/home0201";		
+	}
+	
+	
+	// c:remove
+	// c:set 태그로 지정한 변수 memberId를 삭제한다.
+	
+	@RequestMapping(value ="/home0301", method=RequestMethod.GET)
+	public String home0301(Model model) {
+		Member member = new Member();
+		member.setUserId("hongkd0301");
+		model.addAttribute("member",member);
+		return "home/jstl/home0301";		
+	}
+	
+	
+	// c:catch
+	// EL안에서 발생하는 에러 정보는 EL 안에서 처리하도록 var 속성에 설정된 변수로 에러정보를 확인할 수 없다.
+	//hobbyArray에 세번째 정보를 꺼내서 에러 발생 확인해보는 것 (값이 두개밖에 없으므로)
+	
+	@RequestMapping(value = "/home0401", method=RequestMethod.GET)
+	public String home0401(Model model) {
+		Member member= new Member();
+		String[] hobbyArray = {"Music", "Movie"};
+		member.setHobbyArray(hobbyArray);
+		model.addAttribute("member",member);
+		return "home/jstl/home0401";
+		
+	}
+	
+	
+	@RequestMapping(value = "/home0402", method=RequestMethod.GET)
+	public String home0402(Model model) {
+		return "home/jstl/home0402";
+		
+	}
+	
+	//c:if
+	
+	@RequestMapping(value = "/home0501", method=RequestMethod.GET)
+	public String home0501(Model model) {
+		Member member = new Member();
+		member.setForeigner(true);
+		model.addAttribute("member",member);
+		return "home/jstl/home0501";
+		
+	}
+	
+	// c:when, c:otherwise	
+	@RequestMapping(value = "/home0601", method=RequestMethod.GET)
+	public String home0601(Model model) {
+		Member member = new Member();
+		member.setGender("M");
+		model.addAttribute("member",member);
+		return "home/jstl/home0601";
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }
