@@ -1,6 +1,8 @@
 package kr.or.ddit.controller.jsp.selectbox;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -8,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kr.or.ddit.vo.CodeLabelValue;
 import kr.or.ddit.vo.Member;
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,6 +44,41 @@ public class JSPFormSelectboxTagController {
 	
 	
 	//List
+	@RequestMapping(value ="/registerFormSelectbox02", method=RequestMethod.GET )
+	public String registerFormSelectbox02(Model model) {
+		log.info("registerFormSelectbox02() 실행..!");
+		
+		List<CodeLabelValue> nationalityCodeList = new ArrayList<CodeLabelValue>();
+		nationalityCodeList.add(new CodeLabelValue("01", "Korea"));
+		nationalityCodeList.add(new CodeLabelValue("02", "Canada"));
+		nationalityCodeList.add(new CodeLabelValue("03", "Austrailia"));
+		
+		model.addAttribute("nationalityCodeList", nationalityCodeList);
+		model.addAttribute("member", new Member());
+		
+		return "home/formtag/selectbox/registerFormSelectbox02";		
+	}	
+	
+	//form태그 안에있는 select와 option 이용
+	@RequestMapping(value ="/registerFormSelectbox03", method=RequestMethod.GET )
+	public String registerFormSelectbox03(Model model) {
+		log.info("registerFormSelectbox03() 실행..!");
+		
+		List<CodeLabelValue> carCodeList = new ArrayList<CodeLabelValue>();
+		carCodeList.add(new CodeLabelValue("01", "Jeep"));
+		carCodeList.add(new CodeLabelValue("02", "Bmw"));
+		carCodeList.add(new CodeLabelValue("03", "Audi"));
+		
+		model.addAttribute("carCodeList", carCodeList);
+		model.addAttribute("member", new Member());
+		
+		return "home/formtag/selectbox/registerFormSelectbox03";
+		
+	}
+	
+	
+	
+	
 	
 	
 	
