@@ -10,9 +10,29 @@
 </head>
 <body>
 
+	<!-- 
+		[입력값 검증 결과 테스트 시나리오]
+		
+		1. 사용자 아이디를 빈 값으로 입력 후 진행
+		2. 사용자 이름을 빈 값으로 입력 후 진행
+		3. 사용자 이름의 길이를 최대값보다 크게 입력(max=3)
+		
+		
+		[입력값 검증 결과 테스트 시나리오]
+		1. 유효한 데이터 입력
+		2. 사용자 아이디를 빈 값으로 입력 후 진행
+		3. 사용자 이름을 빈 값으로 입력 후 진행
+		4. 사용자 이름의 길이를 최대값보다 크게 입력
+		5. 사용자 이메일 주소를 형식에 맞지 않게 입력
+		6. 사용자 생년월일을 과거가 아닌 날짜로 입력
+		
+	
+	 -->
+
+
 
 	<!-- modelAttribute에 member는 컨트롤러에서 선언한 key값이어야함. 내가 넘기고 있는 프로퍼티도 같아야 함 -->
-	<form:form modelAttribute="member" method="post" action="/validation/result">
+	<form:form modelAttribute="member" method="post" action="/validation/result2"> <!-- action은 컨트롤러 메서드의 매핑 경로와 일치해야함 -->
 		<table	border="1">
 			<tr>
 				<td>유저 ID</td>
@@ -50,6 +70,21 @@
 					</font>
 				</td>
 			</tr>
+			
+			<tr>
+				<td>생년월일</td>
+				<td>
+					<form:input path="dateOfBirth" type="date"/>
+					<font color="red">
+						<form:errors path="dateOfBirth"/>
+					</font>
+				</td>
+			</tr>
+			
+			
+			
+			
+			
 			<tr>
 				<td>성별</td>
 				<td>
