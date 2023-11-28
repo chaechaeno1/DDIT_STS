@@ -33,6 +33,39 @@ public class MybatisController {
 	 * 	
 	 * 
 	 * 
+	 * 	2. Mapper 인터페이스 (DAO없는 대신 사용할 인터페이스)
+	 * 		- 인터페이스의 구현을 mybatis-spring에서 자동으로 생성할 수 잇다.
+	 * 
+	 *  	1) 마이바티스 구현
+	 *  
+	 *  		1-1) Mapper 인터페이스
+	 *  		- BoardMapper.java 생성(인터페이스)
+	 *  		
+	 *  		1-2) Mapper 인터페이스와 매핑할 Mapper
+	 *  		- sqlmap/boardMapper_SQL.xml 생성
+	 *  
+	 *  		1-3) 게시판 구현 설명
+	 *  
+	 *  		- 게시판 컨트롤러 만들기 (crud/CrudBoardController)
+	 *  		- 게시판 등록 화면 컨트롤러 메소드 만들기(crudRegister:get)
+	 *  		- 게시판 등록 화면 만들기 (crud/register.jsp)
+	 *  		- 여기까지 확인
+	 *  
+	 *  		- 게시판 등록 기능 컨트롤러 메소드 만들기 (crudRegister:post)
+	 *  		- 게시판 등록 기능 서비스 인터페이스 메소드 만들기
+	 *  		- 게시판 등록 기능 서비스 클래스 메소드 만들기
+	 *  		- 게시판 등록 기능 Mapper 인터페이스 메소드 만들기
+	 *  		- 게시판 등록 기능 Mapper xml 쿼리 만들기
+	 *  		- 게시판 등록 완료 페이지 만들기
+	 *  		- 여기까지 확인
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 * 
 	 * 
 	 * 
 	 */

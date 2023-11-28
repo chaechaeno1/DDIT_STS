@@ -15,7 +15,7 @@
   		</settings>
   		
   		<typeAliases>
-  		<!-- 	<typeAlias type="kr.or.ddit.vo.Board" alias="board"/> -->
+  			<typeAlias type="kr.or.ddit.vo.Board" alias="board"/>
   		</typeAliases>
   	
   </configuration>
