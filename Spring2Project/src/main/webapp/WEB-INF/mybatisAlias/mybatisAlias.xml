@@ -16,6 +16,8 @@
   		
   		<typeAliases>
   			<typeAlias type="kr.or.ddit.vo.Board" alias="board"/>
+  			<typeAlias type="kr.or.ddit.vo.crud.CrudMember" alias="crudMember"/>
+  			<typeAlias type="kr.or.ddit.vo.crud.CrudMemberAuth" alias="crudMemberAuth"/>
   		</typeAliases>
   	
   </configuration>
