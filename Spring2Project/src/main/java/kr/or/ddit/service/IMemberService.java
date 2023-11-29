@@ -12,4 +12,8 @@ public interface IMemberService {
 
 	CrudMember read(int userNo);
 
+	void modify(CrudMember member);
+
+	void remove(int userNo);
+
 }

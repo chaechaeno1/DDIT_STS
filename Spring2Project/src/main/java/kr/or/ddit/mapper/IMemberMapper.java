@@ -15,4 +15,12 @@ public interface IMemberMapper {
 
 	public CrudMember read(int userNo);
 
+	public void modify(CrudMember member);
+
+	public void deleteAuth(int userNo);
+
+	public void remove(int userNo);
+
+	public void delete(int userNo);
+
 }
