@@ -1,5 +1,7 @@
 package kr.or.ddit.controller.crud;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
@@ -43,6 +45,82 @@ public class CrudBoardController {
 		return "crud/success";
 		
 	}
+	
+	
+	//리스트 기능 담당
+	
+	@RequestMapping(value = "/list", method=RequestMethod.GET)
+	public String crudList(Model model) {
+		log.info("crudList()실행 ...!");
+		
+		List<Board> boardList = service.list();
+		model.addAttribute("boardList", boardList);
+		return "crud/list";
+	}
+	
+	
+	// 상세보기 기능 담당
+	@RequestMapping(value = "/read", method=RequestMethod.GET)
+	public String crudRead(int boardNo, Model model) {
+		log.info("crudRead()실행 ...!");		
+		Board board = service.read(boardNo);
+		model.addAttribute("board", board);
+		return "crud/read";
+	}
+	
+	//수정 화면
+	@RequestMapping(value = "/modify", method=RequestMethod.GET)
+	public String crudModifyForm(int boardNo, Model model) {
+		log.info("crudModifyForm() 실행...!");
+		
+		Board board = service.read(boardNo);
+		model.addAttribute("board", board);
+		model.addAttribute("status", "u"); // '수정을 진행합니다' 라는 flag
+		return "crud/register";
+	
+	}
+	
+	//수정기능
+	@RequestMapping(value = "/modify", method=RequestMethod.POST)
+	public String crudModify(Board board, Model model) {
+		
+		log.info("crudModify() 실행...!");
+		service.modify(board);
+		model.addAttribute("msg", "수정이 완료되었습니다.");
+		return "crud/success";
+		
+	}
+	
+	//삭제기능
+	@RequestMapping(value = "/remove", method=RequestMethod.POST)
+	public String crudDelete(int boardNo, Model model) {
+		log.info("crudDelete() 실행...!");
+		
+		service.remove(boardNo);
+		model.addAttribute("msg", "삭제가 완료되었습니다!");
+		return "crud/success";
+		
+	}
+	
+	
+	//검색 기능
+	@RequestMapping(value = "/search", method=RequestMethod.POST)
+	public String crudSearch(String title, Model model) {
+		log.info("crudSearch() 실행...!");
+		Board board = new Board();
+		board.setTitle(title);
+		
+		List<Board> boardList = service.search(board);
+		model.addAttribute("boardList", boardList);
+		model.addAttribute("board", board);		
+		return "crud/list";
+		
+	}
+	
+	
+	
+	
+	
 	
 	
 	
