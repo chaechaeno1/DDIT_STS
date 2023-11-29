@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,15 +14,42 @@
 	<h2>LIST</h2>
 	
 	<a href="/crud/member/register">등록</a>
+	<br/>
+	<br/>
 	
 	<table border="1">
 		<tr>
-			<td>번호</td>
-			<td>아이디</td>
-			<td>비밀번호</td>
-			<td>사용자명</td>
-			<td>작성일</td>
+			<td align="center" width="60">번호</td>
+			<td align="center" width="80">아이디</td>
+			<td align="center" width="50">비밀번호</td>
+			<td align="center" width="50">사용자명</td>
+			<td align="center" width="180">작성일</td>
 		</tr>
+		
+		<c:choose>
+			<c:when test="${empty memberList }">
+				<tr>
+					<td colspan="5">조회하신 회원 정보가 존재하지 않습니다.</td>
+				</tr>
+			</c:when>
+			<c:otherwise>
+				<c:forEach items="${memberList }" var="member">
+					<tr>
+						<td align="center">${member.userNo}</td>
+						<td align="center">
+							<a href="/crud/member/read?userNo=${member.userNo }"> ${member.userId }</a>
+						</td>
+						<td align="left">${member.userPw }</td>
+						<td align="right">${member.userName }</td>
+						<td align="center">
+							<fmt:formatDate value="${member.regDate }" pattern="yyyy-MM-dd HH:mm"/>
+						</td>
+					</tr>
+					
+				</c:forEach>
+			</c:otherwise>
+		</c:choose>
+		
 	</table>
 
 </body>

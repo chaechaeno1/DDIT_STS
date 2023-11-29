@@ -38,4 +38,10 @@ public class MemberServiceImpl implements IMemberService {
 		return mapper.list();
 	}
 
+	@Override
+	public CrudMember read(int userNo) {
+		
+		return mapper.read(userNo);
+	}
+
 }

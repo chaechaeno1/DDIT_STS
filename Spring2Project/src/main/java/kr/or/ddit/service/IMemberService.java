@@ -10,4 +10,6 @@ public interface IMemberService {
 
 	List<CrudMember> list();
 
+	CrudMember read(int userNo);
+
 }

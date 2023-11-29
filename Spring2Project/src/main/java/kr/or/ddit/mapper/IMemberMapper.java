@@ -13,4 +13,6 @@ public interface IMemberMapper {
 
 	public List<CrudMember> list();
 
+	public CrudMember read(int userNo);
+
 }

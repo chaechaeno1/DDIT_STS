@@ -48,6 +48,27 @@ public class CrudMemberController {
 		return "crud/member/list";
 	}
 	
+	//상세보기
+	@RequestMapping(value = "/read", method=RequestMethod.GET)
+	public String crudMemberRead(int userNo, Model model) {
+		log.info("crudMemberRead() 실행...!");
+		
+		CrudMember member = service.read(userNo);		
+		model.addAttribute("member", member);
+		return "crud/member/read";
+	}
+	
+	//수정 화면
+	
+	@RequestMapping(value = "/modify", method= RequestMethod.GET)
+	public String crudMemberModifyForm(int userNo, Model model) {
+		log.info("crudMemberModifyForm() 실행...!");
+		
+		CrudMember member = service.read(userNo);
+		model.addAttribute("member", member);
+		return "crud/member/modify";
+		
+	}
 	
 	
 	

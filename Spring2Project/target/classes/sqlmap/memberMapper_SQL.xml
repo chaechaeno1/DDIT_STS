@@ -5,6 +5,23 @@
   <mapper namespace="kr.or.ddit.mapper.IMemberMapper"> <!-- 인터페이스 우클릭 - 카피 퀄리파이드 네임 - 복붙  -->
   
   
+  	<resultMap type="crudMember" id="memberMap">
+  		<id property="userNo" column="user_no"/> <!-- 프라이머리 키 명시 -->
+  		<result property="userNo" column="user_no"/> <!-- 동일한 데이터임을 명시 -->
+  		<result property="userId" column="user_id"/> 
+  		<result property="userPw" column="user_pw"/> 
+  		<result property="userName" column="user_name"/> 
+  		<result property="regDate" column="reg_date"/> 
+  		<result property="updDate" column="upd_date"/> 
+  		<collection property="authList" resultMap="authMap"/> <!-- list  -->
+  	</resultMap>
+  	
+  	<resultMap type="crudMemberAuth" id="authMap">
+  		<result property="userNo" column="user_no"/>
+  		<result property="auth" column="auth"/>
+  	</resultMap>
+  	
+  
   	<insert id="create" parameterType="crudMember" useGeneratedKeys="true"> 
   		<selectKey keyProperty="userNo" resultType="int" order="BEFORE">
   			select seq_member.nextval from dual
@@ -36,6 +53,13 @@
   	</select>
   	
   	
+  	<select id="read" parameterType="int" resultMap="memberMap">
+  		select
+  			m.user_no, user_id, user_pw, user_name, reg_date, upd_date,
+  			auth
+  		from member m left outer join member_auth ma on(m.user_no = ma.user_no)
+  		where m.user_no = #{userNo}  		
+  	</select>
   	
   	
   	

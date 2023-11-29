@@ -223,6 +223,23 @@ public class MybatisController {
 	 *			- 회원 목록 화면 Mapper xml 쿼리 만들기
 	 *			- 회원 목록 화면 페이지 만들기(crud/member/list.jsp)
 	 *			- 여기까지 확인
+	 *
+	 *			- 회원 상세화면 컨트롤러 메소드 만들기 (crudMemberRead:get)
+	 *			- 회원 상세화면 서비스 인터페이스 메소드 만들기
+	 *			- 회원  상세화면 서비스 클래스 메소드 만들기
+	 *			- 회원 상세화면 Mapper 인터페이스 메소드 만들기
+	 *			- 회원 상세화면 Mapper xml 쿼리 만들기
+	 *			- 회원 상세화면 페이지 만들기 (crud/member/read.jsp)
+	 *			- 여기까지 확인
+	 *
+	 *			- 회원 수정 화면 컨트롤러 메소드 만들기 (crudMemberModify:get)
+	 *			- 회원 수정 화면 서비스 인터페이스 메소드 만들기
+	 *			- 회원 수정 화면 서비스 클래스 메소드 만들기
+	 *			- 회원 수정 화면 Mapper 인터페이스 메소드 만들기
+	 *			- 회원 수정 화면 Mapper xml 쿼리 만들기
+	 *			- 회원 수정 화면 페이지 만들기 (crud/member/modify.jsp)
+	 *			- 여기까지 확인
+	 *			
 	 * 
 	 * 
 	 * 
