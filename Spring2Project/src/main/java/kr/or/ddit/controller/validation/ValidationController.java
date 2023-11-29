@@ -118,6 +118,7 @@ public class ValidationController {
 		
 	}
 	
+
 	
 	@RequestMapping(value = "/result2",method=RequestMethod.POST)
 	public String registerValidationForm02Result(@Validated Member member, BindingResult result) {

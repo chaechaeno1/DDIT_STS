@@ -96,5 +96,6 @@
 		</table>
 		<form:button name="register">등록</form:button>	
 	</form:form>
+	
 </body>
 </html>
