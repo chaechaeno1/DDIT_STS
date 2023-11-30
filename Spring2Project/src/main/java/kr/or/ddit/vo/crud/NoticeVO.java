@@ -12,7 +12,7 @@ public class NoticeVO {
 	private String boTitle;
 	private String boContent;
 	private String boWriter;
-	private String boDate;
+	private String boDate; //String 이 맞음!
 	private int boHit;
 	
 	

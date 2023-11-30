@@ -32,4 +32,30 @@
   
   
   
+  <insert id="insertNotice" parameterType="noticeVO" useGeneratedKeys="true">
+  	<selectKey keyProperty="boNo" resultType="int" order="BEFORE">
+  		select seq_notice.nextval from dual
+  	</selectKey>
+  	insert into notice(
+  		bo_no, bo_title, bo_content, bo_writer, bo_date
+  	) values (
+  		#{boNo}, #{boTitle}, #{boContent}, #{boWriter}, sysdate
+  	)
+  	
+  
+  </insert>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   </mapper>

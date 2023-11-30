@@ -65,10 +65,21 @@ public class TilesSettingController {
 	 *			- 게시판 목록 화면 서비스 클래스 메소드 만들기
 	 *			- 게시판 목록 화면 Mapper 인터페이스 메소드 만들기
 	 *			- 게시판 목록 화면 Mapper xml 쿼리 만들기
-	 *			-  게시판 목록 화면 페이지에서 페이징 적용된 목록 확인
+	 *			- 게시판 목록 화면 페이지에서 페이징 적용된 목록 확인
 	 *			- 여기까지 확인
 	 *
-	 *			-
+	 *			- 게시판 등록 컨트롤러 만들기 (crud/notice/NoticeInsertController)
+	 *			- 게시판 등록 화면 컨트롤러 메소드 만들기 (noticeInsertForm:get)
+	 *			- 게시판 등록 화면 만들기(noticeboard/form.jsp)
+	 *			- 게시판 등록 기능 컨트롤러 메소드 만들기 (noticeInsert:post)
+	 *			- 게시판 등록 기능 서비스 인터페이스 메소드 만들기
+	 *			- 게시판 등록 기능 서비스 클래스 메소드 만들기
+	 *			- 게시판 등록 기능 Mapper 인터페이스 메소드 만들기
+	 *			- 게시판 등록 기능 Mapper xml 쿼리 만들기
+	 *			- 여기까지 확인
+	 *
+	 *
+	 *
 	 *			
 	 *
 	 *

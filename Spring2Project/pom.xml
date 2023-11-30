@@ -243,6 +243,24 @@
 		
 		<!-- Tiles를 이용한 페이지 모듈화 끝 -->
 		
+		
+		<!-- StringUtils 를 이용한 데이터 검증 라이브러리 -->
+		
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.6</version>
+		</dependency> 
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	
 	
 		<!-- Test -->

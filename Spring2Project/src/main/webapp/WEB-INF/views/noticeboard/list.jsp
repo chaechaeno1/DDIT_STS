@@ -29,7 +29,9 @@
 							<div class="card card-dark card-outline">
 								<div class="card-header">
 									<div class="card-tools">
-										<div class="input-group input-group-sm" style="width: 440px;">
+									
+										<form class="input-group input-group-sm" id="searchForm" style="width: 440px;">
+											<input type="hidden" name="page" id="page"/>
 											<select class="form-control">
 												<option>제목</option>
 												<option>작성자</option>
@@ -40,7 +42,8 @@
 													<i class="fas fa-search"></i>검색
 												</button>
 											</div>
-										</div>
+										</form>
+										
 									</div>
 									<h3 class="card-title">공지사항</h3>
 								</div>
@@ -88,17 +91,10 @@
 									</table>
 								</div>
 								<div class="card-footer" align="right">
-									<button type="submit" class="btn btn-dark">등록</button>
+									<button type="button" class="btn btn-dark" id="newBtn">등록</button>
 								</div>
-	
-								<div class="card-footer clearfix">
-									<ul class="pagination pagination-md m-0 float-right">
-										<li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-										<li class="page-item"><a class="page-link" href="#">1</a></li>
-										<li class="page-item"><a class="page-link" href="#">2</a></li>
-										<li class="page-item"><a class="page-link" href="#">3</a></li>
-										<li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-									</ul>
+								<div class="card-footer clearfix" id="pagingArea">			
+										${pagingVO.pagingHTML }
 								</div>
 							</div>
 						</div>
@@ -108,3 +104,55 @@
 				</div>
 	
 			</section>
+			
+			
+			
+<script>
+$(function(){
+	//페이징을 처리할 때 사용할 Element
+	//pagingArea div안에 ul과 li로 구성된 페이징 정보가 존재
+	//그 안에는 a태그로 구성된 페이지 정보가 들어있음
+	//a태그 안에 들어있는 page번호를 가져와서 페이징처리를 진행
+	var pagingArea = $("#pagingArea");
+	var searchForm = $("#searchForm");
+	var newBtn = $("#newBtn");
+
+	pagingArea.on("click","a",function(event){
+		
+		event.preventDefault(); //a태그의 이벤트를 block
+		var pageNo = $(this).data("page");
+		searchForm.find("#page").val(pageNo);
+		searchForm.submit();
+		
+	});
+	
+	
+	//등록 버튼 클릭 시, 게시판 등록 페이지로 이동
+	newBtn.on("click",function(){
+		location.href = "/notice/form.do";
+		
+	});
+
+
+
+
+
+
+
+
+});
+</script>			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
