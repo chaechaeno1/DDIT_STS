@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+    
 
     			<section class="content-header">
 				<div class="container-fluid">
@@ -55,80 +57,33 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td>10</td>
-												<td>제목입니다1</td>
-												<td><font class="badge badge-danger"
-													style="font-size: 14px;">관리자</font></td>
-												<td>2022-12-12</td>
-												<td>1456</td>
-											</tr>
-											<tr>
-												<td>9</td>
-												<td>제목입니다1</td>
-												<td><font class="badge badge-danger"
-													style="font-size: 14px;">관리자</font></td>
-												<td>2022-12-12</td>
-												<td>1456</td>
-											</tr>
-											<tr>
-												<td>8</td>
-												<td>제목입니다1</td>
-												<td><font class="badge badge-dark"
-													style="font-size: 14px;">a001</font></td>
-												<td>2022-12-12</td>
-												<td>1456</td>
-											</tr>
-											<tr>
-												<td>7</td>
-												<td>제목입니다1</td>
-												<td>kikiki</td>
-												<td>2022-12-12</td>
-												<td>1456</td>
-											</tr>
-											<tr>
-												<td>6</td>
-												<td>제목입니다1</td>
-												<td><font class="badge badge-dark"
-													style="font-size: 14px;">a001</font></td>
-												<td>2022-12-12</td>
-												<td>1456</td>
-											</tr>
-											<tr>
-												<td>5</td>
-												<td>제목입니다1</td>
-												<td>haohao</td>
-												<td>2022-12-12</td>
-												<td>1456</td>
-											</tr>
-											<tr>
-												<td>4</td>
-												<td>제목입니다1</td>
-												<td>bmwman</td>
-												<td>2022-12-12</td>
-												<td>1456</td>
-											</tr>
-											<tr>
-												<td>3</td>
-												<td>제목입니다1</td>
-												<td>apart</td>
-												<td>2022-12-12</td>
-												<td>1456</td>
-											</tr>
-											<tr>
-												<td>2</td>
-												<td>제목입니다1</td>
-												<td>develop</td>
-												<td>2022-12-12</td>
-												<td>1456</td>
-											</tr>
-											<tr>
-												<td>1</td>
-												<td>제목입니다1</td>
-												<td>aaaaai</td>
-												<td>2022-12-12</td>
-												<td>1456</td>
-											</tr>
+											<c:set value="${pagingVO.dataList }" var="noticeList"/>
+											<c:choose>
+												<c:when test="${empty noticeList }">
+													<tr>
+														<td colspan="5">조회하신 게시글이 존재하지 않습니다.</td>
+													</tr>
+												
+												</c:when>
+												<c:otherwise>
+													
+													<c:forEach items="${noticeList }" var="notice">
+														<tr>
+															<td>${notice.boNo }</td>
+															<td>${notice.boTitle }</td>
+															<td><font class="badge badge-danger"
+															style="font-size: 14px;">${notice.boWriter }</font>
+															</td>
+															<td>${notice.boDate }</td>
+															<td>${notice.boHit }</td>
+														</tr>		
+													</c:forEach>
+													
+												</c:otherwise>
+																					
+											</c:choose>
+
+
 										</tbody>
 									</table>
 								</div>

@@ -18,6 +18,11 @@
   			<typeAlias type="kr.or.ddit.vo.Board" alias="board"/>
   			<typeAlias type="kr.or.ddit.vo.crud.CrudMember" alias="crudMember"/>
   			<typeAlias type="kr.or.ddit.vo.crud.CrudMemberAuth" alias="crudMemberAuth"/>
+  			
+  			
+  		
+  			<typeAlias type="kr.or.ddit.vo.crud.NoticeVO" alias="noticeVO"/>
+  			<typeAlias type="kr.or.ddit.vo.crud.PaginationInfoVO" alias="pagingVO"/>
   		</typeAliases>
   	
   </configuration>

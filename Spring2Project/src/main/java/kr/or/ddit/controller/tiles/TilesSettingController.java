@@ -46,6 +46,34 @@ public class TilesSettingController {
 	 *		4) tiles-config.xml에 설정한 layout 설정대로 페이지 생성(jsp 구성)
 	 *
 	 *
+	 * (11.30~)
+	 *
+	 *	3. 공지사항 게시판(부트스트랩 디자인) CRUd 실습
+	 *
+	 *		3-1) 데이터 베이스 준비
+	 *			notice table, noticefile table 생성
+	 *			notice sequence, noticefile sequence 생성
+	 *
+	 *		3-2) 게시판 작성
+	 *
+	 *			- 게시판 목록 컨트롤러 만들기(crud/notice/NoticeRetrieveController)
+	 *			- 게시판 목록 화면 컨트롤러 메소드 만들기 (noticeList:get)
+	 *			- 게시판 목록 화면 만들기 (noticeboard/list.jsp)
+	 *			- 여기까지 확인
+	 *
+	 *			- 게시판 목록 화면 서비스 인터페이스 메소드 만들기
+	 *			- 게시판 목록 화면 서비스 클래스 메소드 만들기
+	 *			- 게시판 목록 화면 Mapper 인터페이스 메소드 만들기
+	 *			- 게시판 목록 화면 Mapper xml 쿼리 만들기
+	 *			-  게시판 목록 화면 페이지에서 페이징 적용된 목록 확인
+	 *			- 여기까지 확인
+	 *
+	 *			-
+	 *			
+	 *
+	 *
+	 *
+	 *
 	 * 
 	 * 
 	 * 
