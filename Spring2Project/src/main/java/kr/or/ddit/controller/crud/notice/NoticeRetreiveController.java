@@ -1,4 +1,4 @@
-package kr.or.ddit.controller.crud;
+package kr.or.ddit.controller.crud.notice;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
