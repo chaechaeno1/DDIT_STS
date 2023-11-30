@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <section class="content-header">
+	<c:set value="등록" var="name"/>
+	<c:if test="${status eq 'u'}">
+		<c:set value="수정" var="name"/>
+	</c:if>
+
 	<div class="container-fluid">
 		<div class="row mb-2">
 			<div class="col-sm-6">
@@ -24,19 +29,22 @@
 		<div class="col-md-12">
 			<div class="card card-dark">
 				<div class="card-header">
-					<h3 class="card-title">공지사항 등록</h3>
+					<h3 class="card-title">공지사항 ${name }</h3>
 					<div class="card-tools"></div>
 				</div>
 				
 				<form action="/notice/insert.do" method="post" id="noticeForm">
+					<c:if test="${status eq 'u' }">
+						<input type="hidden" name="boNo" value="${notice.boNo }"/> <!-- 수정모드일 때 boNo 필요 -->
+					</c:if>
 					<div class="card-body">
 						<div class="form-group">
 							<label for="boTitle">제목을 입력해주세요</label> <input type="text"
-								id="boTitle" name="boTitle" class="form-control" placeholder="제목을 입력해주세요">
+								id="boTitle" name="boTitle" class="form-control" placeholder="제목을 입력해주세요" value="${notice.boTitle }">
 						</div>
 						<div class="form-group">
 							<label for="boContent">내용을 입력해주세요</label>
-							<textarea id="boContent" name="boContent" class="form-control" rows="14"></textarea>
+							<textarea id="boContent" name="boContent" class="form-control" rows="14">${notice.boContent }</textarea>
 						</div>
 	<!-- 					<div class="form-group">
 							<div class="custom-file">
@@ -100,9 +108,14 @@
 				<div class="card-footer bg-white">
 					<div class="row">
 						<div class="col-12">
-							<input type="button" id="insertBtn" value="등록" class="btn btn-secondary float-right">
-							<input type="button" id="listBtn" value="목록" class="btn btn-secondary float-right"> 
-							<input type="button" id="cancelBtn" value="취소" class="btn btn-dark float-right">
+							<input type="button" id="insertBtn" value="${name }" class="btn btn-secondary float-right">
+								<c:if test="${status ne'u' }">
+									<input type="button" id="listBtn" value="목록" class="btn btn-secondary float-right"> 
+								</c:if>
+								<c:if test="${status eq'u' }">
+									<input type="button" id="cancelBtn" value="취소" class="btn btn-dark float-right">
+								</c:if>
+							
 						</div>
 					</div>
 				</div>
@@ -153,6 +166,10 @@ $(function(){
 			alert("내용을 입력해주세요!");
 			$("#boContent").focus();
 			return false;
+		}
+		
+		if($(this).val() == "수정"){
+			noticeForm.attr("action","/notice/update.do");
 		}
 		
 		noticeForm.submit(); //전송

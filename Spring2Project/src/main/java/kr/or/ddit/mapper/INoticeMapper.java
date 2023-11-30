@@ -13,6 +13,14 @@ public interface INoticeMapper {
 	public List<NoticeVO> selectNoticeList(PaginationInfoVO<NoticeVO> pagingVO);
 
 	public int insertNotice(NoticeVO noticeVO);
+
+	public void incrementHit(int boNo);
+
+	public NoticeVO selectNotice(int boNo);
+
+	public int updateNotice(NoticeVO noticeVO);
+
+	public int deleteNotice(int boNo);
 	
 	
 	

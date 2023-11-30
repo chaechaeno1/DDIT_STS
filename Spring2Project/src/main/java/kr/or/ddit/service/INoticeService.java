@@ -14,5 +14,11 @@ public interface INoticeService {
 
 	ServiceResult insertNotice(NoticeVO noticeVO);
 
+	NoticeVO selectNotice(int boNo);
+
+	ServiceResult updateNotice(NoticeVO noticeVO);
+
+	ServiceResult deleteNotice(int boNo);
+
 	
 }

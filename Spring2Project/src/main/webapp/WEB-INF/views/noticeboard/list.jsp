@@ -30,12 +30,14 @@
 								<div class="card-header">
 									<div class="card-tools">
 									
-										<form class="input-group input-group-sm" id="searchForm" style="width: 440px;">
+									<!-- action이 없으면 자기 자신을 반환함 -->
+										<form class="input-group input-group-sm" method="post" id="searchForm" style="width: 440px;">
 											<input type="hidden" name="page" id="page"/>
-											<select class="form-control">
-												<option>제목</option>
-												<option>작성자</option>
-											</select> <input type="text" name="table_search"
+											
+											<select class="form-control" name="searchType">
+												<option value="title" <c:if test="${searchType eq 'title' }">selected</c:if>>제목</option>
+												<option value="writer" <c:if test="${searchType eq 'writer' }">selected</c:if>>작성자</option>
+											</select> <input type="text" name="searchWord" value="${searchWord}"
 												class="form-control float-right" placeholder="Search">
 											<div class="input-group-append">
 												<button type="submit" class="btn btn-default">
@@ -73,7 +75,11 @@
 													<c:forEach items="${noticeList }" var="notice">
 														<tr>
 															<td>${notice.boNo }</td>
-															<td>${notice.boTitle }</td>
+															<td>
+																<a href="/notice/detail.do?boNo=${notice.boNo }">
+																${notice.boTitle }
+																</a>	
+															</td>
 															<td><font class="badge badge-danger"
 															style="font-size: 14px;">${notice.boWriter }</font>
 															</td>

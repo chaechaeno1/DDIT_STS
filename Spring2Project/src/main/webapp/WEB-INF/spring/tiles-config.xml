@@ -15,6 +15,7 @@
 	<!-- 위에서 만든 definition을 extends로 가져와서 쓰는 것 -->
 	<!-- 동적으로 계속 바뀌어야 하는 구조가 생겨야함 -->
 	<!-- notice/* -> list, detail, form 이 '*' 자리에 들어오고 {1}에 매핑되어야 함. 페이지 정보!!!-->
+	<!-- {1} 안에 1은 *(아스트릭스)의 갯수를 의미함 -->
 	<definition name="notice/*" extends="mainTemplate">
 		<put-attribute name="content" value="/WEB-INF/views/noticeboard/{1}.jsp"/>
 	</definition>

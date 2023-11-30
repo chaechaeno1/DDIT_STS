@@ -78,6 +78,39 @@ public class TilesSettingController {
 	 *			- 게시판 등록 기능 Mapper xml 쿼리 만들기
 	 *			- 여기까지 확인
 	 *
+	 *			- 게시판 상세 화면 컨트롤러 메소드 만들기 (noticeDetail:get)
+	 *			- 게시판 상세 화면 서비스 인터페이스 메소드 만들기
+	 *			- 게시판 상세 화면 서비스 클래스 메소드 만들기
+	 *			- 게시판 상세 화면 Mapper 인터페이스 메소드 만들기
+	 *			- 게시판 상세 화면 Mapper xml 쿼리 만들기
+	 *			- 게시판 상세 화면 만들기 (noticeboard/detail.jsp)
+	 *			- 여기까지 확인
+	 *
+	 *			- 게시판 수정 화면 컨트롤러 메소드 만들기 (noticeUpdateForm:get)
+	 *			- 게시판 수정 화면 만들기 (noticeboard/form.jsp)
+	 *			- 게시판 수정 기능 컨트롤러 메소드 만들기 (noticeUpdate:post)
+	 *			- 게시판 수정 기능 서비스 인터페이스 메소드 만들기
+	 *			- 게시판 수정 기능 서비스 클래스 메소드 만들기
+	 *			- 게시판 수정 기능 Mapper 인터페이스 메소드 만들기
+	 *			- 게시판 수정 기능 Mapper xml 쿼리 만들기
+	 *			- 여기까지 확인
+	 *
+	 *			- 게시판 삭제 기능 컨트롤러 메소드 만들기 (noticeDelete:post)
+	 *			- 게시판 삭제 기능 서비스 인터페이스 메소드 만들기
+	 *			- 게시판 삭제 기능 서비스 클래스 메소드 만들기
+	 *			- 게시판 삭제 기능 Mapper 인터페이스 메소드 만들기
+	 *			- 게시판 삭제 기능 Mapper xml 쿼리 만들기
+	 *			- 여기까지 확인
+	 *
+	 *			- 게시판 검색 기능 컨트롤러 메소드 내 기능 추가 (noticeList:get)
+	 *			- 게시판 검색 기능 Mapper xml 쿼리 수정 (selectNoticeCount, selectNoticeList)
+	 *			- 게시판 검색 화면 추가 (noticeboard/list.jsp)
+	 *			- 여기까지 확인 
+	 *			- 
+	 *
+	 *
+	 *
+	 *
 	 *
 	 *
 	 *			

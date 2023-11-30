@@ -42,4 +42,53 @@ public class NoticeServiceImpl implements INoticeService {
 		return result;
 	}
 
+	@Override
+	public NoticeVO selectNotice(int boNo) {
+		noticeMapper.incrementHit(boNo);	//게시글 조회수 증가
+		return noticeMapper.selectNotice(boNo);	// 게시글 번호에 해당하는 게시글 정보 가져오기
+	}
+
+	@Override
+	public ServiceResult updateNotice(NoticeVO noticeVO) {
+		ServiceResult result= null;
+		int status = noticeMapper.updateNotice(noticeVO);
+		if(status >0) { //등록 성공
+			result=ServiceResult.OK;
+		}else {//등록 실패
+			result = ServiceResult.FAILED;
+			
+		}
+		
+		return result;
+	}
+
+	@Override
+	public ServiceResult deleteNotice(int boNo) {
+		ServiceResult result= null;
+		int status = noticeMapper.deleteNotice(boNo);
+		if(status >0) { //등록 성공
+			result=ServiceResult.OK;
+		}else {//등록 실패
+			result = ServiceResult.FAILED;
+			
+		}
+		
+		return result;
+	}
+
+	
+	
+	
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
