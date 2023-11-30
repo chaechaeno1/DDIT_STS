@@ -136,7 +136,9 @@ $(function(){
 	
 	
 	
-	CKEDITOR.replace("boContent");
+	CKEDITOR.replace("boContent", {
+		filebrowserUploadUrl: '/imageUpload.do'	 /* 업로드 햇을 당시의 파일이 경로 쪽으로 넘어감 */
+	});
 	CKEDITOR.config.height = "500px"; //CKEDITOR 높이 설정
 	
 	
@@ -184,6 +186,7 @@ $(function(){
 	
 	//취소버튼 클릭시, 상세보기 화면으로 이동
 	cancelBtn.on("click",function(){
+		location.href="/notice/detail.do?boNo=${notice.boNo}";
 		
 	});
 	
