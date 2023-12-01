@@ -23,6 +23,38 @@
 			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+	
+	<!-- 
+		web.xml의 설정은 WAS(Tomcat) 자체 설정일 뿐입니다.
+		multipart-config : 메모리 사이즈, 업로드 파일 저장 위치, 최대 크기 설정
+		- location : 저장될 디렉토리(필수)
+		- max-file-size : 업로드 파일 최대 크기(기본값: -1L, 제한이 없다)
+		- max-request-size : 한번 요청 시 업로드 파일 최대 크기
+		- file-size-threshold : 설정 크기가 넘는 경우 임시 디렉토리에 저장(기본값 0, 설정하지 않는 한 무조건 저장)
+	 
+	 	web.xml에서 설정하지 않을 때는 @MultipartConfig 어노테이션으로 설정이 가능하다.
+	 	- 요청을 받는 컨트롤러에 설정이 가능하다. (메소드 라인이 아니라 컨트롤러인 클래스 라인에 설정)
+	 	@MultipartConfig(
+	 		location = "D:/upload",
+	 		maxFileSize = "24683394",
+	 		maxRequestSize = "478212294",
+	 		fileSizeThreshold = "154985741"
+	 	)
+	 	
+	 	임시 파일이 저장되는 경로는 다음과 같다.
+	 	- C:\User\개인PC이름\AppDate\Local\Temp\
+
+	 -->
+	 
+<!-- 	 <multipart-config>
+	 	<location>C:\\upload</location>
+	 	<max-file-size>246833394</max-file-size>
+	 	<max-request-size>478212294</max-request-size>
+	 	<file-size-threshold>154985741</file-size-threshold>	 	
+	 </multipart-config>
+	  -->
+	 
+
 	</servlet>
 		
 	<servlet-mapping>
