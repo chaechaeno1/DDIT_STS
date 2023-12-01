@@ -138,4 +138,26 @@
 	</main>
 	<script src="${pageContext.request.contextPath }/resources/assets/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
+<script type="text/javascript">
+$(function(){
+	var registerBtn = $("#registerBtn");
+	
+	//등록 버튼 클릭 시, 게시판 등록 페이지로 이동
+	registerBtn.on("click",function(){
+		location.href="/tag/form.do";
+		
+	});
+	
+	
+	
+	
+	
+	
+	
+});
+
+</script>
+
+
 </html>
