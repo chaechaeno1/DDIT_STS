@@ -18,21 +18,20 @@ public class GridController {
 	}
 	
 	
-	//
-	@RequestMapping(value = "/grid02", method = RequestMethod.GET)
-	public String grid02(){
-		
-		return "api_read";
-	}
 	
 	
 	
-	
-	@ResponseBody
-	@PostMapping("/saveData")
-	public String saveData(@RequestBody String jsonData) {
-		return "result"; // 담은 result는 ajax에게 넘겨준다.
-	}
+	/*
+	 * @RequestMapping(value = "/grid02", method = RequestMethod.GET) public String
+	 * grid02(){
+	 * 
+	 * return "api_read"; }
+	 * 
+	 * @ResponseBody
+	 * 
+	 * @PostMapping("/saveData") public String saveData(@RequestBody String
+	 * jsonData) { return "result"; // 담은 result는 ajax에게 넘겨준다. }
+	 */
 	
 	
 	

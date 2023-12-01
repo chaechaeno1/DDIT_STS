@@ -30,6 +30,7 @@
 	 	2) Mapper xml 위치 지정
 	 	3) 마이바티스 설정 위치 지정
 	  -->
+	  
 	 <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 	 	<property name="dataSource" ref="dataSource"/>
 	 	<property name="mapperLocations" value="classpath:/sqlmap/**/*_SQL.xml"/>

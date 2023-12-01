@@ -32,6 +32,10 @@
     scrollY: false,
     columns: [
       {//수정X
+        header: '번호',
+        name: 'id',
+      },
+      {//수정X
         header: '이름',
         name: 'name',
       },
@@ -156,7 +160,7 @@
 		},
 	];
   
-  tui.Grid.applyTheme('striped', {
+  tui.Grid.applyTheme('striped', { // 테마 설정
 	    cell: {
 	        head: {
 	            background: '#eef'
@@ -167,17 +171,37 @@
 	    }
 	});
   
-  
-
-  grid.on('beforeChange', ev => {
-    console.log('before change:', ev);
-  });
-  grid.on('afterChange', ev => {
-    console.log('after change:', ev);
-  })
-  
+ 
   
   grid.resetData(gridData);
+  
+  
+  
+//2. 서버 측에서 값 저장하기:
+//	  서버 측에서 값 저장은 클라이언트에서 수정된 데이터를 서버로 전송하여 데이터베이스에 저장하는 방식입니다. 클라이언트는 수정된 데이터를 서버에 전송하고, 서버는 해당 데이터를 처리하여 데이터베이스에 반영합니다.  
+
+
+//클라이언트에서 값이 수정되면! 
+//TOAST UI Grid의 beforeSave 이벤트를 통해 수정된 데이터를 서버로 전송하는 방법
+grid.on('beforeSave', function (ev) {
+  var modifiedData = ev.modifiedData;
+
+  // 서버로 데이터를 전송
+  $.ajax({
+    url: '/gird/gird01', // 서버의 엔드포인트
+    type: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify(modifiedData),
+    success: function (response) {
+      // 서버의 응답을 처리
+      grid.refreshLayout();
+    },
+    error: function (error) {
+      console.error('Error saving data on the server:', error);
+    }
+  });
+});
+
   
   
 
