@@ -23,6 +23,9 @@
   		
   			<typeAlias type="kr.or.ddit.vo.crud.NoticeVO" alias="noticeVO"/>
   			<typeAlias type="kr.or.ddit.vo.crud.PaginationInfoVO" alias="pagingVO"/>
+  			
+  			<typeAlias type="kr.or.ddit.vo.Item" alias="item"/>
+  			<typeAlias type="kr.or.ddit.vo.Item2" alias="item2"/>
   		</typeAliases>
   	
   </configuration>
