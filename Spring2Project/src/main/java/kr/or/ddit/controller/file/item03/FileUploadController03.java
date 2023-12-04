@@ -1,5 +1,7 @@
 package kr.or.ddit.controller.file.item03;
 
+import java.io.IOException;
+
 import javax.annotation.Resource;
 
 import org.springframework.http.HttpStatus;
@@ -43,7 +45,8 @@ public class FileUploadController03 {
 	 * 
 	 */
 	
-	// root-context.xml에서 설정한 uploadPath 빈 등록 paht 경로를 사용한다.
+	// root-context.xml에서 설정한 uploadPath 빈 등록 path 경로를 사용한다.
+	
 	@Resource(name="uploadPath")
 	private String resourcePath;
 	
@@ -54,13 +57,25 @@ public class FileUploadController03 {
 		
 	}
 	
-	@ResponseBody // 응답을 내보낼 때 데이터 형식으로 내보내기
-	@RequestMapping(value = "/uploadAjax",method=RequestMethod.POST, produces = "text/plain;charset=utf-8") //produces 있다는 것 ajax에서 데이터타입이 있어야 하는것
-	public ResponseEntity<String> uploadAjax(MultipartFile file){
+	
+	//AJAX를 통한 파일 업로드 처리
+	@ResponseBody 
+	// 응답을 내보낼 때 데이터 형식으로 내보내기
+	// 메서드의 반환값을 HTTP 응답의 본문으로 사용해야 함을 나타냅니다.
+	// 이는 반환값을 JSON 또는 XML로 변환하여 HTTP 응답으로 전송합니다.
+	@RequestMapping(value = "/uploadAjax",method=RequestMethod.POST, produces = "text/plain;charset=utf-8") 
+	//produces 있다는 것 ajax에서 데이터타입이 있어야 하는것
+	// 'produces' 속성은 메서드가 생성할 수 있는 미디어 타입을 지정합니다.
+	public ResponseEntity<String> uploadAjax(MultipartFile file) throws Exception{
 		log.info("originalName : " + file.getOriginalFilename());
 		
 		//savedName은 /2023/12/04/UUID_원본파일명을 리턴한다.
+		// savedName은 업로드된 파일의 경로를 나타내는 문자열입니다.
+		// UploadFileUtils.uploadFile 메서드를 사용하여 파일을 특정 디렉토리 (resourcePath)에 새 이름으로 저장합니다.
 		String savedName = UploadFileUtils.uploadFile(resourcePath, file.getOriginalFilename(), file.getBytes());
+		
+		// ResponseEntity는 Spring의 클래스로, HTTP 응답을 나타냅니다.
+		 // 여기서는 String 타입의 본문(savedName)과 HttpStatus.OK 상태를 갖는 ResponseEntity를 생성합니다.
 		return new ResponseEntity<String>(savedName, HttpStatus.OK);
 	
 	}

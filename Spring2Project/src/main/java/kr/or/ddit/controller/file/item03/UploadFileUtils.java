@@ -2,7 +2,6 @@ package kr.or.ddit.controller.file.item03;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.UUID;
@@ -12,13 +11,15 @@ import javax.imageio.ImageIO;
 import org.imgscalr.Scalr;
 import org.springframework.util.FileCopyUtils;
 
+
+// 파일 업로드와 함께 업로드된 이미지에 대한 썸네일 생성까지 수행하는 유틸리티 클래스
 public class UploadFileUtils {
 
-	public static String uploadFile(String uploadPath, String originalName, byte[] fileData) throws IOException {
+	public static String uploadFile(String uploadPath, String originalName, byte[] fileData) throws Exception {
 		// UUID 생성
 		UUID uuid = UUID.randomUUID();
 		
-		// UUID_원본파일명
+		// UUID_원본파일명 형식으로 저장할 파일명 생성
 		String savedName = uuid.toString() + "_" + originalName;
 		
 		// 2023/12/04 폴더 경로를 만들고, /2023/12/04 폴더 경로를 리턴한다.
@@ -58,12 +59,27 @@ public class UploadFileUtils {
 		BufferedImage destImg = Scalr.resize(sourceImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, 100);
 		
 		// 업로드 한 원본 이미지를 가지고 's_'를 붙여서 임시 파일로 만들기 위해 썸네일 경로 + 파일명을 작성한다.
+		// uploadPath는 업로드된 파일이 저장된 기본 경로, 
+		// path는 년/월/일 형식의 하위 경로, 
+		// File.separator는 파일 경로의 구분자 (슬래시 또는 역슬래시)를 의미합니다. 
+		// 따라서 thumbnailName은 썸네일 파일의 전체 경로를 나타냅니다. 
+		// "s_" + fileName은 썸네일 파일명에 's_'를 붙인 것입니다.
 		String thumnailName = uploadPath + path + File.separator + "s_" + fileName;
 		
+		
+		// File 클래스를 사용하여 위에서 생성한 경로로 newfile이라는 객체를 만듭니다. 
+		// 이 객체는 실제로 파일을 나타냅니다.
 		File newfile = new File(thumnailName);
+		
+		// 파일명에서 확장자를 추출한다.
+		// fileName에서 마지막 점 (.) 이후의 문자열을 추출하여 확장자를 얻습니다. 
+		// 이것은 나중에 이미지를 저장할 때 사용됩니다.
 		String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
 		
 		// 's_'가 붙은 썸네일 이미지를 만든다.
+		// ImageIO.write 메서드를 사용하여 destImg (썸네일 이미지)를 파일로 저장합니다. 
+		// 여기서 formatName.toUpperCase()는 이미지의 확장자를 대문자로 변환하여 사용합니다. 
+		// 이를 통해 이미지 포맷에 따라 올바른 파일 확장자를 사용할 수 있습니다.
 		ImageIO.write(destImg, formatName.toUpperCase(), newfile);
 		
 	}

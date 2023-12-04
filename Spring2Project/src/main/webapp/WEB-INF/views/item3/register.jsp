@@ -83,7 +83,29 @@ $(function(){
 			processData : false,
 			contentType : false, 
 			success : function(data){
-				console.log(data); // 넘어온 결과를 테스트로 출력				
+				console.log(data); // 넘어온 결과를 테스트로 출력
+				
+				var str = ""; 
+				
+				if(checkImageType(data)){ //이미지면 이미지 태그를 이용하여 출력
+					str += "<div>";
+					str += "	<a href='/item3/displayFile?fileName=" + data + "'>";
+					str += "		<img src='/item3/displayFile?fileName=" + getThumnailName(data) + "'/>";
+					str += "	</a>";
+					str += "	<span></span>";
+					str += "</div>";
+					
+				}else{	// 파일이면 파일명에 대한 링크로만 출력
+					str += "<div>";
+					str += "	<a href='/item3/displayFile?fileName=" + data + "'>" + getOriginalName(data) + "</a>";
+					str += "	<span></span>";
+					str += "</div>";
+					
+				}
+				
+				// uploadedList class안에 추가
+				$("uploadedList.").append(str);
+				
 			}
 			
 		});
@@ -91,8 +113,34 @@ $(function(){
 		
 	});
 	
+	//임시 파일로 썸네일 이미지 만들기
+	function getThumnailName(fileName){
+		var front = fileName.substr(0,12); // 2023/12/04 폴더 경로
+		var end = fileName.substr(12); // 뒤 파일명
+		
+		console.log("front : " + front);
+		console.log("end : " + end);
+		
+		return front + "s_" + end;
+	}
+	
+	// 파일명 추출(원본 파일명)
+	function getOriginalName(fileName){
+		if(checkImageType(fileName)){ // 이미지 파일일 때 리턴
+			return;
+		}
+		
+		var idx = fileName.indexOf("_") + 1;
+		return fileName.substr(idx);
+		
+	}
 	
 	
+	// 이미지 파일인지 검증
+	function checkImageType(fileName){
+		var pattern = /jpg|gif|png|jpeg/i;
+		return fileName.match(pattern); //패턴과 일치하면 true(너 이미지가 맞구나?)
+	}
 	
 	
 });
