@@ -1,10 +1,15 @@
 package kr.or.ddit.controller.file.item03;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.io.IOUtils;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -78,6 +83,44 @@ public class FileUploadController03 {
 		 // 여기서는 String 타입의 본문(savedName)과 HttpStatus.OK 상태를 갖는 ResponseEntity를 생성합니다.
 		return new ResponseEntity<String>(savedName, HttpStatus.OK);
 	
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/displayFile", method=RequestMethod.GET)
+	public ResponseEntity<byte[]> display(String fileName) throws Exception{
+		InputStream in = null;
+		ResponseEntity<byte[]> entity = null;
+		
+		log.info("fileName : " + fileName);
+		
+		try {
+			String formatName = fileName.substring(fileName.lastIndexOf(".") +1);
+			MediaType mType =  MediaUtils.getMediaType(formatName);
+			HttpHeaders headers = new HttpHeaders();
+			in = new FileInputStream(resourcePath + fileName);
+			
+			if(mType != null) { //이미지 파일 일 때
+				headers.setContentType(mType);
+				
+			}else { // 이미지 파일이 아닐 때
+				fileName = fileName.substring(fileName.indexOf("_") + 1);
+				headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+				headers.add("Content-Disposition", "attachment; filename=\""+
+						new String(fileName.getBytes("UTF-8"), "ISO-8859-1") + "\"");
+
+			}
+			
+			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+		} finally {
+			in.close(); //오류나면 throws 설정
+		}
+		return entity;
+		
 	}
 	
 	
