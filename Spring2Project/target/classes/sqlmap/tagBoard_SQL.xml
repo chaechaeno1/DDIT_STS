@@ -5,21 +5,21 @@
   <mapper namespace="kr.or.ddit.mapper.ITagBoardMapper">
   
   
-   <!--  <resultMap type="tagBoardVO" id="tagBoardMap">
-  		<id property="boNo" column="bo_no"/> 프라이머리 키 명시
-  		<result property="boNo" column="bo_no"/> 동일한 데이터임을 명시
+    <resultMap type="tagBoardVO" id="tagBoardMap">
+  		<id property="boNo" column="bo_no"/> 
+  		<result property="boNo" column="bo_no"/> 
   		<result property="boTitle" column="bo_title"/> 
   		<result property="boContent" column="bo_content"/> 
   		<result property="boWriter" column="bo_writer"/> 
   		<result property="boDate" column="bo_date"/> 
   		<result property="boHit" column="bo_hit"/> 
-  		<collection property="tagList" resultMap="tagMap"/> list 
+  		<collection property="tagList" resultMap="tagMap"/> 
   	</resultMap>
   	
   	<resultMap type="tagVO" id="tagMap">
   		<result property="boNo" column="bo_no"/>
   		<result property="tagName" column="tag"/>
-  	</resultMap> -->
+  	</resultMap> 
   
   
 
@@ -96,21 +96,21 @@
   </update>
 
   
-<!--   <select id="selectTagBoard" parameterType="int" resultType="tagBoardMap">
+   <select id="selectTagBoard" parameterType="int" resultMap="tagBoardMap">
   		select
 			b.bo_no, bo_title, bo_content, bo_writer, bo_date, bo_hit, tag
 		from tagboard b left outer join tag bt on(b.bo_no = bt.bo_no)
 		where b.bo_no = #{boNo}
   
-  </select>   -->
+  </select>   
   
-  <select id="selectTagBoard" parameterType="int" resultType="tagBoardVO">
+<!--   <select id="selectTagBoard" parameterType="int" resultType="tagBoardVO">
   		select
 			bo_no, bo_title, bo_content, bo_writer, bo_date, bo_hit
 		from tagboard
 		where bo_no = #{boNo}
   
-  </select>  
+  </select>   -->
 
   
   <!-- 수정 -->
