@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.or.ddit.vo.crud.PaginationInfoVO;
 import kr.or.ddit.vo.test.TagBoardVO;
+import kr.or.ddit.vo.test.TagVO;
 
 public interface ITagBoardMapper {
 
@@ -20,6 +21,8 @@ public interface ITagBoardMapper {
 	public int updateTagBoard(TagBoardVO tagBoardVO);
 
 	public int deleteTagBoard(int boNo);
+
+	public int insertTag(TagVO tagVO);
 
 
 }

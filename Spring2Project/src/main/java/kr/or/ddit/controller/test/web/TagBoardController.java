@@ -20,6 +20,7 @@ import kr.or.ddit.vo.Board;
 import kr.or.ddit.vo.crud.NoticeVO;
 import kr.or.ddit.vo.crud.PaginationInfoVO;
 import kr.or.ddit.vo.test.TagBoardVO;
+import kr.or.ddit.vo.test.TagVO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -132,6 +133,13 @@ public class TagBoardController {
 	@RequestMapping(value = "/update.do", method=RequestMethod.GET)
 	public String tagBoardUpdateForm(int boNo, Model model) {
 		TagBoardVO tagBoardVO = service.selectTagBoard(boNo);
+		List<TagVO> tagList = tagBoardVO.getTagList();
+		String tag = "";
+		for (int i = 0; i < tagList.size(); i++) {
+			tag += tagList.get(i).getTagName() + " ";
+		}
+		tagBoardVO.setTag(tag);
+		
 		model.addAttribute("tagBoardVO", tagBoardVO);
 		model.addAttribute("status", "u"); // '수정입니다' flag
 		return "test/form";

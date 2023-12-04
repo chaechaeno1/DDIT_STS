@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%-- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 
     		<section class="py-1 text-center container">
 			<div class="row py-lg-4">
@@ -19,10 +19,13 @@
 						<form id="quickForm" novalidate="novalidate">
 							<div class="card-body">${tagBoardVO.boContent }</div>
 							<div class="card-body">
-								<span class="badge bg-success">태그들</span>
-<%-- 									 <c:forEach var="tag" items="${tagBoardVO.tagList}">
-							            #${tag.tagName} <!-- 태그 출력 -->
-							        </c:forEach> --%>
+								
+									<c:if test="${!empty tagBoardVO.tagList }">
+										<c:forEach items="${tagBoardVO.tagList }" var="tag">
+											<span class="badge bg-success">#${tagVO.tagName }</span>&nbsp;
+										</c:forEach>
+									</c:if>
+								
 							</div>
 							
 							<div class="card-footer">

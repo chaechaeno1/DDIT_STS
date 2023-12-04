@@ -33,7 +33,7 @@
 							</div>
 							<div class="input-group input-group-lg">
 								<span class="input-group-text" id="inputGroup-sizing-lg">태그</span>
-								<input type="text" class="form-control" name="tag" value=""/> <!-- name="tag"가 아니면 오류남-->
+								<input type="text" class="form-control" name="tag" value="${tagBoardVO.tag }"/> <!-- name="tag"가 아니면 오류남-->
 							</div>
 						</div>
 						<div class="card-footer" align="right">
@@ -57,6 +57,7 @@
 <script type="text/javascript">
 $(function(){
 
+	CKEDITOR.replace("boContent");
 
 	var dditboard = $("#dditboard"); //등록 폼 element
 	var registerBtn = $("#registerBtn"); // 등록 버튼 element
@@ -67,10 +68,10 @@ $(function(){
 	registerBtn.on("click",function(){
 		var title = $("#boTitle").val();
 		//일반적인 textarea 일때 가져오는 방법
-		var content = $("#boContent").val();	//내용 값
+		//var content = $("#boContent").val();	//내용 값
 		
 		//CKEDITOR를 이용한 내용 데이터 가져오는 방법
-		//var content = CKEDITOR.instances.boContent.getData();	//내용 값
+		var content = CKEDITOR.instances.boContent.getData();	//내용 값
 		
 		if(title == null || title == ""){
 			alert("제목을 입력해주세요!");

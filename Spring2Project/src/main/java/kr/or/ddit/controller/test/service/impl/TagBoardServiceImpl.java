@@ -37,9 +37,35 @@ public class TagBoardServiceImpl implements ITagBoardService {
 	@Override
 	public ServiceResult insertTagBoard(TagBoardVO tagBoardVO) {
 		ServiceResult result = null;
-		int status = mapper.insertTagBoard(tagBoardVO);
+		// 게시물 추가
+	    int status = mapper.insertTagBoard(tagBoardVO);
+
 		if(status > 0) { //등록 성공
-			result = ServiceResult.OK;
+			// 생성된 게시물 번호를 가져옴
+	        int boNo = tagBoardVO.getBoNo();	
+	        // 태그를 분리하고 각각의 태그를 TagVO에 추가
+	        String[] tags = tagBoardVO.getTag().split(" ");
+			
+	        for(String tag : tags) {
+	        	TagVO tagVO = new TagVO();
+	            tagVO.setBoNo(boNo);
+	            tagVO.setTagName(tag);
+	            
+	            // 각 태그를 추가
+	            int tagStatus = mapper.insertTag(tagVO);
+	            
+	            if (tagStatus <= 0) {
+	                // 태그 추가 실패 시 처리 (선택 사항)
+	                // 필요한 경우 여기에서 게시물 추가를 롤백할 수 있습니다
+	                result = ServiceResult.FAILED;
+	                break;
+	            }
+
+	        }
+	        
+	        if (result == null) {
+	            result = ServiceResult.OK;
+	        }
 		}else { //등록 실패
 			result = ServiceResult.FAILED;	
 		}
@@ -56,6 +82,12 @@ public class TagBoardServiceImpl implements ITagBoardService {
 
 	@Override
 	public ServiceResult updateTagBoard(TagBoardVO tagBoardVO) {
+		mapper.updateTagBoard(tagBoardVO);
+		//mapper.deleteTag(tagBoardVO.getBoNo());
+		
+		
+		int boNo = tagBoardVO.getBoNo();
+		
 		ServiceResult result= null;
 		int status = mapper.updateTagBoard(tagBoardVO);
 		if(status >0) { //등록 성공

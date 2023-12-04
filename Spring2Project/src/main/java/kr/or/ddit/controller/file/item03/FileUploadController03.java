@@ -3,8 +3,10 @@ package kr.or.ddit.controller.file.item03;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import javax.annotation.Resource;
+import javax.inject.Inject;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.http.HttpHeaders;
@@ -12,11 +14,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.or.ddit.service.IItemService3;
+import kr.or.ddit.vo.Item3;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -43,7 +49,40 @@ public class FileUploadController03 {
 	 * 			- 파일 업로드 등록 화면 만들기 (item3/register.jsp)
 	 * 			- 여기까지 확인
 	 * 
-	 * 			- 
+	 * 			- 파일 업로드 등록 기능 컨트롤러 메소드 만들기 (item3register.post)
+	 * 			- 파일 업로드 등록 기능 서비스 인터페이스 메소드 만들기
+	 * 			- 파일 업로드 등록 기능 서비스 클래스 메소드 만들기
+	 * 			- 파일 업로드 등록 기능 Mapper 인터페이스 메소드 만들기
+	 * 			- 파일 업로드 등록 기능 Mapper xml 쿼리 만들기
+	 * 			- 파일 업로드 등록 완료 페이지 만들기
+	 * 			- 여기까지 확인
+	 * 
+	 * 			- 파일 업로드 목록 화면 컨트롤러 메소드 만들기 (item3List:get)
+	 * 			- 파일 업로드 목록 화면 서비스 인터페이스 메소드 만들기
+	 * 			- 파일 업로드 목록 화면 서비스 클래스 메소드 만들기
+	 * 			- 파일 업로드 목록 화면 Mapper 인터페이스 메소드 만들기
+	 * 			- 파일 업로드 목록 화면 Mapper xml 쿼리 만들기
+	 * 			- 파일 업로드 목록 화면 만들기(item3/list.jsp)
+	 * 			- 여기까지 확인
+	 * 
+	 * 			- 파일 업로드 수정화면 컨트롤러 메소드 만들기 (item3ModifyForm:get)
+	 * 			- 파일 업로드 수정 화면 서비스 인터페이스 메소드 만들기
+	 * 			- 파일 업로드 수정 화면 서비스 클래스 메소드 만들기
+	 * 			- 파일 업로드 수정 화면  Mapper 인터페이스 메소드 만들기
+	 * 			- 파일 업로드 수정 화면 Mapper xml 쿼리 만들기
+	 * 			- 파일 업로드 수정 화면 만들기 (item3/modify.jsp)
+	 * 			- 여기까지 확인
+	 * 
+	 * 			- 파일 업로드 수정 기능 컨트롤러 메소드 만들기 (item3Modify:post)
+	 * 			- 파일 업로드 수정 기능 서비스 인터페이스 메소드 만들기
+	 * 			- 파일 업로드 수정 기능 서비스 클래스 메소드 만들기
+	 * 			- 파일 업로드 수정 기능 Mapper 인터페이스 메소드 만들기
+	 * 			- 파일 업로드 수정 기능 Mapper xml 쿼리 만들기
+	 * 			- 여기까지 확인
+	 * 
+	 * 
+	 * 
+	 * 
 	 * 
 	 * 
 	 * 
@@ -55,6 +94,9 @@ public class FileUploadController03 {
 	@Resource(name="uploadPath")
 	private String resourcePath;
 	
+	@Inject 
+	private IItemService3 itemService;
+	
 
 	@RequestMapping(value = "/register", method=RequestMethod.GET)
 	public String item3RegisterForm() {
@@ -62,7 +104,60 @@ public class FileUploadController03 {
 		
 	}
 	
+	@RequestMapping(value = "/register", method=RequestMethod.POST)
+	public String item3Register(Item3 item, Model model) {
+		
+		//파일 정보 처리
+		
+		//HTTP 요청으로부터 받은 Item3 객체에서 파일 정보를 추출합니다.
+		//배열 files에는 전송된 파일의 이름들이 들어 있습니다.
+		String[] files = item.getFiles();
+		
+		for(int i = 0; i <files.length; i++) {
+			log.info("files["+i+"] : " + files[i]);
+		}
+		
+		//아이템 등록 및 뷰로 이동
+		itemService.register(item);
+		model.addAttribute("msg", "등록이 완료되었습니다.");
+		return "item3/success";
+		
+	}
 	
+	@RequestMapping(value = "/list", method=RequestMethod.GET)
+	public String item3List(Model model) {
+		List<Item3> itemList = itemService.list();
+		model.addAttribute("itemList", itemList);
+		return "item3/list";
+		
+	}
+	
+	@RequestMapping(value = "/modify", method = RequestMethod.GET)
+	public String item3ModifyForm(int itemId, Model model) {
+		Item3 item =  itemService.read(itemId);
+		model.addAttribute("item", item);
+		return "item3/modify";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/getAttach/{itemId}", method = RequestMethod.GET)
+	public List<String> getAttach(@PathVariable("itemId") int itemId){
+		log.info("itemId : "+ itemId);
+		
+		//item3_attach 테이블에서 fullname 추출
+		//itemId 하나에 들어있는 파일들 (여러개가 될 수 있음)
+		return itemService.getAttach(itemId);
+		/*
+		 * select fullname 
+		 * from item3_attach 
+		 * where item_id = #{itemId} 
+		 * order by regdatedesc
+		 */
+	
+		
+	}
+	
+
 	//AJAX를 통한 파일 업로드 처리
 	@ResponseBody 
 	// 응답을 내보낼 때 데이터 형식으로 내보내기

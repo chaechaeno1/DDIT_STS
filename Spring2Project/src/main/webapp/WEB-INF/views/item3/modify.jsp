@@ -13,16 +13,17 @@
 <body>
 
 
-	<h2>REGISTER</h2>
-	<form id="item" action="/item3/register" method="post" enctype="multipart/form-data">
+	<h2>MODIFY</h2>
+	<form id="item" action="/item3/modify" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="itemId" value="${item.itemId }"/>
 		<table border="1">
 			<tr>
 				<td>상품명</td>
-				<td><input type="text" name="itemName" id="itemName"/></td>
+				<td><input type="text" name="itemName" id="itemName" value="${item.itemName }"/></td>
 			</tr>
 			<tr>
 				<td>가격</td>
-				<td><input type="text" name="price" id="price"/></td>
+				<td><input type="text" name="price" id="price" value="${item.price }"/></td>
 			</tr>
 			<tr>
 				<td>파일</td>
@@ -34,12 +35,12 @@
 			<tr>
 				<td>개요</td>
 				<td>
-					<textarea rows="10" cols="30" name="description"></textarea>
+					<textarea rows="10" cols="30" name="description">${item.description}</textarea>
 				</td>
 			</tr>
 		</table>
 		<div>
-			<button type="submit" id="registerBtn">Register</button>
+			<button type="submit" id="modifyBtn">Modify</button>
 			<button type="button" id="listBtn">List</button>
 		</div>
 		
@@ -144,6 +145,55 @@ $(function(){
 		
 		
 	});
+	
+	
+	/* modify에서 추가 */
+	
+	var itemId = "${item.itemId}";
+	console.log("itemId : "+ itemId);
+	
+	
+	//수정을 하러 들어왔을 때 기존에 업로드했던 파일들의 정보를 가지고 uploadedList안에 내용을 출력한다.
+	//이 코드는 JavaScript 및 jQuery를 사용하여 AJAX(비동기 JavaScript 및 XML) 요청을 수행하고 
+	// 특정 아이템 ID(itemId)에 관련된 항목 목록을 가져오는 작업을 수행합니다. 
+	// 그런 다음 코드는 수신된 목록을 처리하고 각 항목의 유형에 따라 HTML 내용을 업데이트합니다.
+	
+	//이 줄은 AJAX GET 요청을 사용하여 /item3/getAttach/ 엔드포인트로 서버에 아이템 ID를 추가하여 요청합니다.
+	//서버는 JSON 데이터로 응답해야하며(@ResponseBody), 그런 다음 콜백 함수에서 이 데이터를 처리합니다.
+	$.getJSON("/item3/getAttach/" + itemId, function(list){
+		//each 함수는 수신된 list의 각 항목을 반복하는 데 사용
+		$(list).each(function(){
+			console.log("processing...!");
+			
+			//루프 내에서 현재 항목은 data 변수에 할당됩니다.
+			var data = this;
+			var str = "";
+			if(checkImageType(data)){ //이미지면 이미지 태그를 이용하여 출력
+				str += "<div>";
+				str += "	<a href='/item3/displayFile?fileName=" + data + "'>";
+				str += "		<img src='/item3/displayFile?fileName=" + getThumnailName(data) + "'/>";
+				str += "	</a>";
+				str += "	<span>X</span>";
+				str += "</div>";
+				
+			}else{	// 파일이면 파일명에 대한 링크로만 출력
+				str += "<div>";
+				str += "	<a href='/item3/displayFile?fileName=" + data + "'>" + getOriginalName(data) + "</a>";
+				str += "	<span>X</span>";
+				str += "</div>";
+				
+			}
+			
+			// uploadedList class안에 추가
+			// 생성된 HTML(str)을 uploadedList 클래스를 가진 요소에 추가합니다. 
+			// 이것이 웹페이지에 콘텐츠가 표시되는 위치입니다.
+			$(".uploadedList").append(str);
+		});
+		
+	}); //getJSON 끝
+	
+	
+	
 	
 	
 	

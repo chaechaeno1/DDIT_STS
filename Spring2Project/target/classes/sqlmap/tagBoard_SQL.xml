@@ -130,6 +130,20 @@
 	  	where bo_no = #{boNo}
   </delete>  
   
+  
+  <!-- 태그 등록 -->
+  
+  	<insert id="insertTag" parameterType="tagVO">
+	insert into tag (
+		bo_no,
+		tag
+	) values (
+		#{boNo}, 
+		#{tagName} 
+	)
+	</insert>
+  
+  
 	  	
 
 	  	  	
