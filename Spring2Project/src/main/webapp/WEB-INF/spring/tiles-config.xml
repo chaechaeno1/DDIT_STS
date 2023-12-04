@@ -1,23 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
-
-
 
 <tiles-definitions>
 
-	<definition name="mainTemplate" template="/WEB-INF/views/mainTemplate.jsp">
+	 <definition name="mainTemplate" template="/WEB-INF/views/mainTemplate.jsp">
 		<put-attribute name="header" value="/WEB-INF/views/tiles/header.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/views/tiles/footer.jsp"/>
 		
-	</definition>
+	</definition> 
 	
 	<!-- 위에서 만든 definition을 extends로 가져와서 쓰는 것 -->
 	<!-- 동적으로 계속 바뀌어야 하는 구조가 생겨야함 -->
 	<!-- notice/* -> list, detail, form 이 '*' 자리에 들어오고 {1}에 매핑되어야 함. 페이지 정보!!!-->
 	<!-- {1} 안에 1은 *(아스트릭스)의 갯수를 의미함 -->
-	<definition name="notice/*" extends="mainTemplate">
+  	<definition name="notice/*" extends="mainTemplate">
 		<put-attribute name="content" value="/WEB-INF/views/noticeboard/{1}.jsp"/>
+	</definition> 
+	
+	 
+	
+	<!-- tag board test -->
+	
+	<definition name="mainTemplate2" template="/WEB-INF/views/mainTemplate2.jsp">		
+	</definition>
+	
+	
+	<definition name="test/*" extends="mainTemplate2">
+		<put-attribute name="content2" value="/WEB-INF/views/test/{1}.jsp"/>
 	</definition>
 
 </tiles-definitions>
+

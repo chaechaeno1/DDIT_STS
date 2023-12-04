@@ -26,6 +26,8 @@
   			
   			<typeAlias type="kr.or.ddit.vo.Item" alias="item"/>
   			<typeAlias type="kr.or.ddit.vo.Item2" alias="item2"/>
+  			<typeAlias type="kr.or.ddit.vo.test.TagBoardVO" alias="tagBoardVO"/>
+  			<typeAlias type="kr.or.ddit.vo.test.TagVO" alias="tagVO"/>
   		</typeAliases>
   	
   </configuration>

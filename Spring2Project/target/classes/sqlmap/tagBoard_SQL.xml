@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="kr.or.ddit.mapper.ITagBoardMapper">
+  
+  
+   <!--  <resultMap type="tagBoardVO" id="tagBoardMap">
+  		<id property="boNo" column="bo_no"/> 프라이머리 키 명시
+  		<result property="boNo" column="bo_no"/> 동일한 데이터임을 명시
+  		<result property="boTitle" column="bo_title"/> 
+  		<result property="boContent" column="bo_content"/> 
+  		<result property="boWriter" column="bo_writer"/> 
+  		<result property="boDate" column="bo_date"/> 
+  		<result property="boHit" column="bo_hit"/> 
+  		<collection property="tagList" resultMap="tagMap"/> list 
+  	</resultMap>
+  	
+  	<resultMap type="tagVO" id="tagMap">
+  		<result property="boNo" column="bo_no"/>
+  		<result property="tagName" column="tag"/>
+  	</resultMap> -->
+  
+  
+
+ 	 <!-- 추가 -->
+  	<sql id="tagBoardSearch">
+  		<if test="searchType != null and searchType == 'title'">
+  			and (bo_title like '%' || #{searchWord}|| '%')
+  		</if>
+  		<if test="searchType != null and searchType == 'writer'">
+  			and (bo_writer like '%' || #{searchWord}|| '%')
+  		</if>
+  		 <if test="searchType != null and searchType == 'both'">
+        and ((bo_title like '%' || #{searchWord}|| '%') or (bo_writer like '%' || #{searchWord}|| '%'))
+   		</if>
+  	</sql>
+  	
+  
+  <select id="selectTagBoardCount" parameterType="pagingVO" resultType="int">
+  	select count(bo_no) from tagboard
+  	where 1=1
+  	<include refid="tagBoardSearch"/> <!-- 추가 --> 
+  </select>
+  
+ 
+  <select id="selectTagBoardList" parameterType="pagingVO" resultType="tagBoardVO">
+	select
+		b.*
+	from(
+		select
+			a.*, row_number() over (order by a.bo_no desc) rnum
+		from(
+		  	select
+		  		bo_no, bo_title, bo_content, bo_writer, bo_date, bo_hit
+		  	from tagboard
+		  	where 1=1
+		  	<include refid="tagBoardSearch"/> <!-- 추가 -->
+		  	order by bo_no desc
+	  		) a
+	  	) b	
+	  <![CDATA[
+	  	where b.rnum >= #{startRow} and b.rnum <= #{endRow}
+	  ]]>
+  </select>
+  
+  
+    <insert id="insertTagBoard" parameterType="tagBoardVO" useGeneratedKeys="true">
+  	<selectKey keyProperty="boNo" resultType="int" order="BEFORE">
+  		select seq_tagboard.nextval from dual
+  	</selectKey>
+  	insert into tagboard(
+  		bo_no, bo_title, bo_content, bo_writer, bo_date, bo_hit
+  	) values (
+  		#{boNo}, #{boTitle}, #{boContent}, #{boWriter}, sysdate, 0
+  	)
+  </insert>
+  
+  
+  	<!-- tagBoard 테이블에 데이터가 등록되지 않고서는 실행이 안되는 구조로 되어있음 -->
+  	<insert id="tag" parameterType="tagVO">
+  		insert into tagVO(
+  			bo_no, tag
+  		) values (
+  			#{boNo}, #{tagName}
+  		)
+  	</insert>  
+  
+
+   <!-- 조회수 증가 -->
+  <update id="incrementHit" parameterType="int">
+	  	update tagboard
+	  	set
+	  		bo_hit=bo_hit+1
+	  	where bo_no = #{boNo}
+  </update>
+
+  
+<!--   <select id="selectTagBoard" parameterType="int" resultType="tagBoardMap">
+  		select
+			b.bo_no, bo_title, bo_content, bo_writer, bo_date, bo_hit, tag
+		from tagboard b left outer join tag bt on(b.bo_no = bt.bo_no)
+		where b.bo_no = #{boNo}
+  
+  </select>   -->
+  
+  <select id="selectTagBoard" parameterType="int" resultType="tagBoardVO">
+  		select
+			bo_no, bo_title, bo_content, bo_writer, bo_date, bo_hit
+		from tagboard
+		where bo_no = #{boNo}
+  
+  </select>  
+
+  
+  <!-- 수정 -->
+  
+  <update id="updateTagBoard" parameterType="tagBoardVO">
+	  	update tagboard
+	  	set
+	  		bo_title=#{boTitle},
+	  		bo_content=#{boContent}
+	  	where bo_no = #{boNo}	
+  </update>
+  
+  <!-- 삭제 -->
+  
+  <delete id="deleteTagBoard" parameterType="int">
+	  	delete from tagboard
+	  	where bo_no = #{boNo}
+  </delete>  
+  
+	  	
+
+	  	  	
+	  	
+  
+ 
+  </mapper>
