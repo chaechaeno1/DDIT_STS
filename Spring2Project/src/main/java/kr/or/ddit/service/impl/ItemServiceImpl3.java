@@ -51,6 +51,36 @@ public class ItemServiceImpl3 implements IItemService3 {
 		return mapper.getAttach(itemId);
 	}
 
+	@Override
+	public void modify(Item3 item) {
+		// 일반데이터를 업데이트
+		mapper.update(item);
+
+		// itemId에 해당하는 모든 데이터를 삭제
+		int itemId = item.getItemId();
+		mapper.deleteAttach(itemId);
+		
+		// 넘겨 받은 fileName 정보 즉, 넘겨받은 수정해야할 파일 데이터를 추가
+		
+		String[] files =  item.getFiles();
+		
+		if(files == null) {
+			return;
+			
+		}
+		
+		for(String fileName : files) {
+			mapper.replaceAttach(fileName, itemId);
+		}
+		
+	}
+
+	@Override
+	public void remove(int itemId) {		
+		mapper.deleteAttach(itemId);
+		mapper.delete(itemId);
+	}
+
 	
 	
 	

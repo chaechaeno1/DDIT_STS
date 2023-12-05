@@ -21,7 +21,7 @@
 							<div class="card-body">
 								
 									<c:if test="${!empty tagBoardVO.tagList }">
-										<c:forEach items="${tagBoardVO.tagList }" var="tag">
+										<c:forEach items="${tagBoardVO.tagList }" var="tagVO">
 											<span class="badge bg-success">#${tagVO.tagName }</span>&nbsp;
 										</c:forEach>
 									</c:if>

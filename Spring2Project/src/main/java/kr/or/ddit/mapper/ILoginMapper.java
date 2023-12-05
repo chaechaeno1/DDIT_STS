@@ -1,0 +1,11 @@
+package kr.or.ddit.mapper;
+
+import kr.or.ddit.vo.crud.NoticeMemberVO;
+
+public interface ILoginMapper {
+
+	public NoticeMemberVO loginCheck(NoticeMemberVO member);
+
+	public NoticeMemberVO idCheck(String memId);
+
+}

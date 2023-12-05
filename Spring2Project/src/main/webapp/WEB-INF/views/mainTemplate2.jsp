@@ -13,6 +13,7 @@
 <title>DDIT BOARD TAG TEST</title>
 <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/album/">
 <link href="${pageContext.request.contextPath}/resources/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
 <style>
 .bd-placeholder-img {
 	font-size: 1.125rem;

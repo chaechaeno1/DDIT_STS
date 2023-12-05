@@ -96,6 +96,7 @@ public class TagBoardController {
 			model.addAttribute("tagBoardVO", tagBoardVO);
 			goPage = "test/form";	
 			
+			
 		}else {	//에러가 없을 때
 			//로그인 처리를 하지 않고 게시글을 작성 하므로 작성자를 하드코딩한다.
 			tagBoardVO.setBoWriter("a001");

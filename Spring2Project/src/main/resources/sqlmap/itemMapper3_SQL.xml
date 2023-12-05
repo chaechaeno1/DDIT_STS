@@ -52,6 +52,43 @@
 	   	order by regdate desc  
    </select>
    
+   
+   
+   
+   <update id="update" parameterType="item3">
+   	update item3
+   	set
+   		item_name = #{itemName},
+   		price = #{price},
+   		description = #{description}
+   	where item_id = #{itemId}
+   
+   </update>
+   
+   
+   <delete id="deleteAttach" parameterType="int">
+   		delete from item3_attach
+   		where item_id = #{itemId}
+   </delete>
+   
+   
+   <!-- 여러 개의 파라미터 값을 받을 경우 parameterType 생략, 단 Mapper에서 @Param 어노테이션 설정해주어야함 -->
+   <insert id="replaceAttach">
+   		insert into item3_attach(
+   			fullname, item_id, regdate
+   		) values(
+   			#{fileName}, #{itemId}, sysdate
+   		)		
+   </insert>
+   
+   
+   <delete id="delete" parameterType="int">
+	   	delete from item3
+	   	where item_id = #{itemId}
+   
+   </delete>
+   
+   
   
   	
   	

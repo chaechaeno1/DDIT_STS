@@ -33,7 +33,7 @@
 							</div>
 							<div class="input-group input-group-lg">
 								<span class="input-group-text" id="inputGroup-sizing-lg">태그</span>
-								<input type="text" class="form-control" name="tag" value="${tagBoardVO.tag }"/> <!-- name="tag"가 아니면 오류남-->
+								<input type="text" class="form-control" name="tag" value="${tagBoardVO.tag}"/> <!-- name="tag"가 아니면 오류남-->
 							</div>
 						</div>
 						<div class="card-footer" align="right">
@@ -49,8 +49,6 @@
 				</div>
 			</form>
 		</section>   
-		
-		
 		
 		
 		

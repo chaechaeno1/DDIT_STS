@@ -7,8 +7,10 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import kr.or.ddit.ServiceResult;
+import kr.or.ddit.mapper.ILoginMapper;
 import kr.or.ddit.mapper.INoticeMapper;
 import kr.or.ddit.service.INoticeService;
+import kr.or.ddit.vo.crud.NoticeMemberVO;
 import kr.or.ddit.vo.crud.NoticeVO;
 import kr.or.ddit.vo.crud.PaginationInfoVO;
 
@@ -17,6 +19,8 @@ public class NoticeServiceImpl implements INoticeService {
 
 	@Inject
 	private INoticeMapper noticeMapper;
+	@Inject
+	private ILoginMapper loginMapper;
 	
 	@Override
 	public int selectNoticeCount(PaginationInfoVO<NoticeVO> pagingVO) {
@@ -71,6 +75,24 @@ public class NoticeServiceImpl implements INoticeService {
 		}else {//등록 실패
 			result = ServiceResult.FAILED;
 			
+		}
+		
+		return result;
+	}
+
+	@Override
+	public NoticeMemberVO loginCheck(NoticeMemberVO member) {		
+		return loginMapper.loginCheck(member);
+	}
+
+	@Override
+	public ServiceResult idCheck(String memId) {
+		ServiceResult result = null;
+		NoticeMemberVO member = loginMapper.idCheck(memId);
+		if(member != null) {
+			result = ServiceResult.EXIST;
+		}else {
+			result = ServiceResult.NOTEXIST;
 		}
 		
 		return result;

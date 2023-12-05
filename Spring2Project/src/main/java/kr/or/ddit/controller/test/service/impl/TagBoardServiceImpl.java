@@ -80,29 +80,58 @@ public class TagBoardServiceImpl implements ITagBoardService {
 		return mapper.selectTagBoard(boNo);	// 게시글 번호에 해당하는 게시글 정보 가져오기
 	}
 
+	// 수정
 	@Override
 	public ServiceResult updateTagBoard(TagBoardVO tagBoardVO) {
+		ServiceResult result= null;
+		
+		//업데이트 및 기존 태그 삭제 
 		mapper.updateTagBoard(tagBoardVO);
-		//mapper.deleteTag(tagBoardVO.getBoNo());
+		mapper.deleteTag(tagBoardVO.getBoNo());
 		
 		
 		int boNo = tagBoardVO.getBoNo();
 		
-		ServiceResult result= null;
-		int status = mapper.updateTagBoard(tagBoardVO);
-		if(status >0) { //등록 성공
-			result=ServiceResult.OK;
-		}else {//등록 실패
-			result = ServiceResult.FAILED;
-			
-		}
+		//새로운 태그 다시 추가!
+		String[] tags = tagBoardVO.getTag().split(" ");
 		
-		return result;
-	}
+		
+        for(String tag : tags) {
+        	TagVO tagVO = new TagVO();
+            tagVO.setBoNo(boNo);
+            tagVO.setTagName(tag);
+            
+            // 각 태그를 추가
+            int tagStatus = mapper.insertTag(tagVO);
+            
+            if (tagStatus <= 0) {
+                // 태그 추가 실패 시 처리 (선택 사항)
+                // 필요한 경우 여기에서 게시물 추가를 롤백할 수 있습니다
+                result = ServiceResult.FAILED;
+                break;
+            }
 
+        }
+		
+        if (result == null) {
+            result = ServiceResult.OK;
+        }
+
+        return result;
+	
+	}
+		
+		
+
+	
 	@Override
 	public ServiceResult deleteTagBoard(int boNo) {
+		// 태그삭제
+		mapper.deleteTag(boNo);
+	
 		ServiceResult result= null;
+	
+		// 게시물 삭제
 		int status = mapper.deleteTagBoard(boNo);
 		if(status >0) { //등록 성공
 			result=ServiceResult.OK;
@@ -112,7 +141,6 @@ public class TagBoardServiceImpl implements ITagBoardService {
 		}
 		
 		return result;
-
 
 	}
 	

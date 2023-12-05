@@ -15,7 +15,22 @@
 	<!-- {1} 안에 1은 *(아스트릭스)의 갯수를 의미함 -->
   	<definition name="notice/*" extends="mainTemplate">
 		<put-attribute name="content" value="/WEB-INF/views/noticeboard/{1}.jsp"/>
-	</definition> 
+	</definition>
+	
+	
+	
+	<!-- login -->
+	<definition name="loginTemplate" template="/WEB-INF/views/loginTemplate.jsp"/>
+	
+	<!-- 동적 -->
+	<definition name="conn/*" extends="loginTemplate">
+		<put-attribute name="content" value="/WEB-INF/views/noticeboard/{1}.jsp"/>
+	</definition>
+	
+	
+	
+	
+	 
 	
 	 
 	

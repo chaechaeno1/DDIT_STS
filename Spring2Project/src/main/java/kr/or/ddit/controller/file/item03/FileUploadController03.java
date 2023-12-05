@@ -80,7 +80,20 @@ public class FileUploadController03 {
 	 * 			- 파일 업로드 수정 기능 Mapper xml 쿼리 만들기
 	 * 			- 여기까지 확인
 	 * 
+	 * 			- 파일 업로드 삭제 화면 컨트롤러 메소드 만들기 (item3RemoveForm:get)
+	 * 			- 파일 업로드 삭제 화면 서비스 인터페이스 메소드 만들기
+	 * 			- 파일 업로드 삭제 화면 서비스 클래스 메소드 만들기
+	 * 			- 파일 업로드 삭제 화면  Mapper 인터페이스 메소드 만들기
+	 * 			- 파일 업로드 삭제 화면 Mapper xml 쿼리 만들기
+	 * 			- 파일 업로드 삭제 화면 만들기 (item3/remove.jsp)
+	 * 			- 여기까지 확인
 	 * 
+	 * 			- 파일 업로드 삭제 기능 컨트롤러 메소드 만들기 (item3Remove:post)
+	 * 			- 파일 업로드 삭제 기능 서비스 인터페이스 메소드 만들기
+	 * 			- 파일 업로드 삭제 기능 서비스 클래스 메소드 만들기
+	 * 			- 파일 업로드 삭제 기능 Mapper 인터페이스 메소드 만들기
+	 * 			- 파일 업로드 삭제 기능 Mapper xml 쿼리 만들기
+	 * 			- 여기까지 확인
 	 * 
 	 * 
 	 * 
@@ -137,8 +150,44 @@ public class FileUploadController03 {
 		Item3 item =  itemService.read(itemId);
 		model.addAttribute("item", item);
 		return "item3/modify";
+
+	}
+
+	
+	@RequestMapping(value = "/modify", method=RequestMethod.POST)
+	public String item3Modify(Item3 item, Model model) {
+		String[] files = item.getFiles();
+		
+		for(int i=0; i<files.length; i++) {
+			log.info("files["+i+"] : " + files[i]);
+		}
+		
+		itemService.modify(item);
+		model.addAttribute("msg", "수정이 완료되었습니다.");
+		return "item3/success";
 	}
 	
+	
+	// 삭제 화면은 미리보기의 의미만 있을 뿐...
+	@RequestMapping(value = "/remove", method = RequestMethod.GET)
+	public String item3RemoveForm(int itemId, Model model) {
+		Item3 item = itemService.read(itemId);
+		model.addAttribute("item", item);
+		return "item3/remove";
+		
+	}
+	
+	
+	@RequestMapping(value = "/remove", method=RequestMethod.POST)
+	public String item3Remove(int itemId, Model model) {
+		itemService.remove(itemId);
+		model.addAttribute("msg", "삭제가 완료되었습니다!");
+		return "item3/success";
+		
+		
+	}
+	
+
 	@ResponseBody
 	@RequestMapping(value = "/getAttach/{itemId}", method = RequestMethod.GET)
 	public List<String> getAttach(@PathVariable("itemId") int itemId){

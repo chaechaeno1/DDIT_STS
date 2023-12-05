@@ -24,5 +24,7 @@ public interface ITagBoardMapper {
 
 	public int insertTag(TagVO tagVO);
 
+	public void deleteTag(int boNo);
+
 
 }
