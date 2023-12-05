@@ -162,16 +162,17 @@ public class NoticeServiceImpl implements INoticeService {
 	
 	
 	
-	
+	// 이 메소드는 특정 보드(boNo)와 연결하여 파일 업로드를 처리합니다.
 	private void noticeFileUpload(
-			List<NoticeFileVO> noticeFileList,
-			int boNo, HttpServletRequest req
+			List<NoticeFileVO> noticeFileList, // 파일 정보 목록 (NoticeFileVO 객체들의 리스트)
+			int boNo, // 파일을 연결할 보드 번호
+			HttpServletRequest req // 서블릿 컨텍스트를 얻기 위한 HttpServletRequest 객체
 			) throws IOException {
-		String savePath = "/resources/notice/";
+		String savePath = "/resources/notice/"; // 파일이 저장될 기본 경로
 		
 		if(noticeFileList != null) { //넘겨받은 파일 데이터가 존재할 때
-			if(noticeFileList.size() > 0) {
-				for(NoticeFileVO noticeFileVO : noticeFileList) {
+			if(noticeFileList.size() > 0) { // 목록에 파일이 있는지 확인
+				for(NoticeFileVO noticeFileVO : noticeFileList) { // 각 파일에 대해 반복
 					String saveName = UUID.randomUUID().toString(); //UUID의 랜덤 파일명 생성
 					
 					//파일명을 설정할 때, 원본 파일명의 공백을 '_'로 변경한다.
@@ -180,23 +181,33 @@ public class NoticeServiceImpl implements INoticeService {
 					String endFilename = noticeFileVO.getFileName().split("\\.")[1];
 					
 					//최종 경로
+					// 서버에 파일이 저장될 실제 경로 획득
 					String saveLocate = req.getServletContext().getRealPath(savePath + boNo);
+					
+					// 디렉터리가 존재하지 않으면 생성
 					File file = new File(saveLocate);
 					if(!file.exists()) {
 						file.mkdirs();
 					}
+					
+					// 파일 이름을 포함한 완전한 파일 경로
 					saveLocate += "/" + saveName;
 					
+					 // NoticeFileVO 객체에 속성 설정
 					noticeFileVO.setBoNo(boNo);					// 게시글 번호 설정
 					noticeFileVO.setFileSavepath(saveLocate);	//파일 업로드 경로 설정
+					
+					// 데이터베이스에 파일 정보를 삽입하기 위한 메소드 호출
 					noticeMapper.insertNoticeFile(noticeFileVO);	// 게시글 파일 데이터 추가
 					
+					// 대상 파일을 나타내는 File 객체 생성
 					File saveFile = new File(saveLocate);
-					//방법1
+					
+					// 방법 1: InputStream 및 FileUtils.copyInputStreamToFile 사용
 //					InputStream is = noticeFileVO.getItem().getInputStream();
 //					FileUtils.copyInputStreamToFile(is, saveFile);
 					
-					//방법2
+					// 방법 2: MultipartFile 객체의 transferTo 메소드 사용
 					noticeFileVO.getItem().transferTo(saveFile);		//파일 복사
 					// 오류나면 throws 주기 IOException
 					
