@@ -114,6 +114,49 @@ public class NoticeLoginController {
 		return "conn/register";
 	}
 	
+	@RequestMapping(value = "/signup.do", method=RequestMethod.POST)
+	public String signup(HttpServletRequest req, NoticeMemberVO memberVO, Model model, RedirectAttributes ra) {
+		String goPage = "";
+		
+		Map<String, String> errors = new HashMap<String, String>();
+		if(StringUtils.isBlank(memberVO.getMemId())) {
+			errors.put("memId", "아이디를 입력해주세요.");
+		}
+		if(StringUtils.isBlank(memberVO.getMemPw())) {
+			errors.put("memPw", "비밀번호를 입력해주세요.");
+			
+		}
+		if(StringUtils.isBlank(memberVO.getMemName())) {
+			errors.put("memName", "이름을 입력해주세요.");
+			
+		}
+		
+		if(errors.size() > 0 ) { // 넘겨받은 데이터의 에러가 존재
+			model.addAttribute("errors", errors);
+			model.addAttribute("member", memberVO);
+			model.addAttribute("bodyText", "register-page");
+			goPage = "conn/register";
+		}else {	//정상적인 데이터를 받았을 때
+			ServiceResult result = noticeService.signup(req, memberVO);
+			if(result.equals(ServiceResult.OK)) { // 가입 성공
+				ra.addFlashAttribute("message", "회원가입을 완료하였습니다!");
+				goPage = "redirect:/notice/login.do";
+			}else {	//가입 실패
+				model.addAttribute("message", "서버에러, 다시 시도해주세요!");
+				model.addAttribute("member", memberVO);
+				model.addAttribute("bodyText", "register-page");
+				goPage = "conn/register";	
+			}
+		}
+		return goPage;
+
+	}
+
+	
+	
+	
+	
+	
 	
 	
 	

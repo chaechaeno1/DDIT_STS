@@ -59,8 +59,28 @@ alert("${message}");
 	</div>
 		
 	
-	<script src="${pageContext.request.contextPath}/resources/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-	
+	<script src="${pageContext.request.contextPath}/resources/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>	
+	<script src="${pageContext.request.contextPath}/resources/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>		
 	<script src="${pageContext.request.contextPath}/resources/dist/js/adminlte.min.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		bsCustomFileInput.init(); // 부트스트랩 openFile 이벤트 설정(템플릿 안에서 가용되는것, 반드시 정해져있는 건 아님)
+	});
+	
+	</script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

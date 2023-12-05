@@ -19,8 +19,19 @@
   		mem_no, mem_id, mem_pw, mem_name, mem_gender, mem_email, mem_phone, mem_postcode,
 		mem_address1, mem_address2, mem_agree, mem_profileimg, mem_regdate
 	from noticemember
-	where mem_id = #{memId}
-	and mem_pw = #{memPw}
+	where mem_id = #{memId} <!-- id중복체크만 하는거니까 mem_pw은 삭제 -->
 	</select>
+	
+	
+	
+	<insert id="signup" parameterType="noticeMemberVO">
+		insert into noticemember(
+			mem_no, mem_id, mem_pw, mem_name, mem_gender, mem_email, mem_phone, mem_postcode,
+			mem_address1, mem_address2, mem_agree, mem_profileimg, mem_regdate, enabled
+		)values( 
+			seq_noticemember.nextval, #{memId}, #{memPw}, #{memName}, #{memGender}, #{memEmail}, #{memPhone},
+			#{memPostCode}, #{memAddress1}, #{memAddress1}, #{memAgree}, #{memProfileImg}, sysdate, 1
+		)
+	</insert>
   
   </mapper>

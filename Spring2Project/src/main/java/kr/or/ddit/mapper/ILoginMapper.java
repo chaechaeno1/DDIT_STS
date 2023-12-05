@@ -8,4 +8,6 @@ public interface ILoginMapper {
 
 	public NoticeMemberVO idCheck(String memId);
 
+	public int signup(NoticeMemberVO memberVO);
+
 }

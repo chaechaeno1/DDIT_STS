@@ -22,6 +22,7 @@
   			
   		
   			<typeAlias type="kr.or.ddit.vo.crud.NoticeVO" alias="noticeVO"/>
+  			<typeAlias type="kr.or.ddit.vo.crud.NoticeFileVO" alias="noticeFileVO"/>
   			<typeAlias type="kr.or.ddit.vo.crud.PaginationInfoVO" alias="pagingVO"/>
   			<typeAlias type="kr.or.ddit.vo.crud.NoticeMemberVO" alias="NoticeMemberVO"/>
   			
