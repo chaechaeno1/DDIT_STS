@@ -45,7 +45,7 @@
 
 
 			<p class="mb-1">
-				<a href="">아이디&비밀번호 찾기</a> 
+				<a href="/notice/forget.do">아이디&비밀번호 찾기</a> 
 			</p>
 			<p class="mb-0">
 				<a href="/notice/signup.do" class="text-center">회원가입</a>

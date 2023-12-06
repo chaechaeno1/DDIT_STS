@@ -116,9 +116,15 @@ public class NoticeLoginController {
 	
 	@RequestMapping(value = "/signup.do", method=RequestMethod.POST)
 	public String signup(HttpServletRequest req, NoticeMemberVO memberVO, Model model, RedirectAttributes ra) {
-		String goPage = "";
+	//HttpServletRequest
+	//이 객체는 현재의 HTTP 요청에 대한 정보를 담고 있는 객체로, 클라이언트로부터 받은 다양한 정보를 추출하는 데 사용됩니다. 
+	//주로 HTTP 요청의 헤더, 매개변수, 세션 등에 접근할 때 사용됩니다.
+		String goPage = ""; // 최종적으로 이동할 페이지를 저장할 변수
 		
+		// 에러 메시지를 담을 Map 객체 생성
 		Map<String, String> errors = new HashMap<String, String>();
+		
+		// 입력값 유효성 검사
 		if(StringUtils.isBlank(memberVO.getMemId())) {
 			errors.put("memId", "아이디를 입력해주세요.");
 		}
@@ -132,24 +138,35 @@ public class NoticeLoginController {
 		}
 		
 		if(errors.size() > 0 ) { // 넘겨받은 데이터의 에러가 존재
+			// 에러 정보와 입력된 회원 정보를 모델에 추가
 			model.addAttribute("errors", errors);
 			model.addAttribute("member", memberVO);
 			model.addAttribute("bodyText", "register-page");
-			goPage = "conn/register";
+			goPage = "conn/register"; // 회원 가입 페이지로 이동
 		}else {	//정상적인 데이터를 받았을 때
+			 // 회원 가입 서비스를 호출하여 가입을 시도하고 결과를 받아옴
 			ServiceResult result = noticeService.signup(req, memberVO);
 			if(result.equals(ServiceResult.OK)) { // 가입 성공
+				// 가입 성공 메시지를 플래시 속성에 추가하고 로그인 페이지로 리다이렉트
 				ra.addFlashAttribute("message", "회원가입을 완료하였습니다!");
 				goPage = "redirect:/notice/login.do";
 			}else {	//가입 실패
+				// 실패 메시지와 회원 정보를 모델에 추가하고 회원 가입 페이지로 이동
 				model.addAttribute("message", "서버에러, 다시 시도해주세요!");
 				model.addAttribute("member", memberVO);
 				model.addAttribute("bodyText", "register-page");
 				goPage = "conn/register";	
 			}
 		}
-		return goPage;
+		return goPage; // 최종적으로 이동할 페이지 반환
 
+	}
+	
+	
+	@RequestMapping(value = "/forget.do",method=RequestMethod.GET)
+	public String loginForgetIdAndPw(Model model) {
+		model.addAttribute("bodyText", "login-page");
+		return "conn/forget";
 	}
 
 	

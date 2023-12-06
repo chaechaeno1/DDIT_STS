@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import kr.or.ddit.ServiceResult;
+import kr.or.ddit.vo.crud.NoticeFileVO;
 import kr.or.ddit.vo.crud.NoticeMemberVO;
 import kr.or.ddit.vo.crud.NoticeVO;
 import kr.or.ddit.vo.crud.PaginationInfoVO;
@@ -19,15 +20,17 @@ public interface INoticeService {
 
 	public NoticeVO selectNotice(int boNo);
 
-	public ServiceResult updateNotice(NoticeVO noticeVO);
+	public ServiceResult updateNotice(HttpServletRequest req, NoticeVO noticeVO);
 
-	public ServiceResult deleteNotice(int boNo);
+	public ServiceResult deleteNotice(HttpServletRequest req, int boNo);
 
 	public NoticeMemberVO loginCheck(NoticeMemberVO member);
 
 	public ServiceResult idCheck(String memId);
 
 	public ServiceResult signup(HttpServletRequest req, NoticeMemberVO memberVO);
+
+	public NoticeFileVO noticeDownload(int fileNo);
 
 	
 }
