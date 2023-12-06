@@ -29,6 +29,7 @@
 			</form>
 		</div>
 	</div>
+	
 	<br />
 	<div class="card card-outline card-primary">
 		<div class="card-header text-center">
@@ -74,4 +75,144 @@ $(function(){
 	// 로그인 페이지를 요청 시, background에 이미지 삽입
 	$("body").css("background-image", "url('${pageContext.request.contextPath}/resources/dist/img/background04.jpg')").css("background-size", "cover");
 });
+
+
+
+
+$(function(){
+
+	//아이디 찾기 버튼 element
+	var idFindBtn = $("#idFindBtn");
+	
+	//비밀번호 찾기 버튼 element
+	var pwFindBtn = $("#pwFindBtn");
+	
+	
+
+	//아이디 찾기 버튼 눌렀을 때 
+	idFindBtn.on("click", function(){
+		var memEmail = $('#memEmail').val();
+	 	var memName = $('#memName').val();
+
+	 	var findIdData = {
+	 		memEmail : memEmail,
+	 		memName : memName
+	 	}
+
+	 	  
+	 	  if (memEmail == "") {
+	 	   alert("이메일을 입력하세요");
+	 	  $('#memEmail').focus();
+	 	   return;
+	 	  }
+
+	 	  if (memName == "") {
+	 	   alert("이름을 입력하세요");
+	 	  $('#memName').focus();
+	 	   return;
+	 	  }
+	 	
+	 	
+		
+ 	 	$.ajax({
+	        url:'/notice/findId.do',
+	        type:'POST',
+	        data: JSON.stringify(findIdData),
+	        contentType: "application/json; charset=utf-8",
+	        success:function(data){
+	        	console.log(data);
+	        	$("#id").text(data);
+	        	
+	        },
+	        
+	        
+	    }); 
+	    
+	});
+	
+	
+	//비밀번호 찾기 버튼 눌렀을 때 
+	pwFindBtn.on("click", function(){
+		var memId = $('#memId').val();
+		var memEmail = $('#memEmail2').val();
+	 	var memName = $('#memName2').val();
+	 	
+	 	var findPwData = {
+	 		memId : memId,
+	 		memEmail : memEmail,
+	 		memName : memName
+	 	}
+
+	 	  if (memId == "") {
+	 	   alert("아이디를 입력하세요");
+	 	  $('#memId').focus();
+	 	   return;
+	 	  }
+	 	
+	 	  if (memEmail == "") {
+	 	   alert("이메일을 입력하세요");
+	 	  $('#memEmail').focus();
+	 	   return;
+	 	  }
+
+	 	  if (memName == "") {
+	 	   alert("이름을 입력하세요");
+	 	  $('#memName').focus();
+	 	   return;
+	 	  }
+	 	  
+	 	  
+	 	$.ajax({
+		      url:'/notice/findPw.do',
+		      type:'POST',
+		      data: JSON.stringify(findPwData),
+		      contentType: "application/json; charset=utf-8",
+		      success:function(data){
+		    	  $("#password").text(data);
+        	
+
+        },
+    }); 
+	    
+	 	  
+		
+		
+		
+	});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+});
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </script>

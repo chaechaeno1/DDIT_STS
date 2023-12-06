@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -162,15 +163,31 @@ public class NoticeLoginController {
 
 	}
 	
-	
+	//아이디비밀번호찾기 화면
 	@RequestMapping(value = "/forget.do",method=RequestMethod.GET)
 	public String loginForgetIdAndPw(Model model) {
 		model.addAttribute("bodyText", "login-page");
 		return "conn/forget";
 	}
 
+
 	
-	
+		//아이디 찾기
+		@ResponseBody
+		@RequestMapping(value = "/findId.do", method = RequestMethod.POST)
+		public String findId(@RequestBody NoticeMemberVO memberVO) {			
+			String findId =  noticeService.findId(memberVO);			
+		    return findId;
+		}
+		 
+		//비밀번호 찾기
+		@ResponseBody
+		@RequestMapping(value = "/findPw.do", method = RequestMethod.POST)
+		public String findPw(@RequestBody NoticeMemberVO memberVO) {
+			String findPw =  noticeService.findPw(memberVO);
+		    return findPw;
+		    
+		}
 	
 	
 	

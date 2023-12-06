@@ -10,4 +10,8 @@ public interface ILoginMapper {
 
 	public int signup(NoticeMemberVO memberVO);
 
+	public String findId(NoticeMemberVO memberVO);
+
+	public String findPw(NoticeMemberVO memberVO);
+
 }

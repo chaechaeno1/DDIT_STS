@@ -32,5 +32,13 @@ public interface INoticeService {
 
 	public NoticeFileVO noticeDownload(int fileNo);
 
+	public NoticeMemberVO selectMember(String memId);
+
+	public ServiceResult profileUpdate(HttpServletRequest req, NoticeMemberVO memberVO);
+
+	public String findId(NoticeMemberVO memberVO);
+
+	public String findPw(NoticeMemberVO memberVO);
+
 	
 }

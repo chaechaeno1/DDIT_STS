@@ -33,5 +33,30 @@
 			#{memPostCode}, #{memAddress1}, #{memAddress1}, #{memAgree}, #{memProfileImg}, sysdate, 1
 		)
 	</insert>
+	
+	
+	<select id="findId" parameterType="noticeMemberVO" resultType="string">
+	select
+  		mem_id
+	from noticemember
+	where mem_email = #{memEmail}
+	and mem_name = #{memName}
+	
+	</select>
+	
+	
+	<select id="findPw" parameterType="noticeMemberVO" resultType="string">
+	select
+  		mem_pw
+	from noticemember
+	where mem_id = #{memId} 
+	and mem_email = #{memEmail}
+	and mem_name = #{memName}
+	</select>
+	
+	
+	
+	
+	
   
   </mapper>

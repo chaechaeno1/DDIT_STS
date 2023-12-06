@@ -109,13 +109,13 @@
 	</div>
 </div>
 
-
+<!-- 주소 cdn -->
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<!-- 주소 cdn -->
+<!-- 지도 cdn -->
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c47c8b99b8c6a581123bf928fa9705fa&libraries=services"></script>
-<!-- 지도 cdn -->
+
 <script type="text/javascript">
 	$(function() {
 		// 로그인 페이지에서 사용할 배경 이미지 설정

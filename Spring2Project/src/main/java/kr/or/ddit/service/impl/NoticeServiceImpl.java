@@ -17,6 +17,7 @@ import kr.or.ddit.ServiceResult;
 import kr.or.ddit.controller.crud.notice.TelegramSendController;
 import kr.or.ddit.mapper.ILoginMapper;
 import kr.or.ddit.mapper.INoticeMapper;
+import kr.or.ddit.mapper.IProfileMapper;
 import kr.or.ddit.service.INoticeService;
 import kr.or.ddit.vo.crud.NoticeFileVO;
 import kr.or.ddit.vo.crud.NoticeMemberVO;
@@ -30,6 +31,9 @@ public class NoticeServiceImpl implements INoticeService {
 	private INoticeMapper noticeMapper;
 	@Inject
 	private ILoginMapper loginMapper;
+	
+	@Inject
+	private IProfileMapper profileMapper;
 	
 	private TelegramSendController tst = new TelegramSendController();
 	
@@ -316,6 +320,73 @@ public class NoticeServiceImpl implements INoticeService {
 		}
 		noticeMapper.incrementNoticeDowncount(fileNo);	//다운로드 횟수 증가
 		return noticeFileVO;		
+	}
+
+	@Override
+	public NoticeMemberVO selectMember(String memId) {
+		
+		return profileMapper.selectMember(memId);
+	}
+
+	@Override
+	public ServiceResult profileUpdate(HttpServletRequest req, NoticeMemberVO memberVO) {
+		ServiceResult result = null;
+		
+		// 프로필 이미지를 업로드 하기 위한 서버 경로(/resources/profile)
+		String uploadPath = req.getServletContext().getRealPath("/resources/profile");
+		File file = new File(uploadPath);
+		
+		// 서버 경로가 존재하지 않으면 디렉토리를 생성합니다.
+		if(!file.exists()) {
+			file.mkdirs();
+		}
+		
+		
+		
+		String profileImg = "";
+		
+		try {
+			// 전송된 프로필 이미지 파일을 가져옵니다.
+			MultipartFile proFileImgFile = memberVO.getImgFile();
+			
+			// 업로드할 파일이 존재하면 처리합니다.
+			if(proFileImgFile.getOriginalFilename() != null && !proFileImgFile.getOriginalFilename().equals("")) {
+				String fileName = UUID.randomUUID().toString();
+				fileName += "_" + proFileImgFile.getOriginalFilename();
+				uploadPath += "/" +fileName;
+				
+				// 파일을 업로드 경로로 복사합니다.
+				proFileImgFile.transferTo(new File(uploadPath));
+				
+				// 프로필 이미지 경로를 설정합니다.
+				profileImg = "/resources/profile/" + fileName;
+			}
+			
+			// 회원 객체에 프로필 이미지 경로를 설정합니다.
+			memberVO.setMemProfileImg(profileImg);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		int status = profileMapper.profileUpdate(memberVO);
+		if(status > 0 ) { //수정 성공
+			result = ServiceResult.OK;
+		}else { //수정 실패
+			result = ServiceResult.FAILED;
+		}
+		
+		return result;
+	}
+
+	@Override
+	public String findId(NoticeMemberVO memberVO) {
+		return loginMapper.findId(memberVO);
+	}
+
+	@Override
+	public String findPw(NoticeMemberVO memberVO) {
+		return loginMapper.findPw(memberVO);
 	}
 	
 	
