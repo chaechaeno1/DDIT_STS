@@ -69,7 +69,7 @@ public class AOPController {
 	 *		- 횡단 관심사 분리(Seperation Of Cross-Cutting Concern)
 	 *				: 횡단 관심사에 해당하는 부분(메소드 실행 시작 시간 출력 등)을 분리해서 한 곳으로 모으는 것을 의미
 	 *		- @Component
-	 *				: @Aspect와 짝궁
+	 *				: @Aspect와 짝꿍
 	 *				: Component-Scan시 "나 여기 있어요~ 여기 봐주세요~" 라는 의미
 	 *		- JoinPoint
 	 *				: 어드바이스가 적용될 수 있는 위치
@@ -203,8 +203,7 @@ public class AOPController {
 	 *						}
 	 *
 	 *		
-	 * 
-	
+	 * 	
 	 * 
 	 * 
 	 * 
@@ -314,17 +313,21 @@ public class AOPController {
 	
 	@Around("execution(* kr.or.ddit.service.IBoardService.*(..))")
 	public Object timeLog(ProceedingJoinPoint pjp) throws Throwable {
+		 // 대상 메서드의 실행 전에 수행되는 로직
 		long startTime = System.currentTimeMillis();
 		log.info("[@Around] : " + Arrays.toString(pjp.getArgs()));
 		
 		//메소드 실행
 		Object result = pjp.proceed();
 		
+		// 대상 메서드의 실행 후에 수행되는 로직
 		long endTime = System.currentTimeMillis();
 		log.info("[@Around]pjpEnd : "+ Arrays.toString(pjp.getArgs()));
 		
+		// 대상 메서드의 실행 시간을 로깅
 		log.info("[@Around] : " + pjp.getSignature().getName() + "[메소드 실행 시간: ]" + (endTime-startTime));
 		
+		// 대상 메서드의 실행 결과를 반환
 		return result;
 	}
 	
