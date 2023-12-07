@@ -2,14 +2,16 @@ package kr.or.ddit.controller.crud;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import org.springframework.aop.support.AopUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import kr.or.ddit.service.IBoardSerivce;
+import kr.or.ddit.service.IBoardService;
 import kr.or.ddit.vo.Board;
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,7 +21,14 @@ import lombok.extern.slf4j.Slf4j;
 public class CrudBoardController {
 	
 	@Inject
-	private IBoardSerivce service;
+	private IBoardService service;
+	
+	@PostConstruct
+	public void init() {
+	log.info("aopProxy 상태(interface 기반) : {}", AopUtils.isAopProxy(service));
+	log.info("aopProxy 상태(클래스 상속 기반 : {}", AopUtils.isCglibProxy(service));
+		
+	}
 	
 
 	@RequestMapping(value = "/register", method=RequestMethod.GET)

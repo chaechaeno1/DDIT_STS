@@ -4,7 +4,7 @@ import java.util.List;
 
 import kr.or.ddit.vo.Board;
 
-public interface IBoardSerivce {
+public interface IBoardService {
 
 	public void register(Board board);
 

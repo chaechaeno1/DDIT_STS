@@ -41,7 +41,7 @@
 	
 	<!-- Tiles 설정을 위한 Bean 끝 -->
 	
-	<context:component-scan base-package="kr.or.ddit" />
+	<context:component-scan base-package="kr.or.ddit.controller" />
 	
 	
 	<!-- 

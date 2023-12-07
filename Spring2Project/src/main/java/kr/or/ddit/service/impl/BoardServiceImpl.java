@@ -7,17 +7,20 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import kr.or.ddit.mapper.IBoardMapper;
-import kr.or.ddit.service.IBoardSerivce;
+import kr.or.ddit.service.IBoardService;
 import kr.or.ddit.vo.Board;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
-public class BoardServiceImpl implements IBoardSerivce {
+public class BoardServiceImpl implements IBoardService {
 
 	@Inject
 	private IBoardMapper mapper;
 	
 	@Override
 	public void register(Board board) {
+		log.info("BoardServiceImpl register 실행...!");
 		mapper.create(board);
 
 	}
@@ -40,6 +43,7 @@ public class BoardServiceImpl implements IBoardSerivce {
 
 	@Override
 	public void remove(int boardNo) {
+		log.info("BoardServiceImpl remove 실행...!");
 		mapper.delete(boardNo);
 		
 	}
