@@ -12,7 +12,7 @@ public class TransactionController {
 	 * 
 	 * 			# 트랜잭션 성격(ACID 원칙)
 	 * 
-	 * 			- 원자성(Actomicity)
+	 * 			- 원자성(Atomicity)
 	 * 			> 하나의 트랜잭션은 모두 하나의 단위로 처리해야 한다.
 	 * 			- 일관성(Consistency)
 	 * 			> 트랜잭션이 성공했다면 모든 데이터는 일관성을 유지해야 한다.
@@ -48,7 +48,7 @@ public class TransactionController {
 	 * 		# @Transactional 어노테이션의 예외처리 견해
 	 * 			(구글링하다보면 대표적인 예시가 있는데 이는 잘못된 정보이다)
 	 * 			
-	 * 			@Transactional을 적용하고 중간에 에러를 발생시킨 후, 롤백된 상태를 확인하려고 했으나 롤백이 되지 ㅇ낳고
+	 * 			@Transactional을 적용하고 중간에 에러를 발생시킨 후, 롤백된 상태를 확인하려고 했으나 롤백이 되지 않고
 	 * 			데이터베이스에 데이터가 등록된다. 그 이유는 스프링 프레임워크에서 @Transactional은 기본적으로
 	 * 			Checked Exception에 대해서는 롤백처리를 하지 않도록 설계되어있다.
 	 * 			기본적으로 스프링에서 트랜잭션 처리는 RuntiemException계열(Unchecked Exception)이라면
@@ -154,7 +154,7 @@ public class TransactionController {
 	 * 				- SUPPORTS : 트랜잭션이 있으면 현재 트랜잭션을 지원하고 트랜잭션이 없으면 트랜잭션이 아닌 방식으로 실행한다.
 	 * 				- MANDATORY : 현재 트랜잭션을 지원하고, 없으면 예외를 발생시킨다.
 	 * 					> 독립적인 트랜잭션으로 진행하면 안되는 경우 사용
-	 * 				- NESTED : 현재 트랜잭션이 있는 경우 중첩된(부모-자식) 트랜잭션 내요에서 실행하고 그렇지 않은 경우 REQUIRED와 같이 동작합니다.
+	 * 				- NESTED : 현재 트랜잭션이 있는 경우 중첩된(부모-자식) 트랜잭션 내용에서 실행하고 그렇지 않은 경우 REQUIRED와 같이 동작합니다.
 	 * 					> 부모에서 예외가 발생했을 때, 자식까지 영향이 가서 Commit 되지 않는다.
 	 * 				- NEVER : 트랜잭션이 아닌 방식으로 실행하고 트랜잭션이 있으면 예외를 발생시킨다.
 	 * 					> 실행 자체가 트랜잭션을 필요로 하지 않고, 트랜잭션이 존재한다면 예외를 발생시키도록 한다.
