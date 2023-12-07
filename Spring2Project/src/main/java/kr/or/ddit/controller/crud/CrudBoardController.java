@@ -1,5 +1,6 @@
 package kr.or.ddit.controller.crud;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -43,7 +44,7 @@ public class CrudBoardController {
 	
 	//등록 기능 담당
 	@RequestMapping(value ="/register", method=RequestMethod.POST)
-	public String crudRegister(Board board, Model model) {
+	public String crudRegister(Board board, Model model) throws IOException {
 		log.info("crudRegister() 실행...!");
 		
 		service.register(board);
