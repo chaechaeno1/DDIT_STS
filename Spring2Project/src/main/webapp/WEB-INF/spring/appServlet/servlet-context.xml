@@ -49,11 +49,40 @@
 		- StandardServletMultipartResolber 사용 시 설정
 			> Servlet 3.0의 Part를 이용한 MultipartFile 데이터 처리
 	 -->
-	 
+<!-- 	 
 	 <beans:bean id="multipartResolver" 
 	 	class="org.springframework.web.multipart.support.StandardServletMultipartResolver">	 
-	 </beans:bean> 
+	 </beans:bean>  -->
 	
+	
+	<!-- 
+		인터셉터 설정
+		- LoginInterceptor 클래스를 빈으로 정의한다.
+			> 설정한 클래스는 해당 위치에 존재해야 함(설정에 맞는 위치에 존재해야함)
+	 -->
+	 
+	 <beans:bean id="LoginInterceptor" 
+	 	class="kr.or.ddit.controller.intercept.LoingInterceptor"/>
+	<interceptors>
+		<interceptor>
+			<mapping path="/login1"/>
+			<beans:ref bean="LoginInterceptor"/>
+		</interceptor>
+	</interceptors>
+	
+
+
+
+	
+	 <beans:bean id="accessLogginInterceptor" 
+	 	class="kr.or.ddit.controller.intercept.AccessLogginInterceptor"/>
+	<interceptors>
+		<interceptor>
+			<mapping path="/**"/>
+			<exclude-mapping path="/resources/**"/>
+			<beans:ref bean="accessLogginInterceptor"/>
+		</interceptor>
+	</interceptors>
 	
 	
 	

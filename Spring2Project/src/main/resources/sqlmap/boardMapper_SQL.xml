@@ -44,8 +44,7 @@
   	
   	
   	<delete id="delete" parameterType="int">
-  		delete from board
-  		where board_no #{boardNo} =
+  		delete from board where board_no2 #{boardNo}
   	
   	</delete>
   	
