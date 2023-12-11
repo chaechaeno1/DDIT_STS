@@ -95,6 +95,177 @@ public class SecurityController {
 	 *
 	 * 
 	 * 
+	 * 	3. 접근 제한 설정
+	 * 
+	 * 		- 시큐리티 설정을 통해서 특정 URI에 대한 접근을 제한할 수 있다.
+	 * 
+	 * 			# 환경 설정
+	 * 			- 스프링 시큐리티 설정
+	 * 				> URI 패턴으로 접근 제한을 설정한다.
+	 * 				> security-context.xml 설정
+	 * 					<security:intercept-url pattern="board/list" access="permitAll"/>
+	 * 					<security:intercept-url pattern="board/register" access="hasRole('ROLE_MEMBER')"/>
+	 * 					<security:intercept-url pattern="notice/list" access="permitAll"/>
+	 * 					<security:intercept-url pattern="notice/register" access="hasRole('ROLE_ADMIN')"/>
+	 * 				
+	 * 			# 화면 설명
+	 * 			- 일반 게시판 목록 화면(모두 접근 가능하도록 되어 있음 : permitAll)
+	 * 			- 일반 게시판 등록 화면(회원권한을 가진 사용자만 접근 가능 : hasRole('ROLE_MEMBER'))
+	 * 				> 접근 제한에 걸려 스프링 시큐리티가 기본적으로 제공하는 로그인 페이지로 이동합니다.
+	 * 			- 공지사항 게시판 목록 화면 ( 모두 접근 가능하도록 되어있음 : permitAll)
+	 * 			- 공지사항 게시판 등록 화면 (관리자 권한을 가진 사용자만 접근 가능 : hasRole('ROLE_ADMIN'))
+	 * 				> 접근 제한에 걸려 스프링 시큐리티가 기본적으로 제공하는 로그인 페이지로 이동합니다.
+	 * 
+	 * 
+	 * 	4. 로그인 처리
+	 * 
+	 * 		- 메모리상에 아이디와 패스워드를 지정하고 로그인을 처리한다.
+	 * 		- 스프링 시큐리티 5버전부터는 패스워드 암호화 처리기를 반드시 이용하도록 변경이 되었다.
+	 * 		- 암호화 처리기를 사용하지 않도록 "{noop}" 문자열을 비밀번호 앞에 사용한다.
+	 * 
+	 * 		# 환경 설정
+	 * 			- 스프링 시큐리티 설정
+	 * 				> security-context.xml 설정
+	 * 			<security:authentication-manager>
+	 * 				<security:authentication-provider>
+	 * 					<security:user name="member" password="{noop}1234"
+	 * 						authorities = "ROLE_MEMBER"/>
+	 * 				</security:authentication-provider>
+	 * 			</security:authentication-manager>
+	 * 
+	 * 
+	 * 		# 화면 설명
+	 * 
+	 * 			- 일반 게시판 등록 화면
+	 * 				> 접근 제한이 걸려 스프링 시큐리티가 기본적으로 제공하는 로그인 페이지가 연결되고,
+	 * 				일반회원 등급인 ROLE_MEMBER 권한을 가진 member 계정으로 로그인 후 해당 페이지로 접근 가능
+	 * 			- 공지사항 게시판 등록 화면
+	 * 				> 접근 제한이 걸려 스프링 시큐리티가 기본적으로 제공하는 로그인 페이지가 연결되고,
+	 * 				관리자 등급인 ROLE_ADMIN 권한을 가진 admin 계정으로 로그인 후 해당 페이지로 접근 가능
+	 * 
+	 * 
+	 * 	5. 접근 거부 처리
+	 * 
+	 * 		- 접근 거부가 발생한 상황을 처리하는 접근 거부 처리자의 URI를 지정할 수 있다.
+	 * 
+	 * 			# 환경 설정
+	 * 
+	 * 				- 스프링 웹 설정(servlet-context.xml설정)
+	 * 				> <context:component-scan base-package="kr.or.ddit.security..."/>
+	 * 				** 필요에 의한 패키지 라인을 bean등록하여 사용해야 할 때 스프링 웹 설정에서 base-package를 설정할 수 있다.
+	 * 
+	 * 				- 스프링 시큐리티 설정(security-context.xml 설정)
+	 * 				> 접근 거부 처리자의 URI를 지정
+	 * 				> <security:access-denied-handler error-page="/accessError"/>
+	 * 
+	 * 			# 접근 거부 처리
+	 * 			
+	 * 				- 접근 거부 처리 컨트롤러 작성
+	 * 					> security/CommonController
+	 *			
+	 *			# 화면 설명
+	 *
+	 * 				- 일반 게시판 등록 페이지 
+	 * 				> 접근 제한에 걸려 스프링 스큐리티가 제공하는 로그인 페이지가 나타나고, 회원 권한을 가진 계정으로
+	 * 				접근 시 접근 가능
+	 * 				- 공지 사항 게시판 등록 페이지
+	 * 				> 접근 제한에 걸려 스프링 시큐리티가 제공하는 로그인 페이지가 나타나고, 회원 권한을 가진 계정으로
+	 * 				접근 시 공지사항 게시판 등록 페이지만 관리자 권한으로만 접근 가능하므로 접근이 거부된다.
+	 * 				이때, access-denied-handler로 설정되어 있는 URI로 이동하고 해당 페이지에서 접근이 거부되었을 때
+	 * 				보여질 페이지의 정보가 나타난다.
+	 * 			
+	 * 
+	 * 	6. 사용자 정의 접근 거부 처리자
+	 * 		- 접근 거부가 발생한 상황에 단순 메시지 처리 이상의 다양한 처리를 하고 싶다면 AccessDeniedHandler를 직접 구현한다.
+	 * 			# 환경 설정
+	 * 			- 스프링 시큐리티 설정(security-context.xml 설정
+	 *				> id가 'customAccessDenied'를 가진 빈을 등록한다.
+	 *				> <security:access-denied-handler ref="customAccessDenied"/> 
+	 *
+	 *			# 접근 거부 처리자 클래스 정의
+	 *			- CustomAccessDeniedHandler 클래스 정의
+	 *			> AccessDeniedHandler 인터페이스를 참조받아서 handle 메소드를 재정의하여 사용합니다.
+	 *			우리는 접근이 거부되었을 때 빈으로 등록해둔 CustomAccessDeniedHandler 클래스가 발동해 해당 메소드가
+	 *			실행되고 response 내장 객체를 활용하여 /accessError URL로 이동하여 접근 거부시 보여질 페이지로 이동하지만
+	 *			이곳에서 더 많은 로직을 처리할 수도 있다. (request, response 내장 객체를 이용하여 다양한 처리 가능)
+	 *
+	 *			# 화면 설명
+	 *			- 일반 게시판 등록 페이지
+	 *			> 접근 제한에 걸려 스프링 시큐리티가 제공하는 로그인 페이지가 나타나고, 회원 권한을 가진 계정으로 접근 시 접근 가능
+	 *			- 공지사항 게시판 등록 페이지
+	 *			> 접근 제한에 걸려 스프링 시큐리티가 제공하는 로그인 페이지가 나타나고, 회원 권한을 가진 계정으로 접근 시에 공지사항
+	 *			게시판 등록 페이지는 관리자 권한만 접근 가능하므로 접근이 거부된다. 이때, access-denied-handler로 설정
+	 *			되어있는 ref 속성에 부여된 클래스 메소드로 이동하고 해당 페이지에서 접근이 거부되었을 때 페이지의 정보가 나타남
+	 *
+	 *
+	 *	7. 사용자 정의 로그인 페이지
+	 *
+	 *		- 기본 로그인 페이지가 아닌 사용자가 직접 정의한 로그인 페이지를 사용한다.
+	 *
+	 *			# 환경 설정
+	 *			- 스프링 시큐리티 설정(security-context.xml 설정)
+	 *			
+	 *				<security:form-login login-page="/login"/> 설정
+	 *				: 사용자가 직접 만든 로그인 페이지로 이동할 '/login' URL을 가지고 있는 컨트롤러 메소드를 정의
+	 *
+	 *			# 로그인 페이지 정의
+	 *
+	 *			- 사용자가 정의한 로그인 컨트롤러
+	 *				> controller 패키지 안에 LoginController 생성
+	 *			- 사용자가 정의한 로그인 뷰
+	 *				> views/loginForm.jsp
+	 *
+	 *			** 시큐리티에서 제공하는 기본 로그인 페이지로 이동하지 않고, 사용자가 정의한 로그인 페이지의 URI를 요청하여
+	 *			해당 페이지에서 권한을 체크하도록 합니다. 인증이 완료되면 최초의 요청된 target URI로 이동합니다.
+	 *			그렇지 않은 경우 사용자가 만들어놓은 접근 거부 페이지로 이동합니다.
+	 *
+	 * 8. 로그인 성공 처리
+	 * 
+	 * 		- 로그인을 성공한 후에 로그인 이력 로그를 기록하는 등의 동작을 하고 싶은 경우가 있습니다.
+	 * 		이런 경우에 AuthenticationSuccessHandler라는 인터페이스를 구현해서 로그인 성공 처리자로 지정할 수 있다.
+	 * 
+	 * 			# 환경 설정
+	 * 			- customLoginSuccess Bean등록
+	 * 			<security:form-login login-page="/login" 
+	 * 				authentication-success-handler-ref="customLoginSuccess"/> 추가
+	 * 
+	 * 			# 로그인 성공 처리자 클래스 정의
+	 * 			- 로그인 성공 처리자
+	 * 			> SavedRequestAwareAuthenticationSuccessHandler는 AuthenticationSuccessHandler
+	 * 			의 구현 클래스 입니다. 인증 전에 접근을 시도한 URL로 리다이렉트하는 기능을 가지고 있으며 스프링 시큐리티에서 기본
+	 * 			적으로 사용되는 구현 클래스 입니다.
+	 * 
+	 *			- 로그인 성공 처리자2(ㅇ)
+	 *			> AuthenticationSuccessHandler 인터페이스를 직접 구현하여 인증 전에 접근을 시도한 URL로
+	 *			리다이렉트하는 기능을 구현한다.
+	 *
+	 *			# 화면 설명
+	 *			- 일반 게시판 등록 화면
+	 *			> 사용자가 정의한 로그인 페이지에서 회원 권한에 해당하는 계정으로 로그인 시, 성공했다면 성공 처리자인
+	 *			CustomLoginSuccess 클래스로 넘어가 넘겨받은 파라미터들 중 authentication 안에
+	 *			principal로 User 정보를 받아서 username과 password를 출력합니다.
+	 *			(출력 정보는 로그인 성공 시 인증된 회원 정보입니다.)
+	 *
+	 *
+	 *	9. 로그아웃 처리
+	 *		- 로그아웃을 위한 URI를 지정하고, 로그아웃 처리 후에 별도의 작업을 하기 위해서 사용자가 직접 구현한 처리자를
+	 *		등록할 수 있다.
+	 *
+	 *		# 환경 설정
+	 *			- 스프링 시큐리티 설정(security-context.xml 설정)
+	 *			> <security:logout logout-url="/logout" invalidate-session="true"/>
+	 *			
+	 *			** logout 경로는 스프링에서 제공하는 /logout 경로로 설정한다.
+	 *				logout 처리 페이지에서도 action 경로는 /logout으로 설정한다.
+	 *
+	 *		
+	 *
+	 *
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
 	 */
 	
 
