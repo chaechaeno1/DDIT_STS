@@ -9,6 +9,15 @@
 	<bean id="customAccessDenied" class="kr.or.ddit.security.CustomAccessDeniedHandler"></bean>
 	<bean id="customLoginSuccess" class="kr.or.ddit.security.CustomLoginSuccessHandler"></bean>
 
+	<!-- 10. JDBC를 이용한 인증/인가 처리-->
+	<!-- <bean id="customPasswordEncoder" class="kr.or.ddit.security.CustomNoOpPasswordEncoder"></bean> -->
+
+	<!-- 11. 사용자 테이블 이용한 인증/인가 처리 -->
+	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
+
+	<!-- 12. 12. UserDetailsService 재정의 -->
+	<bean id="customUserDetailsService" class="kr.or.ddit.security.CustomUserDetailsService"></bean>
+
 
 	<security:http>
 		<!-- 3. 접근 제한 설정 : URL 패턴으로 접근 제한을 설정한다. -->
@@ -38,13 +47,29 @@
 	
 	
 	<security:authentication-manager>
-		<security:authentication-provider>
-			<security:user-service>
+ 		<security:authentication-provider user-service-ref="customUserDetailsService">
+<!--			<security:user-service>
 				<security:user name="member" password="{noop}1234" authorities="ROLE_MEMBER"/>
 				<security:user name="admin" password="{noop}1234" authorities="ROLE_ADMIN"/>
-			</security:user-service>
+			</security:user-service>  -->
+			
+			
+			<!-- 사용자 정의 테이블을 이용한 인증/인가처리 -->
+			<!-- <security:jdbc-user-service data-source-ref="dataSource"/>
+			<security:password-encoder ref="customPasswordEncoder"/> -->
+			<!-- 사용자 정의 테이블을 이용한 인증/인가처리 끝-->
+			
+			
+			<!-- UserDetailsService를 설정하면서 데이터베이스 연동 후 사용자가 정의한 테이블로 mapper를 통한 데이터 바인딩으로
+				인증/인가 진행 시 주석 -->
+			<!-- <security:jdbc-user-service data-source-ref="dataSource"
+			users-by-username-query="select user_id, user_pw, enabled from member where user_id = ?"
+			authorities-by-username-query="select m.user_id, ma.auth from member m, member_auth ma where ma.user_no = m.user_no and m.user_id = ?"/> -->
+			<security:password-encoder ref="bcryptPasswordEncoder"/>
+		
+			
+			
 		</security:authentication-provider>
-	
 	</security:authentication-manager>
 
 
