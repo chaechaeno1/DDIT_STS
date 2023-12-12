@@ -11,7 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import kr.or.ddit.mapper.ILoginMapper;
 import kr.or.ddit.mapper.IMemberMapper;
-import kr.or.ddit.vo.CrudMember;
 import kr.or.ddit.vo.CustomUser;
 import kr.or.ddit.vo.crud.NoticeMemberVO;
 

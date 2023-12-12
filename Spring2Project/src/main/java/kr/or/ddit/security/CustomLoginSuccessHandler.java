@@ -33,8 +33,14 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler{
 		
 		clearAuthenticationAttribute(request);
 		
-		SavedRequest savedRequest= requestCache.getRequest(request, response);
-		String targetUrl = savedRequest.getRedirectUrl();
+		SavedRequest savedRequest= requestCache.getRequest(request, response);		
+		String targetUrl = "";
+		if(savedRequest != null) {
+			targetUrl = savedRequest.getRedirectUrl();
+		}else {
+			targetUrl = "/notice/list.do";
+		}
+
 		
 		log.info("Login Success targetUrl : " + targetUrl);
 		response.sendRedirect(targetUrl);

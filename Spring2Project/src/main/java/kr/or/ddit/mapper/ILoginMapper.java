@@ -16,4 +16,6 @@ public interface ILoginMapper {
 
 	public NoticeMemberVO readByUserId(String username);
 
+	public void signupAuth(int memNo);
+
 }

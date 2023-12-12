@@ -119,7 +119,13 @@ $(function(){
 	        type:'POST',
 	        data: JSON.stringify(findIdData),
 	        contentType: "application/json; charset=utf-8",
+	        // beforeSend 콜백 함수 : AJAX 요청이 서버로 전송되기 전에 호출
+	        // = 클라이언트가 서버로 AJAX 요청을 보내기 전에 실행되는 함수
+	        // beforeSend는 AJAX 요청을 실제로 서버로 보내기 전에 선행 작업을 수행할 수 있는 콜백 함수
+	        // 이 함수에서는 HTTP 요청 헤더에 특정 정보를 추가합니다.
 	        beforeSend : function(xhr){
+	        	//요청 헤더에 header라는 이름의 헤더 필드를 추가하고, 그 값으로 token을 설정합니다. 
+	        	//이는 서버에서 요청을 인증하기 위한 토큰을 헤더에 포함하는 일반적인 방법입니다.
 	        	xhr.setRequestHeader(header, token);
 	        },	
 	        success:function(data){

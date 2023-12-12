@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 <div class="register-box">
 	<div class="card card-outline card-danger mt-4 mb-4">
@@ -104,6 +105,9 @@
 					<button type="button" class="btn btn-secondary btn-block mt-4"
 						onclick="javascript:location.href='/notice/login.do'">뒤로가기</button>
 				</div>
+				
+				<sec:csrfInput/>
+				
 			</form>
 		</div>
 	</div>
@@ -157,6 +161,9 @@
 				type : "post",
 				url : "/notice/idCheck.do", //맨 앞쪽 '/' 빼먹지 말기...
 				data : JSON.stringify(data),
+	          	beforeSend : function(xhr){
+		        	xhr.setRequestHeader(header, token);
+		        },	
 				contentType : "application/json;charset=utf-8",
 				success : function(res) {
 					console.log("중복확인 후 넘겨받은 결과 : " + res);
