@@ -16,6 +16,7 @@
 	<form method="post" action="/login">
 		username : <input type="text" name="username"/><br/>
 		password : <input type="text" name="password"/><br/>
+		<input type="checkbox" name="remember-me"/> Remember Me 
 		<input type="submit" value="로그인"/>
 		<sec:csrfInput/>
 	</form>

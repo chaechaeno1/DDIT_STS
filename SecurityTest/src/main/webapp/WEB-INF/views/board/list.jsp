@@ -8,7 +8,15 @@
 </head>
 <body>
 	<h3>BOARD LIST : access to all</h3>
+	
+	
+	<div>
+		<a href="/board/register">Register</a>
+	</div>
 
+	<div>
+		<a href="/">Home</a>
+	</div>
 
 </body>
 </html>

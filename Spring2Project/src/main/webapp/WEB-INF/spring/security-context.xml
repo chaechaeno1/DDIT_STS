@@ -19,25 +19,14 @@
 	<bean id="customUserDetailsService" class="kr.or.ddit.security.CustomUserDetailsService"></bean>
 
 
-	<security:http>
-		<!-- 3. 접근 제한 설정 : URL 패턴으로 접근 제한을 설정한다. -->
-<!-- 		<security:intercept-url pattern="/board/list" access="permitAll"/>
-		<security:intercept-url pattern="/board/register" access="hasRole('ROLE_MEMBER')"/>
-		<security:intercept-url pattern="/notice/list" access="permitAll"/>
-		<security:intercept-url pattern="/notice/register" access="hasRole('ROLE_ADMIN')"/> -->
-		<!-- 3. 접근 제한 설정 끝! -->
-	
-	
-	
-	
+	<security:http>	
 		<!-- 
 		폼 기반 인증 기능을 사용한다. : 사용자 정의 로그인 페이지 추가(login-page)
 		로그인 성공 처리 추가 : 로그인 성공 후 처리를 담당하는 처리자로 지정(customLoginSuccess)
 		-->
 		<security:form-login login-page="/login" authentication-success-handler-ref="customLoginSuccess"/>
 		
-		<!-- 5. 접근 거부 처리자 : 접근 거부 처리자의 URI를 지정 -->
-			<!-- <security:access-denied-handler error-page="/accessError"/> -->
+
 		
 		<!-- 6. 사용자 정의 접근 거부 처리자 추가 : customAccessDenied를 접근 거부 처리자로 등록 -->
 		<security:access-denied-handler ref="customAccessDenied"/>
@@ -63,27 +52,7 @@
 	
 	<security:authentication-manager>
  		<security:authentication-provider user-service-ref="customUserDetailsService">
-<!--			<security:user-service>
-				<security:user name="member" password="{noop}1234" authorities="ROLE_MEMBER"/>
-				<security:user name="admin" password="{noop}1234" authorities="ROLE_ADMIN"/>
-			</security:user-service>  -->
-			
-			
-			<!-- 사용자 정의 테이블을 이용한 인증/인가처리 -->
-			<!-- <security:jdbc-user-service data-source-ref="dataSource"/>
-			<security:password-encoder ref="customPasswordEncoder"/> -->
-			<!-- 사용자 정의 테이블을 이용한 인증/인가처리 끝-->
-			
-			
-			<!-- UserDetailsService를 설정하면서 데이터베이스 연동 후 사용자가 정의한 테이블로 mapper를 통한 데이터 바인딩으로
-				인증/인가 진행 시 주석 -->
-			<!-- <security:jdbc-user-service data-source-ref="dataSource"
-			users-by-username-query="select user_id, user_pw, enabled from member where user_id = ?"
-			authorities-by-username-query="select m.user_id, ma.auth from member m, member_auth ma where ma.user_no = m.user_no and m.user_id = ?"/> -->
 			<security:password-encoder ref="bcryptPasswordEncoder"/>
-		
-			
-			
 		</security:authentication-provider>
 	</security:authentication-manager>
 

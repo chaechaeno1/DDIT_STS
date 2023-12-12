@@ -342,6 +342,74 @@ public class SecurityController {
 	 * 
 	 * 
 	 * 
+	 * 	13. 스프링 시큐리티 표현식
+	 * 		- 스프링 시큐리티 표현식을 이용하면 인증 및 권한 정보에 따라 화면을 동적으로 구성할 수 있고,
+	 * 		로그인 한 사용자 정보를 보여줄 수도 있다.
+	 * 
+	 * 		# 공동 표현식
+	 * 			- hasRole([role])
+	 * 				> 해당 롤이 있으면 true
+	 * 			- hasAnyRole([role1, role2])
+	 * 				> 여러 롤 들 중에서 하나라도 해당하는 롤이 잇으면 true
+	 * 			- principal
+	 * 				> 인증된 사용자의 사용자 정보(UserDetails 인터페이스를 구현한 클래스의 객체)를 의미
+	 * 			- authentication
+	 * 				> 인증된 사용자의 인증 정보(Authentication 인터페이스를 구현한 클래스의 객체)를 의미
+	 * 			- permitAll
+	 * 				> 모든 사용자에게 허용
+	 * 			- denyAll
+	 * 				> 모든 사용자에게 거부
+	 * 			- isAnonymous()
+	 * 				> 익명의 사용자의 경우(로그인을 하지 않은 경우도 해당)
+	 * 			- isAuthenticated()
+	 * 				> 인증된 사용자면 true
+	 * 			- isFullyAuthenticated()
+	 * 				> Remember-me로 인증된 것이 아닌 일반적인 방법으로 인증된 사용자인 경우 true
+	 * 
+	 * 		# 표현식 사용
+	 * 
+	 * 			- 표현식을 이용하여 동적 화면 구성
+	 * 				> home.jsp 수정
+	 * 					: 표현식을 이용한 내용 추가
+	 * 			- 로그인한 사용자 정보 보여주기
+	 * 				> views/board/register.jsp 수정
+	 * 				> views/notice/register.jsp 수정
+	 * 
+	 * 
+	 * 	14. 자동 로그인
+	 * 		- 로그인하면 특정 시간 동안 다시 로그인 할 필요가 없는 기능이다.
+	 * 		- 스프링 시큐리티는 메모리나 데이터베이스를 사용하여 처리한다.
+	 * 		- 기능을 구현하기 위해 <security:remember-me> 태그를 이용하여 시큐리티 설정 파일을 수정한다.
+	 * 
+	 * 		# 데이터베이스 테이블
+	 * 			- persistent_logins 테이블 준비
+	 * 		# 환경 설정
+	 * 			- 스프링 시큐리티 설정(security-context.xml 설정)
+	 * 				<security:remember-me data-source-ref="dataSource" token-validity="604800"/> 태그 설정
+	 * 				<security:logout logout-url="/logout" invalidate-session="true"
+	 * 					delete-cookies="remember-me, JSESSION_ID"/> 태그 설정
+	 * 
+	 * 		# 자동 로그인
+	 * 			- 로그인 상태 유지 체크박스 추가
+	 * 				> loginForm.jsp 수정 (자동 로그인 체크박스 만들기)
+	 * 		
+	 * 		# 자동 로그인 시, 만들어지는 쿠키 정보들
+	 * 			- JSESSIONID와 remember-me 쿠키가 만들어진다.
+	 * 			- JSESSIONID를 삭제 후, 다시 로그인을 진행하더라도 로그인 후 진행될 페이지가 정상적으로 나타나는걸 확인할 수 있음
+	 * 				> 자동 로그인이 remember-me 쿠키에 의해서 데이터베이스에 저장되는 각 hash token값에 의해 재설정 됨을 확인
+	 * 
+	 * 
+	 *	15. 스프링 시큐리티 어노테이션
+	 *
+	 * 		- 스프링 시큐리티는 어노테이션을 사용하여 필요한 설정을 추가할 수 있다.
+	 * 
+	 * 			# 사용 어노테이션
+	 * 				- @Secured
+	 * 					> 스프링 시큐리티 모듈을 지원하기 위한 어노테이션으로 초기부터 사용되었다.
+	 * 				- @PreAuthorize
+	 * 					> 메서드가 실행되기 전에 적용할 접근 정책을 지정할 때 사용한다.
+	 * 				- @PostAuthorize
+	 * 					> 메서드가 실행한 후에 적용할 접근 정책을 지정할 떄 사용한다.			
 	 * 
 	 * 			
 	 * 

@@ -8,6 +8,14 @@
 </head>
 <body>
 	<h3>NOTICE LIST : access to all</h3>
+	
+	<div>
+		<a href="/notice/register">Register</a>
+	</div>
+
+	<div>
+		<a href="/">Home</a>
+	</div>
 
 </body>
 </html>

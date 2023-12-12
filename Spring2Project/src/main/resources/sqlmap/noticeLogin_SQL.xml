@@ -55,6 +55,19 @@
 	</select>
 	
 	
+	<select id="readByUserId" parameterType="string" resultMap="noticeMemberMap">
+  		select
+  			m.mem_no, mem_id, mem_pw, mem_name, mem_gerder, mem_email, mem_phone, mem_postcode,
+  			mem_address1, mem_address2, mem_agree, mem_profileimg, mem_regdate, enabled,
+  			a.auth
+  		from noticemember m left outer join noticemember_auth a on(m.mem_no = a.mem_no)
+  		where m.mem_id = #{memId}
+  	</select>
+	
+	
+	
+	
+	
 	
 	
 	
