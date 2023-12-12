@@ -9,9 +9,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import kr.or.ddit.mapper.ILoginMapper;
 import kr.or.ddit.mapper.IMemberMapper;
 import kr.or.ddit.vo.CrudMember;
 import kr.or.ddit.vo.CustomUser;
+import kr.or.ddit.vo.crud.NoticeMemberVO;
 
 public class CustomUserDetailsService implements UserDetailsService {
 	
@@ -24,7 +26,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 	private BCryptPasswordEncoder bpe;
 	
 	@Inject
-	private IMemberMapper memberMapper;
+	private ILoginMapper loginMapper;
 	
 	
 	// UserDetailsService 인터페이스에서 제공하는 메서드를 오버라이드하여 사용자 정보를 사용자명으로 가져오기
@@ -33,16 +35,16 @@ public class CustomUserDetailsService implements UserDetailsService {
 		log.info("loadUserByUsername() 실행...!");
 		
 		// 데모 목적으로 하드코딩된 비밀번호 (실제로는 동적으로 가져와야 함)
-		String password = "1234";
-		log.info("#### 암호화된 비밀번호 : " + bpe.encode(password));
-		log.info("#### 암호화된 비밀번호 : " + bpe.encode(password));
-		log.info("#### 암호화된 비밀번호 : " + bpe.encode(password));
-		log.info("#### 암호화된 비밀번호 : " + bpe.encode(password));
-		log.info("#### 암호화된 비밀번호 : " + bpe.encode(password));
-		log.info("#### 암호화된 비밀번호 : " + bpe.encode(password));
-		log.info("#### 암호화된 비밀번호 : " + bpe.encode(password));
-		log.info("#### 암호화된 비밀번호 : " + bpe.encode(password));
-		log.info("#### 암호화된 비밀번호 : " + bpe.encode(password));
+//		String password = "1234";
+//		log.info("#### 암호화된 비밀번호 : " + bpe.encode(password));
+//		log.info("#### 암호화된 비밀번호 : " + bpe.encode(password));
+//		log.info("#### 암호화된 비밀번호 : " + bpe.encode(password));
+//		log.info("#### 암호화된 비밀번호 : " + bpe.encode(password));
+//		log.info("#### 암호화된 비밀번호 : " + bpe.encode(password));
+//		log.info("#### 암호화된 비밀번호 : " + bpe.encode(password));
+//		log.info("#### 암호화된 비밀번호 : " + bpe.encode(password));
+//		log.info("#### 암호화된 비밀번호 : " + bpe.encode(password));
+//		log.info("#### 암호화된 비밀번호 : " + bpe.encode(password));
 		
 		// 사용자명을 로깅
 		log.info("Load User By Username : " + username);
@@ -53,10 +55,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 		// 가용할 수 있도록 만든다.
 		
 		// 사용자 정보를 담을 CrudMember 객체
-		CrudMember member;
+		NoticeMemberVO member;
 		try {
 			// 사용자명에 해당하는 회원 정보를 데이터베이스에서 조회
-			member = memberMapper.readByUserId(username);
+			member = loginMapper.readByUserId(username);
 			log.info("queried by member mapper : " + member);
 			// 조회된 회원 정보가 없으면 null 반환, 그렇지 않으면 CustomUser 객체를 반환
 			return member == null ? null : new CustomUser(member);

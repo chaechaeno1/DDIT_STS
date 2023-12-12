@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,7 @@ public class NoticeRetrieveController {
 	private INoticeService noticeService;
 	
 	//method 설정안하면 get과 post 둘 다 받을 수 있는 메서드
+	@PreAuthorize("hasAnyRole('ROLE_MEMBER', 'ROLE_ADMIN')")
 	@RequestMapping(value = "/list.do")
 	public String noticeList(
 			@RequestParam(name="page", required = false, defaultValue = "1") int currentPage,

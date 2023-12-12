@@ -23,6 +23,7 @@ public interface IMemberMapper {
 
 	public void delete(int userNo);
 
-	public CrudMember readByUserId(String username);
+	//필요없음~
+	//public CrudMember readByUserId(String username);
 
 }

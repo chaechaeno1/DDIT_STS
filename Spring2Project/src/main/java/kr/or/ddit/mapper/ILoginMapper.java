@@ -14,4 +14,6 @@ public interface ILoginMapper {
 
 	public String findPw(NoticeMemberVO memberVO);
 
+	public NoticeMemberVO readByUserId(String username);
+
 }

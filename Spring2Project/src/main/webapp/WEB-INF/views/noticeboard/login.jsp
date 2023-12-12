@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 
 <div class="login-box">
 
@@ -9,9 +9,9 @@
 				<b>DDIT</b> BOARD
 			</h2>
 
-			<form action="/notice/loginCheck.do" method="post" id="signForm">
+			<form action="/login" method="post" id="signForm">
 				<div class="input-group mb-3">
-					<input type="text" name="memId" id="memId" class="form-control" placeholder="아이디를 입력해주세요">
+					<input type="text" name="username" id="memId" class="form-control" placeholder="아이디를 입력해주세요">
 					<div class="input-group-append">
 						<div class="input-group-text">
 							<span class="fas fa-envelope"></span>
@@ -20,7 +20,7 @@
 					<span class="error invalid-feedback" style="display:block;">${errors.memId}</span>
 				</div>
 				<div class="input-group mb-3">
-					<input type="password" class="form-control" name="memPw" id="memPw" placeholder="비밀번호를 입력해주세요">
+					<input type="password" class="form-control" name="password" id="memPw" placeholder="비밀번호를 입력해주세요">
 					<div class="input-group-append">
 						<div class="input-group-text">
 							<span class="fas fa-lock"></span>
@@ -31,7 +31,7 @@
 				<div class="row">
 					<div class="col-8">
 						<div class="icheck-primary">
-							<input type="checkbox" id="remember"> <label
+							<input type="checkbox" id="remember" name="remember-me"> <label
 								for="remember"> Remember Me </label>
 						</div>
 					</div>
@@ -40,6 +40,10 @@
 					</div>
 
 				</div>
+				
+				<sec:csrfInput/>
+				
+				
 			</form>
 
 

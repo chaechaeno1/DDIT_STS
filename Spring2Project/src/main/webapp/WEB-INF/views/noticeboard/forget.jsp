@@ -119,6 +119,9 @@ $(function(){
 	        type:'POST',
 	        data: JSON.stringify(findIdData),
 	        contentType: "application/json; charset=utf-8",
+	        beforeSend : function(xhr){
+	        	xhr.setRequestHeader(header, token);
+	        },	
 	        success:function(data){
 	        	console.log(data);
 	        	$("#id").text(data);
@@ -167,6 +170,9 @@ $(function(){
 		      type:'POST',
 		      data: JSON.stringify(findPwData),
 		      contentType: "application/json; charset=utf-8",
+	          beforeSend : function(xhr){
+	        	xhr.setRequestHeader(header, token);
+	          },	
 		      success:function(data){
 		    	  $("#password").text(data);
         	
