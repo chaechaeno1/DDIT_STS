@@ -76,6 +76,17 @@ public class NoticeLoginController {
 	}
 	
 	
+	@RequestMapping(value = "/logout.do", method=RequestMethod.GET)
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/notice/login.do";
+	}
+	
+	
+	
+	
+	
+	
 	// register.jsp의 ajax와 연결
 	@ResponseBody
 	@RequestMapping(value= "/idCheck.do" , method=RequestMethod.POST)

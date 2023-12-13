@@ -381,6 +381,9 @@ public class NoticeServiceImpl implements INoticeService {
 			// 회원 객체에 프로필 이미지 경로를 설정합니다.
 			memberVO.setMemProfileImg(profileImg);
 			
+			//프로필 수정시 암호화 저장
+			memberVO.setMemPw(pe.encode(memberVO.getMemPw()));
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

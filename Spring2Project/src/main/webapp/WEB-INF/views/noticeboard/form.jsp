@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>   
 
 <section class="content-header">
 	<c:set value="등록" var="name"/>
@@ -57,6 +58,7 @@
 						</div> 
 						
 					</div>
+					<sec:csrfInput/>
 				</form>
 				
 				<!-- 수정일때만 나타나게 할 것 -->
@@ -130,7 +132,7 @@ $(function(){
 	
 	
 	CKEDITOR.replace("boContent", {
-		filebrowserUploadUrl: '/imageUpload.do'	 /* 업로드 햇을 당시의 파일이 경로 쪽으로 넘어감 */
+		filebrowserUploadUrl: '/imageUpload.do?${_csrf.parameterName}=${_csrf.token}'	 /* 업로드 햇을 당시의 파일이 경로 쪽으로 넘어감 */
 	});
 	CKEDITOR.config.height = "500px"; //CKEDITOR 높이 설정
 	

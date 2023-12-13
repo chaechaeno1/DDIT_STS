@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import kr.or.ddit.ServiceResult;
 import kr.or.ddit.service.INoticeService;
 import kr.or.ddit.service.impl.NoticeServiceImpl;
+import kr.or.ddit.vo.CustomUser;
 import kr.or.ddit.vo.crud.NoticeMemberVO;
 import kr.or.ddit.vo.crud.NoticeVO;
 import lombok.extern.slf4j.Slf4j;
@@ -71,9 +73,15 @@ public class NoticeInsertController {
 			//로그인 처리를 하지 않고 게시글을 작성 하므로 작성자를 하드코딩한다.
 			//noticeVO.setBoWriter("a001");
 			
+			// [HttpSession] 로그인 처리 후 세션 정보에서 얻어온 회원 정보를 가용하기 위한 준비
 			// 세션값으로 가져오기
-			HttpSession session = req.getSession();
-			NoticeMemberVO memberVO = (NoticeMemberVO)session.getAttribute("SessionInfo");
+//			HttpSession session = req.getSession();
+//			NoticeMemberVO memberVO = (NoticeMemberVO)session.getAttribute("SessionInfo");
+		
+			// [스프링 시큐리티] 회원 ID를 스프링 시큐리티 UserDetails 정보에서 가져오기 
+			CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			NoticeMemberVO memberVO = user.getMember();
+			
 			
 			//세션 정보에서 꺼낸 회원 데이터가 null이 아닐때 (로그인을 진행)
 			if(memberVO != null) {
