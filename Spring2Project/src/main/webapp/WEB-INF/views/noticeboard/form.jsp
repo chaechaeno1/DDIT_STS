@@ -130,9 +130,11 @@
 $(function(){
 	
 	
-	
+	//이 줄은 ID가 "boContent"인 HTML 요소를 CKEditor의 인스턴스로 교체합니다.
+	//"boContent"라는 특정 textarea 또는 input 요소를 대상으로 하고 있어, 이를 CKEditor 인스턴스로 변환합니다.
 	CKEDITOR.replace("boContent", {
-		filebrowserUploadUrl: '/imageUpload.do?${_csrf.parameterName}=${_csrf.token}'	 /* 업로드 햇을 당시의 파일이 경로 쪽으로 넘어감 */
+		//이 설정 옵션은 CKEditor의 파일 업로드 기능에 대한 URL을 설정
+		filebrowserUploadUrl: '/imageUpload.do?${_csrf.parameterName}=${_csrf.token}'	 /* 업로드 했을 당시의 파일이 경로 쪽으로 넘어감 */
 	});
 	CKEDITOR.config.height = "500px"; //CKEDITOR 높이 설정
 	

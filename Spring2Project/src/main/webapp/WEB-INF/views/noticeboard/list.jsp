@@ -31,6 +31,7 @@
 								<div class="card-header">
 									<div class="card-tools">
 									
+									<!-- 검색폼!!!!!!!!!!!!  -->
 									<!-- action이 없으면 자기 자신을 반환함 -->
 										<form class="input-group input-group-sm" method="post" id="searchForm" style="width: 440px;">
 											<input type="hidden" name="page" id="page"/>

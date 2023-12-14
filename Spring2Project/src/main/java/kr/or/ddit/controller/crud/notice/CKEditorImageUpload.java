@@ -42,6 +42,8 @@ public class CKEditorImageUpload {
 		// 파일 객체가 null이 아니고, 파일 사이즈가 0보다 크고, 파일명이 공백이 아닌 경우는 무조건 파일 데이터가 존재하는 경우
 		if(file != null && file.getSize() > 0 && StringUtils.isNotBlank(file.getName())) {
 			// 데이터 Mime 타입이 'image/'를 포함한 이미지 파일인지 체크
+			// MIME : Multipurpose Internet Mail Extensions의 약자로 간략히 말씀을 드리면 파일 변환을 뜻
+			// startsWith는 문자열이 주어진 접두사로 시작하는지 여부를 확인하는 JavaScript 문자열 메서드
 			if(file.getContentType().toLowerCase().startsWith("image/")) {
 				if(file.getSize() > limitSize) { //업로드한 파일 사이즈가  최대 크기(2MB)보다 클 때
 					/*
@@ -59,17 +61,28 @@ public class CKEditorImageUpload {
 					 * 
 					 */
 					
+					// JsonObject와 JsonArray 객체 생성
 					JsonObject jsonMsg = new JsonObject();
 					JsonArray jsonArr = new JsonArray();
+					// "message" 속성을 가진 JsonObject 생성 및 값 설정
 					jsonMsg.addProperty("message", "2MB미만의 이미지만 업로드 가능합니다.");
+					// 위에서 생성한 JsonObject를 JsonArray에 추가
 					jsonArr.add(jsonMsg);
+					// json은 새로운 JsonObject
+					// "uploaded" 속성을 0으로 설정
 					json.addProperty("uploaded", 0);
+					// "error" 속성에 앞서 생성한 JsonArray의 첫 번째 항목을 추가
 					json.add("error", jsonArr.get(0));
 					
 					// 위 형식의 Json 데이터를 출력한다.
-					resp.setCharacterEncoding("UTF-8");
+					resp.setCharacterEncoding("UTF-8"); //  응답(Response) 객체의 문자 인코딩을 UTF-8로 설정
 					printWriter = resp.getWriter();
 					printWriter.println(json);
+					
+					// 이 코드는 "uploaded" 값이 0이며 "error"에는 "2MB미만의 이미지만 업로드 가능합니다."라는 
+					// 메시지를 포함하는 JSON 데이터를 생성하고, 이를 HTTP 응답으로 출력하는 용도로 사용됩니다.
+					
+					
 					
 				} else { //정상 크기 범위의 이미지 파일 일 때
 					try {
@@ -88,6 +101,8 @@ public class CKEditorImageUpload {
 						
 						// 위에서 얻어온 파일 이름을 기존 파일명으로 사용해도 되고
 						// UUID로 설정해서 사용해도 됨
+						// 범용 고유 식별자(Universally Unique Identifier, UUID) 
+						// 해당 타입의 다른 모든 리소스 중에서 리소스를 고유하게 식별하는 데 사용되는 레이블
 						fileName = UUID.randomUUID().toString(); //UUID의 random 파일명을 생성한다.
 						uploadPath = uploadPath + "/" + fileName + ".jpg"; // 업로드 경로 + 파일명
 						out = new FileOutputStream(new File(uploadPath));
