@@ -17,7 +17,35 @@
 		</if>
 
 	</sql>
-
+	
+	
+	
+	
+	
+	<resultMap type="boardVO" id="boardMap">
+		<id property="boNo" column="bo_no"/>
+		<result property="boNo" column="bo_no"/>
+		<result property="boTitle" column="bo_title"/>
+		<result property="boContent" column="bo_content"/>
+		<result property="boWriter" column="bo_writer"/>
+		<result property="boDate" column="bo_date"/>
+		<result property="boHit" column="bo_hit"/>
+		<collection property="boardFileList" resultMap="boardFileMap"/>	
+	</resultMap>
+	
+	
+	<resultMap type="boardFileVO" id="boardFileMap">
+		<id property="fileNo" column="file_no"/>
+		<result property="fileNo" column="file_no"/>
+		<result property="fileName" column="file_name"/>
+		<result property="fileSize" column="file_size"/>
+		<result property="fileFancysize" column="file_fancysize"/>
+		<result property="fileMime" column="file_mime"/>
+		<result property="fileSavepath" column="file_savepath"/>
+		<result property="fileDowncount" column="file_downcount"/>	
+	</resultMap>
+	
+	
 
 	<select id="selectBoardCount" parameterType="pagingVO"
 		resultType="int">
@@ -56,11 +84,23 @@
 	
 	
 	
-	<select id="selectBoard" parameterType="int" resultType="boardVO">
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<select id="selectBoard" parameterType="int" resultMap="boardMap">
 		select
-			bo_no, bo_title, bo_content, bo_writer, bo_date, bo_hit
-		from board
-		where bo_no = #{boNo}
+			b.bo_no, bo_title, bo_content, bo_writer, bo_date, bo_hit,
+			file_no, file_name, file_size, file_fancysize, file_mime, file_savepath, file_downcount
+		from board b left outer join boardfile bf on(b.bo_no = bf.bo_no)
+		where b.bo_no = #{boNo}
 	</select>
 	
 	
@@ -68,6 +108,62 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	<insert id="insertBoard" parameterType="boardVO" useGeneratedKeys="true">
+		<selectKey keyProperty="boNo" order="BEFORE" resultType="int">
+			select seq_board.nextval from dual
+		</selectKey>
+		
+		insert into board(
+			bo_no, bo_title, bo_content, bo_writer, bo_date, bo_hit
+		)values(
+			#{boNo}, #{boTitle}, #{boContent}, #{boWriter}, sysdate, 0
+		)
+		
+	
+	
+	
+	</insert>
+	
+	
+	
+	
+	<insert id="insertBoardFile" parameterType="boardFileVO">
+		insert into boardfile(
+			file_no, bo_no, file_name, file_size, file_fancysize, file_mime, file_savepath, file_downcount
+		)values(
+			seq_boardfile.nextval, #{boNo}, #{fileName}, #{fileSize}, #{fileFancysize}, #{fileMime},
+			#{fileSavepath}, 0
+		)
+	</insert>
+	
+	
+	
+	<select id="selectFileInfo" parameterType="int" resultType="boardFileVO">
+		select
+			file_no, file_name, file_size, file_fancysize, file_mime, file_savepath, file_downcount
+		from boardfile
+		where file_no = #{fileNo}	
+	</select>
+	
+	
+	
+	<delete id="deleteBoardFile" parameterType="int">
+		delete from boardfile
+		where bo_no = #{boNo}
+	</delete>
+	
+	
+	<delete id="deleteBoard" parameterType="int">
+		delete from board
+		where bo_no = #{boNo}
+	</delete>
 	
 	
 	
