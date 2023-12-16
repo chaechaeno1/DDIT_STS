@@ -64,7 +64,9 @@
 											
 											<tr class="text-center">
 												<td>${board.boNo }</td>
-												<td class="text-dark">${board.boTitle }</td>
+												<td class="text-dark">
+													<a href="/board/detail.do?boNo=${board.boNo}">${board.boTitle }</a>
+												</td>
 												<td>${board.boWriter }</td>
 												<td>
 													<span class="text-dark text-xs font-weight-bold">${board.boDate }</span>

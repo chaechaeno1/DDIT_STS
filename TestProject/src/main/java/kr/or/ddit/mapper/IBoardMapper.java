@@ -11,4 +11,8 @@ public interface IBoardMapper {
 
 	public List<BoardVO> selectBoardList(PaginationInfoVO<BoardVO> pagingVO);
 
+	public void incrementHit(int boNo);
+
+	public BoardVO selectBoard(int boNo);
+
 }

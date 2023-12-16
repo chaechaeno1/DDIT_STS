@@ -29,4 +29,10 @@ public class BoardServiceImpl implements IBoardService {
 		return mapper.selectBoardList(pagingVO);
 	}
 
+	@Override
+	public BoardVO selectBoard(int boNo) {
+		mapper.incrementHit(boNo); // 조회수 증가
+		return mapper.selectBoard(boNo);
+	}
+
 }

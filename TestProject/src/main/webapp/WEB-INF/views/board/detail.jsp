@@ -10,7 +10,7 @@
 		<div class="row gx-4 mb-2">
 			<div class="col-md-8">
 				<div class="h-100">
-					<h5 class="mb-1"><!-- 제목을 입력하세요 --></h5>
+					<h5 class="mb-1">${board.boTitle }</h5>
 				</div>
 			</div>
 		</div>
@@ -23,8 +23,8 @@
 				</div>
 				<div
 					class="d-flex align-items-start flex-column justify-content-center">
-					<h6 class="mb-0 text-sm"><!-- 작성일을 입력하세요 --> / <!-- 조회수를 입력하세요 --></h6>
-					<p class="mb-0 text-xs"><!-- 작성자를 입력하세요 --></p>
+					<h6 class="mb-0 text-sm">${board.boDate } / ${board.boHit }</h6>
+					<p class="mb-0 text-xs">${board.boWriter }</p>
 				</div>
 			</li>
 		</ul>
@@ -34,7 +34,7 @@
 					<div class="card-header pb-0 p-3">
 						<h6 class="mb-0">내용</h6>
 					</div>
-					<div class="card-body p-3"><!-- 내용을 입력하세요 --></div>
+					<div class="card-body p-3">${board.boContent }</div>
 					<hr />
 					<div class="col-md-12">
 						<div class="row">

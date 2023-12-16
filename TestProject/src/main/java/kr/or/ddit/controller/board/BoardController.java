@@ -52,7 +52,9 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/detail.do", method = RequestMethod.GET)
-	public String boardDetail() {
+	public String boardDetail(int boNo, Model model) {
+		BoardVO boardVO = service.selectBoard(boNo);
+		model.addAttribute("board", boardVO);
 		return "board/detail";
 	}
 	

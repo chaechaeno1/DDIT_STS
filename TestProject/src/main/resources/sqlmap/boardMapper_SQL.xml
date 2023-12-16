@@ -46,5 +46,33 @@
 			where b.rnum >= #{startRow} and b.rnum <= #{endRow}	
 		]]>
 	</select>
+	
+	<update id="incrementHit" parameterType="int">
+		update board
+		set
+			bo_hit = bo_hit + 1
+		where bo_no = #{boNo}
+	</update>
+	
+	
+	
+	<select id="selectBoard" parameterType="int" resultType="boardVO">
+		select
+			bo_no, bo_title, bo_content, bo_writer, bo_date, bo_hit
+		from board
+		where bo_no = #{boNo}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 </mapper>

@@ -11,4 +11,6 @@ public interface IBoardService {
 
 	public List<BoardVO> selectBoardList(PaginationInfoVO<BoardVO> pagingVO);
 
+	public BoardVO selectBoard(int boNo);
+
 }
