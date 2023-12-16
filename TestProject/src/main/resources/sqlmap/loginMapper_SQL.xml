@@ -20,5 +20,25 @@
 	
 	</select>
 	
+	
+	<insert id="signup" parameterType="memberVO">
+		insert into member(
+			mem_no, mem_id, mem_pw, mem_name, mem_nickname, mem_regdate
+		)values(
+			seq_member.nextval, #{memId}, #{memPw}, #{memName}, #{memNickname}, sysdate
+		)
+	</insert>
+	
+	<select id="loginCheck" parameterType="memberVO" resultType="memberVO">
+		select
+			mem_no, mem_id, mem_pw, mem_name, mem_nickname, mem_regdate
+		from member
+		where mem_id = #{memId}
+		and mem_pw = #{memPw}	
+	
+	</select>
+	
+	
+	
 
 </mapper>

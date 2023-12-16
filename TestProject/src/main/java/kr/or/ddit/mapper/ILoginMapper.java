@@ -8,4 +8,8 @@ public interface ILoginMapper {
 
 	public MemberVO nickNameCheck(String nickname);
 
+	public int signup(MemberVO member);
+
+	public MemberVO loginCheck(MemberVO memberVO);
+
 }

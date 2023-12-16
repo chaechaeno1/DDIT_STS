@@ -17,16 +17,18 @@
 								<input type="hidden" name="page" id="page"/>
 								<div class="col-md-2">
 									<div class="input-group input-group-static mb-4">
+									
+									
 										<select class="form-control" id="searchType" name="searchType">
-											<option value="title">제목</option>
-											<option value="writer">작성자</option>
+											<option value="title" <c:if test="${searchType eq 'title' }">selected</c:if>>제목</option>
+											<option value="writer" <c:if test="${searchType eq 'writer' }">selected</c:if>>작성자</option>
 										</select>
 									</div>
 								</div>
 								<div class="col-md-8">
 									<div class="ms-md-auto">
 										<label class="form-label"></label> 
-										<input type="text" class="form-control" name="searchWord" value="">
+										<input type="text" class="form-control" name="searchWord" value="${searchWord}">
 									</div>
 								</div>
 								<div class="col-md-2">
@@ -49,20 +51,36 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr class="text-center">
-									<td colspan="5" class="text-dark font-weight-bolder">조회하신 게시글이 존재하지 않습니다.</td>
-								</tr>
-								<tr class="text-center">
-									<td><!-- 번호를 입력 --></td>
-									<td class="text-dark"><!-- 제목을 입력 --></td>
-									<td><!-- 작성자를 입력 --></td>
-									<td>
-										<span class="text-dark text-xs font-weight-bold"><!-- 작성일 입력 --></span>
-									</td>
-									<td>
-										<span class="text-dark text-xs font-weight-bold"><!-- 조회수를 입력 --></span>
-									</td>
-								</tr>
+							
+								<c:set value="${pagingVO.dataList }" var="boardList"/>
+								<c:choose>
+									<c:when test="${empty boardList }">
+										<tr class="text-center">
+											<td colspan="5" class="text-dark font-weight-bolder">조회하신 게시글이 존재하지 않습니다.</td>
+										</tr>
+									</c:when>
+									<c:otherwise>
+										<c:forEach items="${boardList }" var="board">
+											
+											<tr class="text-center">
+												<td>${board.boNo }</td>
+												<td class="text-dark">${board.boTitle }</td>
+												<td>${board.boWriter }</td>
+												<td>
+													<span class="text-dark text-xs font-weight-bold">${board.boDate }</span>
+												</td>
+												<td>
+													<span class="text-dark text-xs font-weight-bold">${board.boHit }</span>
+												</td>
+											</tr>
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
+								
+								
+								
+							
+							
 							</tbody>
 						</table>
 					</div>
@@ -71,9 +89,32 @@
 					<button type="button" class="btn btn-outline-primary" id="addBtn" onclick="javascript:location.href='/board/form.do'">등록</button>
 				</div>
 				<nav aria-label="Page navigation example" id="pagingArea">
-					<!-- 페이징 입력 -->
+					${pagingVO.pagingHTML }
 				</nav>
 			</div>
 		</div>
 	</div>
 </div>
+
+
+
+<script type="text/javascript">
+$(function(){
+	var searchForm = $("#searchForm");
+	var pagingArea = $("#pagingArea");
+	
+	
+	pagingArea.on("click", "a", function(event){
+		event.preventDefault();
+		var pageNo = $(this).data("page");
+		searchForm.find("#page").val(pageNo);
+		searchForm.submit();	
+	});
+	
+	
+});
+
+
+</script>
+
+

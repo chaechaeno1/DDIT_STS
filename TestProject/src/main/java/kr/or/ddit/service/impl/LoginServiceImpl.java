@@ -44,4 +44,25 @@ public class LoginServiceImpl implements ILoginService {
 		return result;
 	}
 
+	@Override
+	public ServiceResult signup(MemberVO member) {
+		
+		ServiceResult result = null;
+		
+		int status =  mapper.signup(member);
+		if(status > 0) {
+			result = ServiceResult.OK;
+		}else {
+			result = ServiceResult.FAILED;
+		}		
+		return result;
+	}
+
+	@Override
+	public MemberVO loginCheck(MemberVO memberVO) {		
+		return mapper.loginCheck(memberVO);
+	}
+		
+
+
 }

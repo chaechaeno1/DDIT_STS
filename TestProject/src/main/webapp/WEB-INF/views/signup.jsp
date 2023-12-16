@@ -89,11 +89,13 @@
 	$(function() {
 		var memId = $('#memId');
 		var nickChkBtn = $('#nickChkBtn'); //중복확인 버튼
+		var signupBtn = $('#signupBtn'); //가입버튼
+		var signupForm = $('#signupForm'); //가입폼		
 		var idFlag = false; //아이디 중복 체크 여부 flag
 		var nickFlag = false; //닉네임 중복 체크 여부 flag
 
 		//아이디를 입력하기 위한 element에 아이디를 입력할 때마다 해당 이벤트가 동작한다.
-		memId.keyup(function() {
+		memId.on("keyup",function() {
 			var id = $(this).val(); // 입력한 아이디
 
 			if (id.length < 4) { //아이디의 길이가 4자리 미만이면..
@@ -157,6 +159,75 @@
 			});
 
 		});
+		
+		signupBtn.on("click", function(){
+			var color = "red";
+			var id = $("#memId").val();
+			var pw = $("#memPw").val();
+			var pwre = $("#memPwRe").val();
+			var name = $("#memName").val();
+			var nickname = $("#memNickname").val();
+			var agree = $("#agree:checked").val();
+			var pwFlag = true; //비밀번호 일치 여부(비밀번호 = 재입력 비밀번호)
+			var agreeFlag = false;
+			
+			errInit();
+			
+			if(id == null || id == ""){
+				errPrint(0, "아이디를 입력해주세요.", color);
+				return false;
+			}
+			if(pw == null || pw == ""){
+				errPrint(1, "비밀번호를 입력해주세요.", color);
+				return false;
+			}
+			if(pwre == null || pwre == ""){
+				errPrint(1, "비밀번호를 재입력해주세요.", color);
+				return false;
+			}
+			
+			if(pw != pwre){
+				errPrint(1, "비밀번호가 일치하지 않습니다.", color);
+				pwFlag = false; //비밀번호 불일치
+				return false;
+			}
+						
+			if(name == null || name == ""){
+				errPrint(2, "이름을 입력해주세요.", color);
+				return false;
+			}
+			if(nickname == null || nickname == ""){
+				errPrint(3, "닉네임을 입력해주세요.", color);
+				return false;
+			}
+			
+			if(agree != 'Y'){
+				errPrint(4, "개인정보 동의에 체크해주세요.", color);
+				return false;				
+			}else{
+				agreeFlag = true;
+			}
+			
+			if(pwFlag && idFlag && nickFlag && agreeFlag){
+				signupForm.submit();
+			}else{
+				if(!pwFlag){
+					errPrint(5, "비밀번호가 일치하지 않아 진행할 수 없습니다.", color);
+				}
+				if(!idFlag){
+					errPrint(5, "아이디 중복체크 해주세요.", color);
+				}
+				if(!nickFlag){
+					errPrint(5, "닉네임 중복체크 해주세요.", color);
+				}
+				if(!agreeFlag){
+					errPrint(5, "개인정보 동의에 체크되어있지 않습니다.", color);
+				}
+			}
+			
+		});
+		
+		
 
 	});
 
@@ -164,4 +235,16 @@
 		$(".error:eq(" + cnt + ")").text(comp).attr("color", color);
 
 	}
+	
+	
+	
+	function errInit(){
+		$(".error").text("");
+	}
+	
+	
+	
+	
+	
+	
 </script>
