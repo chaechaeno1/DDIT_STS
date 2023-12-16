@@ -126,6 +126,7 @@ public class NoticeLoginController {
 		return "conn/register";
 	}
 	
+	
 	@RequestMapping(value = "/signup.do", method=RequestMethod.POST)
 	public String signup(HttpServletRequest req, NoticeMemberVO memberVO, Model model, RedirectAttributes ra) {
 	//HttpServletRequest
