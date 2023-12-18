@@ -40,11 +40,11 @@
 					<c:set value="${board.boardFileList }" var="boardFileList"/>
 					<c:if test="${not empty boardFileList }">
 					
-					
-						<c:forEach items="${boardFileList }" var="boardFile">
-						
 							<div class="col-md-12">
 								<div class="row">
+					
+								<c:forEach items="${boardFileList }" var="boardFile">
+						
 		
 									<div class="col-md-2">
 										<div class="card shadow-lg">
@@ -69,10 +69,10 @@
 										</div>
 									</div>
 		
+								</c:forEach>
 								</div>
-							</div>
 						
-						</c:forEach>
+							</div>
 
 					</c:if>
 
