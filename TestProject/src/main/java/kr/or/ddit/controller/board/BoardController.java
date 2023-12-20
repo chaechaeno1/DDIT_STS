@@ -170,6 +170,17 @@ public class BoardController {
 	}
 	
 	
+	@RequestMapping(value = "/update.do", method=RequestMethod.GET)
+	public String boardUpdateForm(int boNo, Model model) {
+		BoardVO boardVO = service.selectBoard(boNo);
+		model.addAttribute("board", boardVO);
+		model.addAttribute("status", "u");
+		return "board/form";		
+	}
+	
+	
+	
+	
 	
 	
 	
