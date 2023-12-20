@@ -142,6 +142,16 @@ public class LoginController {
 	}
 	
 	
+	@RequestMapping(value = "/logout.do", method=RequestMethod.GET)
+	public String logout(HttpSession session, RedirectAttributes ra) {
+		session.invalidate();
+		ra.addFlashAttribute("message", "정상적으로 로그아웃 되었습니다!");
+		return "redirect:/signin.do";
+	}
+	
+	
+	
+	
 	
 	
 	

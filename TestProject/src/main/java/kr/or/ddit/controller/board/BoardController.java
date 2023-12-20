@@ -178,6 +178,25 @@ public class BoardController {
 		return "board/form";		
 	}
 	
+	@RequestMapping(value = "/update.do", method=RequestMethod.POST)
+	public String boardUpdate(
+			HttpServletRequest req,
+			RedirectAttributes ra,
+			BoardVO boardVO, Model model) throws Exception {
+		String goPage = "";
+		ServiceResult result = service.updateBoard(req, boardVO);		
+		if(result.equals(ServiceResult.OK)) { //수정 성공
+			ra.addFlashAttribute("message", "수정이 완료되었습니다!");
+			goPage = "redirect:/board/detail.do?boNo=" + boardVO.getBoNo();
+		}else {
+			model.addAttribute("message", "수정에 실패하였습니다!");
+			model.addAttribute("board", boardVO);
+			model.addAttribute("status", "u");
+			goPage = "board/form";
+		}
+		
+		return goPage;		
+	}
 	
 	
 	

@@ -166,6 +166,26 @@
 	</delete>
 	
 	
+	<update id="updateBoard" parameterType="boardVO">
+		update board
+		set
+			bo_title = #{boTitle},
+			bo_content = #{boContent},
+			bo_date = sysdate
+		where bo_no = #{boNo}
+	</update>
+	
+	
+	<delete id="deleteBoardFileList">
+		delete from boardfile
+		<where>
+			file_no in
+			<foreach collection="array" item="fileNo" open="(" close=")" separator=",">
+				${fileNo}
+			</foreach>
+		</where>
+	</delete>
+	
 	
 	
 	

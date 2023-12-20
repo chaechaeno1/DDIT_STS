@@ -23,4 +23,6 @@ public interface IBoardService {
 
 	public ServiceResult deleteBoard(int boNo);
 
+	public ServiceResult updateBoard(HttpServletRequest req, BoardVO boardVO) throws Exception;
+
 }

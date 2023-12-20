@@ -148,6 +148,11 @@
 				alert("내용을 입력해주세요.");
 				return false;
 			}
+			
+			
+			if($(this).text() == "수정"){
+				boardForm.attr("action","/board/update.do");
+			}
 
 			boardForm.submit();
 

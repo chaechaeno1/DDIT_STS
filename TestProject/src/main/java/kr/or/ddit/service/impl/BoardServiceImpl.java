@@ -72,6 +72,31 @@ public class BoardServiceImpl implements IBoardService {
 		return result;
 	}
 
+	@Override
+	public ServiceResult updateBoard(HttpServletRequest req, BoardVO boardVO) throws Exception {
+		ServiceResult result = null;
+		int status =  mapper.updateBoard(boardVO);
+		if(status > 0 ) { //수정 성공
+			List<BoardFileVO> boardFileList = boardVO.getBoardFileList();
+			//파일 업로드 진행
+			FileUploadUtils.boardFileUpload(boardFileList, boardVO.getBoNo(), req, mapper);
+			
+			Integer[] delBoardNo = boardVO.getDelBoardNo();
+			if(delBoardNo != null) {
+				// 넘겨받은 배열 형태의 boardNo 집합 데이터를 삭제 처리하기 위해 전달
+				mapper.deleteBoardFileList(delBoardNo); // 파일 번호에 해당하는 파일 데이터를 삭제
+			}
+			result = ServiceResult.OK;
+			
+		}else { //수정 실패
+			result = ServiceResult.FAILED;
+			
+		}
+		
+
+		return result;
+	}
+
 	
 	
 	

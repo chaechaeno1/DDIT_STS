@@ -26,4 +26,8 @@ public interface IBoardMapper {
 
 	public int deleteBoard(int boNo);
 
+	public int updateBoard(BoardVO boardVO);
+
+	public void deleteBoardFileList(Integer[] delBoardNo);
+
 }
